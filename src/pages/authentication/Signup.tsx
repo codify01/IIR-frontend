@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import CarouselOne from '../../components/carousel/Carouselone';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Navone from '../../components/nav/Navone';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -24,6 +24,7 @@ const Register: React.FC = () => {
 	const [isVisible2, setVisibility2] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
 
+	const navigate = useNavigate()
 
 	const formik = useFormik<FormValues>({
 		initialValues: {
@@ -59,14 +60,13 @@ const Register: React.FC = () => {
 			// const toastId = toast.loading('Registering...');
 			try {
 				const response = await axios.post(`${apiURL}/signup.php`, values);
-				// toast.dismiss(toastId);
 				toast.success('Registration successful!', {
 					icon: '🎉',
 				});
 				console.log(response);
+				navigate('/user/dashboard')
 				
 			} catch (error: any) {
-				// toast.dismiss(toastId);
 				toast.error(
 					error.response?.data?.message || 'Registration failed. Please try again.'
 				);

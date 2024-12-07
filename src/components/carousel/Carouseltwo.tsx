@@ -3,9 +3,9 @@ import img3 from "../../assets/image/img3.png"
 import img4 from "../../assets/image/img4.png"
 import img5 from "../../assets/image/img5.png"
 import img6 from "../../assets/image/img6.png"
-// import "swiper/css";
-// import "swiper/css/scrollbar";
-// import "swiper/css/pagination";
+import "swiper/css";
+import "swiper/css/scrollbar";
+import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import CardOne from '../card/Cardone';

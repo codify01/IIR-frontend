@@ -2,11 +2,11 @@ import React from "react";
 import img1 from "../../assets/image/img1.png";
 import { NavLink } from "react-router-dom";
 import { IoHome, IoLogOut } from "react-icons/io5";
-import { RiExchangeDollarLine} from "react-icons/ri";
+import { RiExchangeDollarLine, RiFolderAddFill, RiFolderSettingsFill, RiHistoryFill} from "react-icons/ri";
 import { BiMoneyWithdraw } from "react-icons/bi";
-import { GiPayMoney} from "react-icons/gi";
+import { GiPayMoney, GiTakeMyMoney} from "react-icons/gi";
 import { GrUserAdmin } from "react-icons/gr";
-import { FaUsersCog, FaUserShield } from "react-icons/fa";
+import { FaRegAddressCard, FaUsersCog, FaUserShield } from "react-icons/fa";
 
 const Leftnav: React.FC = () => {
   const currentUserRole:any = localStorage.getItem("role");
@@ -18,48 +18,79 @@ const Leftnav: React.FC = () => {
 
   const Eachlink = [
     {
-      href: "/user/dashboard",
-      title: "Home",
-      icon: <IoHome className="size-4" />,
-      role: ["investor"],
+        href: '/user/dashboard',
+        title: 'Home',
+        icon: <IoHome className="size-4" />,
+        role: "investor",
     },
     {
-      href: "/user/investment",
-      title: "Investment",
-      icon: <RiExchangeDollarLine className="size-4" />,
-      role: ["investor"],
+        href: '/user/investment',
+        title: 'Investment',
+        icon: <RiExchangeDollarLine className="size-4" />,
+        role: "investor",
     },
     {
-      href: "/user/withdraw",
-      title: "Withdraw",
-      icon: <BiMoneyWithdraw className="size-4" />,
-      role: ["investor"],
+        href: '/user/withdraw',
+        title: 'Withdraw',
+        icon: <BiMoneyWithdraw className="size-4" />,
+        role: "investor",
     },
     {
-      href: "/user/deposit1",
-      title: "Manual Deposit",
-      icon: <GiPayMoney className="size-4" />,
-      role: ["investor"],
+        href: '/user/deposit1',
+        title: 'Manual Deposit',
+        icon: <GiPayMoney className="size-4" />,
+        role: "investor",
     },
     {
-      href: "/admin/dashboard",
-      title: "Admin Dashboard",
-      icon: <GrUserAdmin className="size-4" />,
-      role: ["admin", "superadmin"],
+        href: '/user/deposit2',
+        title: 'Auto Deposit',
+        icon: <GiPayMoney className="size-4" />,
+        role: "investor",
     },
     {
-      href: "/admin/manageinvestors",
-      title: "Manage Investors",
-      icon: <FaUsersCog className="size-4" />,
-      role: ["admin", "superadmin"],
+        href: '/user/transactions',
+        title: 'Transaction History',
+        icon: <RiHistoryFill className="size-4" />,
+        role: "investor",
     },
     {
-      href: "/superadmin/manageadmin",
-      title: "Manage Admins",
-      icon: <FaUserShield className="size-4" />,
-      role: ["superadmin"],
+        href: '/admin/dashboard',
+        title: 'Admin Dashboard',
+        icon: <GrUserAdmin className="size-4" />,
+        role: "admin",
     },
-  ];
+    {
+        href: '/admin/createinvestment',
+        title: 'Create Investment',
+        icon: <RiFolderAddFill className="size-4" />,
+        role: "admin",
+    },
+    {
+        href: '/admin/managetransactions',
+        title: 'Manage Transactions',
+        icon: <GiTakeMyMoney className="size-4" />,
+        role: "admin",
+    },
+    {
+        href: '/admin/manageinvestments',
+        title: 'Manage Investments',
+        icon: <RiFolderSettingsFill className="size-4" />,
+        role: "admin",
+    },
+    {
+        href: '/admin/manageinvestors',
+        title: 'Manage Investors',
+        icon: <FaUsersCog className="size-4" />,
+        role: "admin",
+    },
+    {
+        href: '/admin/approvekyc',
+        title: 'Know-Your-Customer',
+        icon: <FaRegAddressCard className="size-4" />,
+        role: "admin",
+    },
+    
+];
 
   const filteredLinks = Eachlink.filter((link) => link.role.includes(currentUserRole));
 
