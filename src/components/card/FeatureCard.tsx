@@ -16,7 +16,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, opt
     })
 
     return (
-        <div ref={ref} className={`bg-white rounded-lg shadow-lg text-center transform transition-all duration-500 ease-out ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"} ${optStyle}`}>
+        <div ref={ref} className={`bg-white rounded-lg shadow-lg text-center p-6 transform transition-all duration-500 ease-out ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"} ${optStyle}`}>
             <div className="flex justify-center mb-4">{icon}</div>
             <h3 className="text-lg font-semibold whitespace-nowrap mb-2">{title}</h3>
             <p className="text-gray-600">{description}</p>

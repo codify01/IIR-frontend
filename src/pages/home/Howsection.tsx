@@ -42,7 +42,7 @@ const HowItWorks: React.FC = () => {
                 icon={icon}
                 title={title}
                 description={description}
-                optStyle="border-2 p-6 border-pry"
+                optStyle="border-2 border-pry hover:-translate-y-2"
             />
           ))}
         </div>

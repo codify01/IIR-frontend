@@ -5,6 +5,7 @@ import img1 from "../../assets/image/img1.png"
 import { NavLink } from "react-router-dom";
 import WhyUs from "./Whysection";
 import HowItWorks from "./Howsection";
+import Testimonial from "./Testimonialsection";
 
 
 const useMobileScreen = (): boolean => {
@@ -75,6 +76,8 @@ const Home: React.FC = () => {
           <WhyUs/>
           {/* How It works */}
           <HowItWorks/>
+          {/* Testimonial */}
+          <Testimonial/>
         </>
       )}
     </div>
