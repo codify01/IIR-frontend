@@ -12,6 +12,16 @@
 ::-webkit-scrollbar{
     @apply hidden
 }
+.mContainer {
+    @apply container px-5
+}
+.container{
+    @apply md:w-[85%] w-[100%] mx-auto px-4
+}
+.herosection{
+    background: url(./assets/image/img15.png);
+    @apply h-screen bg-center bg-cover bg-no-repeat
+}
 .input1{
     @apply rounded-md placeholder:text-black placeholder:text-sm bg-pry/10 h-[45px] w-full indent-3 border-none outline-none
 }
@@ -27,13 +37,13 @@
 .hero-text::after,
 .hero-text::before{
     background: url(./assets/image/img9.png);
-    @apply content-[""] absolute w-1/5 h-full bg-center bg-contain right-0 bg-no-repeat
+    @apply content-[""] absolute w-1/5 h-full translate-x-2 bg-center bg-contain right-0 bg-no-repeat
 }
 .hero-text::after{
-    @apply top-0 translate-y-[30%] rotate-[-15deg]
+    @apply top-0 -translate-y-[50%] rotate-[-15deg]
 }
 .hero-text::before{
-    @apply bottom-0 translate-y-[50%] rotate-[-15deg]
+    @apply bottom-0 translate-y-[25%] rotate-[-15deg]
 }
 .bal-card{
     background: linear-gradient(118.53deg, #2f531880 8.02%, #2f531880 67.61%);
@@ -104,3 +114,25 @@ table td {
 .investment-swiper .swiper-button-next{
     @apply text-sec scale-90
 }
+
+
+
+.carousel {
+    width: 100%;
+  }
+  .carousel-cell {
+    width: 100%; /* Full width for mobile */
+  }
+  
+  @media (min-width: 768px) {
+    .carousel-cell {
+      width: 50%; /* Half width for tablets */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .carousel-cell {
+      width: 33.33%; /* One-third width for larger screens */
+    }
+  }
+  
