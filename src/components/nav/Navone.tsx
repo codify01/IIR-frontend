@@ -10,9 +10,10 @@ const Navone: React.FC<NavOneProps> = ({ optStyle }) => {
 
     return (
 
-        <NavLink to={"/"} className={`nav py-3 flex items-end ${optStyle}`}>
-            <img src={img1} alt="..." />
-            <h3 className="font-semibold text-[#2F5318]">Pineleafestates</h3>
+        <NavLink to={"/"} className={optStyle}>
+            <div className="w-[80px]">
+                <img src={img1} alt="..." className="w-full" />
+            </div>
         </NavLink>
 
     )
