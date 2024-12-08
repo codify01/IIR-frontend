@@ -9,6 +9,10 @@
     font-optical-sizing: auto;
     font-style: normal;
 }
+html {
+    scroll-behavior: smooth;
+}
+
 ::-webkit-scrollbar{
     @apply hidden
 }

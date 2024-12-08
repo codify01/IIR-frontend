@@ -50,16 +50,16 @@ const Home: React.FC = () => {
                 </div>
                 <ul className="flex items-center font-medium gap-8 mt-1">
                     <li>
-                        <Link className={"navlink relative"} to={"#services"}>Our Services</Link>
+                        <a className={"navlink relative"} href={"#services"}>Our Services</a>
                     </li>
                     <li>
-                        <Link className={"navlink relative"} to={"#how"}>How it works</Link>
+                        <a className={"navlink relative"} href={"#how"}>How it works</a>
                     </li>
                     <li>
-                        <Link className={"navlink relative"} to={"#testimonial"}>Testimonials</Link>
+                        <a className={"navlink relative"} href={"#testimonial"}>Testimonials</a>
                     </li>
                     <li>
-                        <Link className={"navlink relative"} to={"#faq"}>Faq</Link>
+                        <a className={"navlink relative"} href={"#faq"}>Faq</a>
                     </li>
                 </ul>
                 <div className="flex items-center gap-3">
@@ -71,16 +71,16 @@ const Home: React.FC = () => {
             <nav className="container absolute top-0 py-3 w-full lg:hidden flex justify-between text-sec items-center">
                 <ul className={`${openNav ? "flex absolute top-24 py-10 shadow-lg shadow-tet/20 rounded-b-2xl left-0 w-full flex-col text-pry bg-sec opacity-100" : "hidden opacity-0"} items-center font-medium gap-8 mt-1 duration-[5s] transition-opacity`}>
                     <li>
-                        <Link className={"navlink relative"} to={"#services"}>Our Services</Link>
+                        <a className={"navlink relative"} href={"#services"}>Our Services</a>
                     </li>
                     <li>
-                        <Link className={"navlink relative"} to={"#how"}>How it works</Link>
+                        <a className={"navlink relative"} href={"#how"}>How it works</a>
                     </li>
                     <li>
-                        <Link className={"navlink relative"} to={"#testimonial"}>Testimonials</Link>
+                        <a className={"navlink relative"} href={"#testimonial"}>Testimonials</a>
                     </li>
                     <li>
-                        <Link className={"navlink relative"} to={"#faq"}>Faq</Link>
+                        <a className={"navlink relative"} href={"#faq"}>Faq</a>
                     </li>
                 </ul>
                 <i className={`${openNav ? "hidden" : "block"}`} onClick={() => setOpenNav(true)}>
@@ -108,15 +108,25 @@ const Home: React.FC = () => {
 
           </section>
           {/* why choose us */}
-          <WhyUs/>
+          <section className="py-16 bg-pry/5" id="services">
+            <WhyUs/>
+          </section>
           {/* How It works */}
-          <HowItWorks/>
+          <section className="py-16 bg-white" id="how">
+            <HowItWorks/>
+          </section>
           {/* Testimonial */}
-          <Testimonial/>
+          <section className="py-10 bg-pry/5" id="testimonial">
+            <Testimonial/>
+          </section>
           {/* FaqSection */}
-          <FaqSection/>
+          <section className="py-20" id="faq">
+            <FaqSection/>
+          </section>
           {/* Footer */}
-          <Footer/>
+          <section>
+            <Footer/>
+          </section>
         </>
       )}
     </div>

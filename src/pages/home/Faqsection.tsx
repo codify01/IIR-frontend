@@ -38,30 +38,28 @@ const FaqSection: React.FC = () => {
 
     return (
 
-        <section className="py-20" id="faq">
-            <div className="container">
-                <div className="text-center text-pry mb-12">
-                    <h2 className="text-3xl font-bold">Frequently Asked Questions</h2>
-                    <p className="w-3/4 mx-auto">Everything you need to know about getting started with investing in Pineleaf Estates.</p>
-                </div>
-                <div className="bg-pry/10 space-y-4 p-5 rounded-xl">
-                    {
-                        FaqArray.map(({heading, body}, index) => (
-                            <AccordButton 
-                                key={index} 
-                                question={heading} 
-                                answer={body}
-                                isOpen={activeIndex === index}
-                                onClick={() => handleAccordionClick(index)}
-                            />
-                                
-                        ))
-                    }
-                </div>
+        <div className="container">
+            <div className="text-center text-pry mb-12">
+                <h2 className="text-3xl font-bold">Frequently Asked Questions</h2>
+                <p className="w-3/4 mx-auto">Everything you need to know about getting started with investing in Pineleaf Estates.</p>
             </div>
-        </section>
+            <div className="bg-pry/10 space-y-4 p-5 rounded-xl">
+                {
+                    FaqArray.map(({heading, body}, index) => (
+                        <AccordButton 
+                            key={index} 
+                            question={heading} 
+                            answer={body}
+                            isOpen={activeIndex === index}
+                            onClick={() => handleAccordionClick(index)}
+                        />
+                            
+                    ))
+                }
+            </div>
+        </div>
 
-    )
+)
 
 }
 
