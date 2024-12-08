@@ -47,16 +47,16 @@ const CarouselThree: React.FC = () => {
         }}
         loop={true}
         modules={[Pagination, Navigation]}
-        className="mySwiper border border-red-500 h-[65vh] py-10"
+        className="mySwiper testi-swiper lg:h-[70vh] h-[33vh] py-10"
         breakpoints={{
           320: { slidesPerView: 1, spaceBetween: 30 },
-          640: { slidesPerView: 2, spaceBetween: 30 },
-          1024: { slidesPerView: 3, spaceBetween: 30 },
-          1280: { slidesPerView: 3, spaceBetween: 10 },
+          640: { slidesPerView: 1, spaceBetween: 30 },
+          1024: { slidesPerView: 3, spaceBetween: 40 },
+          1280: { slidesPerView: 3, spaceBetween: 30 },
         }}
       >
         {testimonies.map(({ name, testimonial, image, star }, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide className="lg:px-2 px-5" key={index}>
             <Testimonialcard
               icon={<img src={image} alt={name} className="w-16 h-16 rounded-full object-cover" />}
               title={name}

@@ -6,6 +6,9 @@ import { NavLink } from "react-router-dom";
 import WhyUs from "./Whysection";
 import HowItWorks from "./Howsection";
 import Testimonial from "./Testimonialsection";
+import Footer from "./Footer";
+import FAQ from "./Faqsection";
+import FaqSection from "./Faqsection";
 
 
 const useMobileScreen = (): boolean => {
@@ -43,18 +46,18 @@ const Home: React.FC = () => {
                 <div className="w-[80px]">
                     <img src={img1} alt="..." className="w-full" />
                 </div>
-                <ul className="flex items-center gap-10 mt-1">
+                <ul className="flex items-center font-medium gap-8 mt-1">
                     <li>
-                        <NavLink to={""}>Home</NavLink>
+                        <NavLink className={"navlink relative"} to={"#services"}>Our Services</NavLink>
                     </li>
                     <li>
-                        <NavLink to={""}>Home</NavLink>
+                        <NavLink className={"navlink relative"} to={"#how"}>How it works</NavLink>
                     </li>
                     <li>
-                        <NavLink to={""}>Home</NavLink>
+                        <NavLink className={"navlink relative"} to={"#testimonial"}>Testimonials</NavLink>
                     </li>
                     <li>
-                        <NavLink to={""}>Home</NavLink>
+                        <NavLink className={"navlink relative"} to={"#contact"}>Contact</NavLink>
                     </li>
                 </ul>
                 <div className="flex items-center gap-3">
@@ -78,6 +81,10 @@ const Home: React.FC = () => {
           <HowItWorks/>
           {/* Testimonial */}
           <Testimonial/>
+          {/* FaqSection */}
+          <FaqSection/>
+          {/* Footer */}
+          <Footer/>
         </>
       )}
     </div>

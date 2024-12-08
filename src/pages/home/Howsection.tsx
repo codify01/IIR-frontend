@@ -27,7 +27,7 @@ const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white" id="how">
       <div className="container">
         <div className="text-center text-pry mb-12">
             <h2 className="text-3xl font-bold">How It Works</h2>

@@ -41,7 +41,7 @@ const WhyUs: React.FC = () => {
 
     return (
     
-        <section className="py-16 bg-gray-100">
+        <section className="py-16 bg-gray-100" id="services">
             <div className="container">
                 <div className="text-center space-y-2 text-pry mb-12">
                     <h3 className="text-3xl font-bold">Why Choose Us?</h3>
