@@ -13,7 +13,7 @@ const Testimonial: React.FC = () => {
                 </div>
                 <CarouselThree/>
                 <div className="mt-10 w-full rounded-3xl overflow-hidden flex items-center relative z-[1] justify-center quotesection lg:h-[50vh] h-[30vh]">
-                    <div className="overlay w-full h-full bg-tet/70 absolute -z-[1]"></div>
+                    <div className="overlay w-full h-full bg-pry/80 absolute -z-[1]"></div>
                     <h3 className="lg:text-4xl text-3xl lg:w-3/4 w-11/12 mx-auto text-center font-bold text-gray-200">Investing is the best way to escape poverty. Invest in something appreciating today!</h3>
                 </div>
             </div>

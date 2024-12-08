@@ -28,7 +28,7 @@ const Testimonialcard: React.FC<TestimonialCardProps> = ({ icon, title, descript
   return (
     <div
       ref={ref}
-      className={`bg-white rounded-lg lg:h-[350px] h-[300px] shadow-lg shadow-tet/20 text-center p-6 transform transition-all duration-500 ease-out ${
+      className={`bg-sec rounded-lg lg:h-[350px] h-[300px] shadow-lg shadow-tet/20 text-center p-6 transform transition-all duration-500 ease-out ${
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       } ${optStyle}`}
     >

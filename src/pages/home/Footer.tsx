@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
                     <div className="w-[80px]">
                         <img src={img1} alt="..." className="w-full" />
                     </div>
-                    <h3>...land Banking is a must</h3>
+                    <h5 className="text-sm">...land Banking is a must</h5>
                 </div>
                 <div className="lg:col-span-1 col-span-2">
                     <div className="lg:ms-0 md:ms-auto w-max">
