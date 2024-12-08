@@ -27,27 +27,27 @@ const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container">
-        <div className="text-center text-pry mb-12">
-            <h2 className="text-3xl font-bold">How It Works</h2>
-            <p className="w-3/4 mx-auto">
-            Start your investment journey in just a few simple steps.
-            </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map(({ icon, title, description }, index) => (
-            <FeatureCard
-                key={index}
-                icon={icon}
-                title={title}
-                description={description}
-                optStyle="border-2 border-pry hover:-translate-y-2"
-            />
-          ))}
-        </div>
+
+    <div className="container">
+      <div className="text-center text-pry mb-12">
+          <h2 className="text-3xl font-bold">How It Works</h2>
+          <p className="w-3/4 mx-auto">
+          Start your investment journey in just a few simple steps.
+          </p>
       </div>
-    </section>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {steps.map(({ icon, title, description }, index) => (
+          <FeatureCard
+              key={index}
+              icon={icon}
+              title={title}
+              description={description}
+              optStyle="border-2 border-pry hover:-translate-y-2"
+          />
+        ))}
+      </div>
+    </div>
+    
   );
 };
 

@@ -41,26 +41,24 @@ const WhyUs: React.FC = () => {
 
     return (
     
-        <section className="py-16 bg-gray-100">
-            <div className="container">
-                <div className="text-center space-y-2 text-pry mb-12">
-                    <h3 className="text-3xl font-bold">Why Choose Us?</h3>
-                    <p className="w-3/4 mx-auto">Join forces with a trusted investment partner who shares your vision for financial success</p>
-                </div>
-                <div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {features.map(({ icon, title, description }, index) => (
-                            <FeatureCard
-                                key={index}
-                                icon={icon}
-                                title={title}
-                                description={description}
-                            />
-                        ))}
-                    </div>
+        <div className="container">
+            <div className="text-center space-y-2 text-pry mb-12">
+                <h3 className="text-3xl font-bold">Why Choose Us?</h3>
+                <p className="w-3/4 mx-auto">Join forces with a trusted investment partner who shares your vision for financial success</p>
+            </div>
+            <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {features.map(({ icon, title, description }, index) => (
+                        <FeatureCard
+                            key={index}
+                            icon={icon}
+                            title={title}
+                            description={description}
+                        />
+                    ))}
                 </div>
             </div>
-        </section>
+        </div>
   
     )
     

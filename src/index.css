@@ -9,6 +9,10 @@
     font-optical-sizing: auto;
     font-style: normal;
 }
+html {
+    scroll-behavior: smooth;
+}
+
 ::-webkit-scrollbar{
     @apply hidden
 }
@@ -115,24 +119,28 @@ table td {
     @apply text-sec scale-90
 }
 
-
-
-.carousel {
+.testi-swiper .swiper-button-next,
+.testi-swiper .swiper-button-prev{
+    @apply text-tet bg-pry/30 w-10 h-10 rounded-full
+}
+.testi-swiper .swiper-button-next:hover,
+.testi-swiper .swiper-button-prev:hover{
+    @apply border-2 border-pry
+}
+.testi-swiper .swiper-button-next::after,
+.testi-swiper .swiper-button-prev::after{
+    @apply text-base font-bold
+}
+.navlink::after{
+    content: "";
+    @apply absolute -bottom-[3px] left-0 h-[2px] bg-sec rounded-full w-0 duration-300 transition-all
+}
+.navlink:hover::after,
+.navlink:focus::after{
     width: 100%;
-  }
-  .carousel-cell {
-    width: 100%; /* Full width for mobile */
-  }
-  
-  @media (min-width: 768px) {
-    .carousel-cell {
-      width: 50%; /* Half width for tablets */
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .carousel-cell {
-      width: 33.33%; /* One-third width for larger screens */
-    }
-  }
-  
+}
+
+.quotesection{
+    background: url(./assets/image/img5.png);
+    @apply bg-contain bg-repeat
+}
