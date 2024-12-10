@@ -8,7 +8,6 @@ const apiURL = import.meta.env.VITE_API_URL;
 
 const Withdraw: React.FC = () => {
   const [user, setUser] = useState<any>({});
-  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,13 +25,6 @@ const Withdraw: React.FC = () => {
     fetchUser();
   }, []);
 
-  const balance = user?.total_deposit || 0;
-
-  const handlePercentCut = (percent: number, balance: number) => {
-    let calculatedAmount = (percent / 100) * balance;
-    formik.setFieldValue("amount", Number(calculatedAmount.toFixed(2))); // Update Formik's state
-  };
-
   const formik = useFormik({
     initialValues: {
       amount: 0,
@@ -43,7 +35,8 @@ const Withdraw: React.FC = () => {
     validationSchema: Yup.object({
       amount: Yup.number()
         .required("Amount is required")
-        .min(1, "Amount must be greater than 0"),
+        .min(1, "Amount must be greater than 0")
+        .max(user?.balance, "Amount exceeds your balance"),
       accountNumber: Yup.string().required("Account Number is required"),
       accountName: Yup.string().required("Account Name is required"),
       bankName: Yup.string().required("Bank Name is required"),
@@ -77,13 +70,59 @@ const Withdraw: React.FC = () => {
 
   const banks = [
     "Select a bank",
-    "GTB",
-    "Zenith Bank",
-    "UBA",
-    "First Bank",
-    "Access Bank",
-    // Add more banks as needed
-  ];
+    "Access Bank Plc",
+    "Accion Microfinance Bank",
+    "Citibank Nigeria Limited",
+    "Coronation Merchant Bank",
+    "Ecobank Nigeria Plc",
+    "Empire Trust Microfinance Bank",
+    "FBNQuest Merchant Bank",
+    "Fidelity Bank Plc",
+    "First Bank of Nigeria Limited",
+    "First City Monument Bank Plc",
+    "Finca Microfinance Bank",
+    "FSDH Merchant Bank",
+    "Globus Bank Limited",
+    "Guaranty Trust Bank Plc",
+    "Heritage Banking Company Limited",
+    "Infinity Microfinance Bank",
+    "Jaiz Bank Plc",
+    "Keystone Bank Limited",
+    "Kuda Bank",
+    "LAPO Microfinance Bank",
+    "Lotus Bank Limited",
+    "Moniepoint",
+    "Nova Merchant Bank",
+    "Opay",
+    "PalmPay",
+    "Paga",
+    "Parallex Bank Limited",
+    "Peace Microfinance Bank",
+    "Polaris Bank Limited",
+    "Premium Trust Bank",
+    "Providus Bank Limited",
+    "Rand Merchant Bank",
+    "Rephidim Microfinance Bank",
+    "Signature Bank Limited",
+    "Stanbic IBTC Bank Plc",
+    "Standard Chartered Bank",
+    "Sterling Bank Plc",
+    "Sterling Financial Holdings",
+    "SunTrust Bank Nigeria Limited",
+    "Taj Bank Limited",
+    "Titan Trust Bank Limited",
+    "Union Bank of Nigeria Plc",
+    "United Bank for Africa Plc",
+    "Unity Bank Plc",
+    "VFD Microfinance Bank",
+    "Wema Bank Plc",
+    "Zenith Bank Plc",
+    "Flutterwave",
+    "Paystack",
+    "PiggyVest",
+    "PocketApp by PiggyVest"
+];
+
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto mt-10 text-gray-800">
@@ -106,7 +145,6 @@ const Withdraw: React.FC = () => {
             placeholder="Enter amount to withdraw"
             className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
             value={formik.values.amount}
-            onFocus={() => setIsFocused(true)}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -115,21 +153,11 @@ const Withdraw: React.FC = () => {
               {formik.errors.amount}
             </div>
           )}
-          {isFocused && (
-            <div className="flex items-center gap-2 mt-2">
-              {[25, 50, 75, 100].map((percent) => (
-                <button
-                  key={percent}
-                  type="button"
-                  className="flex-1 border border-pry bg-pry/10 hover:bg-pry hover:text-sec py-2 rounded-md text-sm transition-all"
-                  onClick={() => handlePercentCut(percent, balance)}
-                >
-                  {percent}%
-                </button>
-              ))}
-            </div>
-          )}
+          <div className="mt-1">
+            Available balance: {user?.balance}
+          </div>
         </div>
+
 
         {/* Account Number */}
         <div>
@@ -195,10 +223,34 @@ const Withdraw: React.FC = () => {
             onBlur={formik.handleBlur}
           >
             {banks.map((bank, index) => (
-              <option key={index} value={bank}>
+              <option disabled={bank === "Select a bank" ? true : false} key={index} value={bank}>
                 {bank}
               </option>
             ))}
+          </select>
+          {formik.touched.bankName && formik.errors.bankName && (
+            <div className="error text-red-600 mt-1 text-sm">
+              {formik.errors.bankName}
+            </div>
+          )}
+        </div>
+
+        {/* Target Account */}
+        <div>
+          <label htmlFor="bankName" className="block text-sm font-medium mb-2">
+            Withdrawal Account
+          </label>
+          <select
+            name="bankName"
+            id="bankName"
+            className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
+            defaultValue={"Pick an account"}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          >
+              <option disabled>Pick an account</option>
+              <option>Main Balance</option>
+              <option>Referral Balance</option>
           </select>
           {formik.touched.bankName && formik.errors.bankName && (
             <div className="error text-red-600 mt-1 text-sm">
