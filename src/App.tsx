@@ -13,7 +13,7 @@ import Userdashboard from './pages/dashboard/Userdashboard';
 import Investments from './pages/investment/Investments';
 import TransactionHistory from './pages/transactions/TransactionHistory';
 import DesktopUserProfile from './pages/dashboard/DesktopUserProfile';
-// import Profile from './pages/dashboard/Profile';
+import Profile from './pages/dashboard/Profile';
 import Withdraw from './pages/transactions/Withdraw';
 import ManualDeposit from './pages/transactions/ManualDeposit';
 import AutoDeposit from './pages/transactions/AutoDeposit';
@@ -113,14 +113,14 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        {/* <Route
+        <Route
           path="/user/profile"
           element={
             <ProtectedRoute>
               <AdminLayout child={<Profile />} />
             </ProtectedRoute>
           }
-        /> */}
+        />
 
         <Route 
           path='/user/referral' 

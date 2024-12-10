@@ -64,7 +64,7 @@ const Register: React.FC = () => {
 					icon: '🎉',
 				});
 				console.log(response);
-				navigate('/user/dashboard')
+				// navigate('/user/dashboard')
 				
 			} catch (error: any) {
 				toast.error(
@@ -78,18 +78,18 @@ const Register: React.FC = () => {
 	})
 
 	return (
-		<div className="h-screen flex justify-center items-center  bg-[#e3f9ed]/20 ">
+		<div className="min-h-screen flex justify-center items-center  bg-[#e3f9ed]/20 ">
 			<div className="container h-ful px-5">
 				<Navone />
-				<div className="flex items-center text-sm h-5/6 lg:flex-row flex-col-reverse md:justify-center">
-					<div className="lg:w-1/2 md:w-3/4 w-full">
+				<div className="flex py-10 items-center text-sm h-5/6 lg:flex-row flex-col-reverse md:justify-center">
+					<div className="lg:w-[55%] md:w-4/5 w-full">
 						<h3 className="text-2xl text-center my-5 font-bold">Register</h3>
 						<form
-							className="flex flex-col md:gap-5 lg:gap-3 gap-3"
+							className="grid grid-cols-2 md:gap-5 lg:gap-3 gap-3"
 							onSubmit={formik.handleSubmit}
 						>
 							{/* Full Name */}
-							<div className="grid gap-2">
+							<div className="grid gap-2 col-span-2">
 								<label htmlFor="fullname">Full Name</label>
 								<input
 									type="text"
@@ -107,7 +107,7 @@ const Register: React.FC = () => {
 							</div>
 
 							{/* Username */}
-							<div className="grid gap-2">
+							<div className="grid gap-2 col-span-2">
 								<label htmlFor="username">Username</label>
 								<input
 									type="text"
@@ -125,7 +125,7 @@ const Register: React.FC = () => {
 							</div>
 
 							{/* Email */}
-							<div className="grid gap-2">
+							<div className="grid gap-2 col-span-2">
 								<label htmlFor="email">Email</label>
 								<input
 									type="email"
@@ -143,7 +143,7 @@ const Register: React.FC = () => {
 							</div>
 
 							{/* Password */}
-							<div className="grid gap-2">
+							<div className="grid gap-2 md:col-span-1 col-span-2">
 								<label htmlFor="password">Password</label>
 								<div className="bg-[#2F53181A] input1 flex items-center pe-3">
 									<input
@@ -175,7 +175,7 @@ const Register: React.FC = () => {
 							</div>
 
 							{/* Confirm Password */}
-							<div className="grid gap-2">
+							<div className="grid gap-2 md:col-span-1 col-span-2">
 								<label htmlFor="confPassword">Confirm Password</label>
 								<div className="bg-[#2F53181A] input1 flex items-center pe-3">
 									<input
@@ -209,7 +209,7 @@ const Register: React.FC = () => {
 							</div>
 
 							{/* Referral Code */}
-							<div className="grid gap-2">
+							<div className="grid gap-2 col-span-2">
 								<label htmlFor="referral_code">Referral Code (optional)</label>
 								<input
 									type="text"
@@ -232,7 +232,7 @@ const Register: React.FC = () => {
 							<button
 								type="submit"
 								disabled={loading}
-								className={`bg-pry text-white font-semibold px-4 py-3 rounded-lg flex items-center justify-center ${
+								className={`bg-pry text-white mt-[5%] col-span-2 font-semibold px-4 py-3 rounded-lg flex items-center justify-center ${
 									loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-pry'
 								}`}
 							>
@@ -258,9 +258,9 @@ const Register: React.FC = () => {
 							</NavLink>
 						</p>
 					</div>
-					<div className="img md:w-1/2 w-full lg:translate-x-[10%] lg:block hidden">
+					{/* <div className="img md:w-1/2 w-full lg:translate-x-[10%] lg:block hidden">
 						<CarouselOne />
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>

@@ -117,7 +117,7 @@ const Login: React.FC = () => {
 							<button
 								type="submit"
 								disabled={loading}
-								className={`bg-pry  text-sec font-semibold h-[45px] mt-[10%] rounded-lg flex items-center justify-center ${
+								className={`bg-pry text-sec font-semibold h-[45px] mt-[10%] rounded-lg flex items-center justify-center ${
 									loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-pry/50'
 								}`}
 							>
@@ -145,10 +145,9 @@ const Login: React.FC = () => {
 							</NavLink>
 						</p>
 					</div>
-
-					<div className="img md:w-1/2 w-full lg:translate-x-[10%] lg:block hidden">
+					{/* <div className="img md:w-1/2 w-full lg:translate-x-[10%] lg:block hidden">
 						<CarouselOne />
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>
