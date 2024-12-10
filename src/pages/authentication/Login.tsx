@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import CarouselOne from '../../components/carousel/Carouselone';
 import Navone from '../../components/nav/Navone';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';

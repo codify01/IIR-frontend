@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import CarouselOne from '../../components/carousel/Carouselone';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Navone from '../../components/nav/Navone';
 import { useFormik } from 'formik';
@@ -64,7 +63,7 @@ const Register: React.FC = () => {
 					icon: '🎉',
 				});
 				console.log(response);
-				// navigate('/user/dashboard')
+				navigate('/user/dashboard')
 				
 			} catch (error: any) {
 				toast.error(
