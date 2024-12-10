@@ -28,7 +28,7 @@ const NavTwo : React.FC<NavTwoProps> = ({ optStyle, user }) => {
       
         return isMobile;
       };
-      console.log(user);
+    //   console.log(user);
       
       const isMobile = useMobileScreen();
     
@@ -41,7 +41,8 @@ const NavTwo : React.FC<NavTwoProps> = ({ optStyle, user }) => {
     
     return (
 
-        <nav className={`nav py-3 flex justify-between items-center ${optStyle}`}>
+     <React.Fragment>
+           <nav className={`nav h-[6vh] flex justify-between items-center fixed top-0 w-full ld:w-3/4 bg-white  px-6 ${optStyle}`}>
             <h3 className="text-xl font-semibold">Welcome <span className="text-pry">{
                 // divideName[0] 
                 // || 
@@ -56,6 +57,8 @@ const NavTwo : React.FC<NavTwoProps> = ({ optStyle, user }) => {
                 </NavLink>
             </div>
         </nav>
+        <div className="h-[6vh]"></div>
+     </React.Fragment>
 
     )
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 
 interface CardFiveProps {
     id:number;
@@ -17,16 +16,12 @@ const formatAccountBalance = (amount: number) => {
   return `NGN ${amount?.toLocaleString("en-NG")}`;
 };
 
-const CardFive: React.FC<CardFiveProps> = ({
-    id,
+const InvestmentCard: React.FC<CardFiveProps> = ({
   amount,
   duration,
   interestRate,
-  optStyle,
-  optStyle2,
   payOutDate,
   tier,
-  action,
 }) => {
   return (
     <div className="p-6 rounded-lg shadow-sm shadow-tet/30 border border-pry bg-pry/40 text-sec space-y-6 transition-all hover:shadow-md">
@@ -57,25 +52,9 @@ const CardFive: React.FC<CardFiveProps> = ({
           </li>
         )}
       </ul>
-      <div className="flex justify-center gap-4">
-        <NavLink to={`/user/investments/${id}`}>
-          <button
-            className={`bg-sec text-pry font-semibold rounded-lg shadow-md py-3 px-6 hover:bg-pry hover:text-sec transition-all ${optStyle}`}
-          >
-            Invest Now
-          </button>
-        </NavLink>
-        {action && (
-          <button
-            onClick={action}
-            className={`bg-red-600 text-sec font-semibold rounded-lg shadow-md py-3 px-6 hover:bg-red-700 transition-all ${optStyle2}`}
-          >
-            Delete
-          </button>
-        )}
-      </div>
+      
     </div>
   );
 };
 
-export default CardFive;
+export default InvestmentCard;

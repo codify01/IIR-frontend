@@ -56,8 +56,8 @@ const Login: React.FC = () => {
 	});
 
 	return (
-		<div className="h-[100vh] bg-[#e3f9ed]/20 relative">
-			<div className="container h-full px-5">
+		<div className="h-[100vh] flex items-center justify-center bg-[#e3f9ed]/20 relative">
+			<div className="container h-ful px-5">
 				<Navone />
 				<div className="md:gap-0 gap-5 md:pb-0 pb-10 h-5/6 flex lg:flex-row flex-col-reverse justify-center items-center">
 					<div className="lg:w-1/2 md:w-2/3 w-full">

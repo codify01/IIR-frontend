@@ -1,8 +1,8 @@
 import React from "react";
 import img1 from "../../assets/image/img1.png"
 import { NavLink } from "react-router-dom";
-import { FaArrowCircleRight, FaArrowRight, FaCopyright, FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { FaX, FaXTwitter } from "react-icons/fa6";
+import { FaCopyright, FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { MdArrowForward } from "react-icons/md";
 
 const Footer: React.FC = () => {

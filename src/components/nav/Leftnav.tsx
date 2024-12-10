@@ -1,15 +1,14 @@
 import React from "react";
 import img1 from "../../assets/image/img1.png";
 import { NavLink } from "react-router-dom";
-import { IoHome, IoLogOut } from "react-icons/io5";
-import { RiExchangeDollarLine, RiFolderAddFill, RiFolderSettingsFill, RiHistoryFill} from "react-icons/ri";
-import { BiMoneyWithdraw } from "react-icons/bi";
-import { GiPayMoney, GiTakeMyMoney} from "react-icons/gi";
-import { GrUserAdmin } from "react-icons/gr";
-import { FaRegAddressCard, FaUsersCog, FaUserShield } from "react-icons/fa";
+import { FiHome, FiLogOut, FiDollarSign, FiPlusSquare, FiSettings, FiUsers } from "react-icons/fi";
+import { BiTransferAlt, BiMoneyWithdraw } from "react-icons/bi";
+import {GiPayMoney } from "react-icons/gi";
+import { MdAdminPanelSettings, MdOutlinePersonSearch } from "react-icons/md";
+// import { FaUserCheck } from "react-icons/fa";
 
 const Leftnav: React.FC = () => {
-  const currentUserRole:any = localStorage.getItem("role");
+  const currentUserRole: any = localStorage.getItem("role");
 
   const handleLogOut = () => {
     localStorage.clear(); // Clear all local storage keys
@@ -18,87 +17,69 @@ const Leftnav: React.FC = () => {
 
   const Eachlink = [
     {
-        href: '/user/dashboard',
-        title: 'Home',
-        icon: <IoHome className="size-4" />,
-        role: "investor",
+      href: "/user/dashboard",
+      title: "Home",
+      icon: <FiHome className="h-5 w-5" />,
+      role: "investor",
     },
     {
-        href: '/user/investment',
-        title: 'Investment',
-        icon: <RiExchangeDollarLine className="size-4" />,
-        role: "investor",
+      href: "/user/investment",
+      title: "Investment",
+      icon: <BiTransferAlt className="h-5 w-5" />,
+      role: "investor",
     },
     {
-        href: '/user/withdraw',
-        title: 'Withdraw',
-        icon: <BiMoneyWithdraw className="size-4" />,
-        role: "investor",
+      href: "/user/withdraw",
+      title: "Withdraw",
+      icon: <BiMoneyWithdraw className="h-5 w-5" />,
+      role: "investor",
     },
     {
-        href: '/user/deposit1',
-        title: 'Manual Deposit',
-        icon: <GiPayMoney className="size-4" />,
-        role: "investor",
+      href: "/user/deposit1",
+      title: "Deposit",
+      icon: <GiPayMoney className="h-5 w-5" />,
+      role: "investor",
     },
     {
-        href: '/user/deposit2',
-        title: 'Auto Deposit',
-        icon: <GiPayMoney className="size-4" />,
-        role: "investor",
+      href: "/user/transactions",
+      title: "Transaction History",
+      icon: <FiDollarSign className="h-5 w-5" />,
+      role: "investor",
     },
     {
-        href: '/user/transactions',
-        title: 'Transaction History',
-        icon: <RiHistoryFill className="size-4" />,
-        role: "investor",
+      href: "/admin/dashboard",
+      title: "Admin Dashboard",
+      icon: <MdAdminPanelSettings className="h-5 w-5" />,
+      role: "admin",
+    },
+ 
+    {
+      href: "/admin/managetransactions",
+      title: "Manage Transactions",
+      icon: <FiDollarSign className="h-5 w-5" />,
+      role: "admin",
+    },
+ 
+    {
+      href: "/admin/manageinvestors",
+      title: "Manage Investors",
+      icon: <FiUsers className="h-5 w-5" />,
+      role: "admin",
     },
     {
-        href: '/admin/dashboard',
-        title: 'Admin Dashboard',
-        icon: <GrUserAdmin className="size-4" />,
-        role: "admin",
+      href: "/admin/approvekyc",
+      title: "Know-Your-Customer",
+      icon: <MdOutlinePersonSearch className="h-5 w-5" />,
+      role: "admin",
     },
-    {
-        href: '/admin/createinvestment',
-        title: 'Create Investment',
-        icon: <RiFolderAddFill className="size-4" />,
-        role: "admin",
-    },
-    {
-        href: '/admin/managetransactions',
-        title: 'Manage Transactions',
-        icon: <GiTakeMyMoney className="size-4" />,
-        role: "admin",
-    },
-    {
-        href: '/admin/manageinvestments',
-        title: 'Manage Investments',
-        icon: <RiFolderSettingsFill className="size-4" />,
-        role: "admin",
-    },
-    {
-        href: '/admin/manageinvestors',
-        title: 'Manage Investors',
-        icon: <FaUsersCog className="size-4" />,
-        role: "admin",
-    },
-    {
-        href: '/admin/approvekyc',
-        title: 'Know-Your-Customer',
-        icon: <FaRegAddressCard className="size-4" />,
-        role: "admin",
-    },
-    
-];
+  ];
 
   const filteredLinks = Eachlink.filter((link) => link.role.includes(currentUserRole));
 
   return (
-    <div className="w-1/4 h-[100vh] bg-pry/30 lg:flex hidden flex-col justify-between px-5 pt-4 pb-5">
-      <div className="flex mx-auto items-end">
+    <div className="h-[100vh] bg-pry/30 text-sec lg:flex hidden flex-col justify-between px-5 pt-4 pb-5">
+      <div className="max-w-16">
         <img src={img1} alt="Logo" />
-        <h3 className="font-semibold text-[#2F5318]">Pineleafestates</h3>
       </div>
 
       <ul className="flex flex-col gap-6 text-base h-[77%] mt-3 pb-2 overflow-y-auto">
@@ -118,8 +99,11 @@ const Leftnav: React.FC = () => {
         ))}
       </ul>
 
-      <button onClick={handleLogOut} className="outline-0 flex items-center gap-2 hover:text-red-500">
-        <IoLogOut />
+      <button
+        onClick={handleLogOut}
+        className="outline-0 flex items-center gap-2 hover:text-red-500"
+      >
+        <FiLogOut className="h-5 w-5" />
         Logout
       </button>
     </div>

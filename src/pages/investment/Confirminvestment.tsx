@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import CardFive from "../../components/card/Cardfive";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import InvestmentCard from "../../components/card/InvestmentCard";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
 interface InvestmentPlan {
+  minimum_amount:number;
   maximum_amount: number;
   investment_duration: string;
   interest_rate: string;
@@ -15,22 +17,16 @@ interface InvestmentPlan {
 }
 
 const Confirminvestments: React.FC = () => {
-  const [isFocused, setIsFocused] = useState(false);
+  const {id} = useParams()
+  // const [isFocused, setIsFocused] = useState(false);
   const [isSubmittingAPI, setIsSubmittingAPI] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [apiSuccess, setApiSuccess] = useState<string | null>(null);
   const [investmentPlan, setInvestmentPlan] = useState<InvestmentPlan | null>(null);
 
-  const balance = 80000;
-
-  const handlePercentCut = (percent: number) => {
-    const calculatedAmount = (percent / 100) * balance;
-    formik.setFieldValue("amount", calculatedAmount);
-  };
-
   const fetchInvestmentPlan = async () => {
     try {
-      const response = await axios.get(`${apiURL}/eachInvestmentPlans.php?investment_id=5`);
+      const response = await axios.get(`${apiURL}/eachInvestmentPlans.php?investment_id=${id}`);
       setInvestmentPlan(response.data.investment);
     } catch (error) {
       setApiError("Failed to load investment plan.");
@@ -48,8 +44,8 @@ const Confirminvestments: React.FC = () => {
     validationSchema: Yup.object({
       amount: Yup.number()
         .required("Amount is required")
-        .min(50000, "Minimum investment is 50000")
-        .max(balance, `Cannot invest more than your balance (${balance})`),
+        .min(investmentPlan?.minimum_amount, `You can not invest less than ${investmentPlan?.minimum_amount}`)
+        .max(investmentPlan?.maximum_amount, `Cannot invest more than your balance (${investmentPlan?.maximum_amount})`),
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       setSubmitting(true);
@@ -58,15 +54,11 @@ const Confirminvestments: React.FC = () => {
       setApiSuccess(null);
 
       const userId = localStorage.getItem("ident");
-      const transactionId = `txn_${Date.now()}`; // Example of generating a dynamic transaction ID
 
       const payload = {
         user_id: userId,
-        transaction_id: transactionId,
         amount: values.amount,
-        transaction_type: "investment",
-        investment_duration: investmentPlan?.investment_duration || "0",
-        roi: investmentPlan?.interest_rate || "0",
+        investment_id:id
       };
 
       try {
@@ -75,12 +67,14 @@ const Confirminvestments: React.FC = () => {
             Authorization: `${localStorage.getItem("token")}`,
           },
         });
+        setApiSuccess("Investment successful!");
         console.log(response);
         
-        setApiSuccess("Investment successful!");
         resetForm();
       } catch (error: any) {
-        setApiError(error.response?.data?.message || "An error occurred while processing your investment.");
+        setApiError(
+          error.response?.data?.message || "An error occurred while processing your investment."
+        );
       } finally {
         setIsSubmittingAPI(false);
         setSubmitting(false);
@@ -88,71 +82,66 @@ const Confirminvestments: React.FC = () => {
     },
   });
 
-  const renderPercentageButtons = () => (
-    ["25%", "50%", "75%", "MAX"].map((label, index) => {
-      const percent = [25, 50, 75, 100][index];
-      return (
-        <button
-          key={label}
-          type="button"
-          className="w-1/4 p-4 border"
-          onClick={() => handlePercentCut(percent)}
-        >
-          {label}
-        </button>
-      );
-    })
-  );
+ 
 
   return (
-    <div className="flex md:flex-row-reverse flex-col-reverse md:gap-5 gap-10">
-      <div className="md:w-1/2 w-full space-y-5 bg-sec rounded-lg md:px-5">
-        <form className="space-y-5" onSubmit={formik.handleSubmit}>
-          <div className="grid gap-3">
-            <label htmlFor="amount">Amount</label>
+    <div className="flex md:flex-row flex-col md:gap-8 gap-10 p-6">
+      {/* Form Section */}
+      <div className="md:w-1/2 w-full bg-white p-6 rounded-lg shadow-md space-y-6">
+        <h2 className="text-xl font-bold text-pry">Confirm Investment</h2>
+        <form className="space-y-6" onSubmit={formik.handleSubmit}>
+          <div className="space-y-3">
+            <label htmlFor="amount" className="block text-sm font-medium">
+              Amount
+            </label>
             <input
               type="number"
               name="amount"
               id="amount"
               placeholder="Enter amount to invest"
-              className="input1"
+              className="w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
               value={formik.values.amount}
               onFocus={() => setIsFocused(true)}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {isFocused && (
-              <div className="amount-btns flex items-center gap-2">
-                {renderPercentageButtons()}
-              </div>
-            )}
+         
             {formik.touched.amount && formik.errors.amount && (
               <small className="text-red-500">{formik.errors.amount}</small>
             )}
           </div>
-          {apiError && <div className="text-red-500 text-center">{apiError}</div>}
-          {apiSuccess && <div className="text-green-500 text-center">{apiSuccess}</div>}
-          <div className="text-center font-semibold">
-            <button
-              type="submit"
-              className="w-1/2 bg-pry text-sec shadow-md shadow-tet/20 rounded-lg h-[45px]"
-              disabled={formik.isSubmitting || isSubmittingAPI}
-            >
-              {isSubmittingAPI ? "Processing..." : "Invest"}
-            </button>
-          </div>
+          {apiError && (
+            <div className="bg-red-100 text-red-600 p-3 rounded-md text-sm text-center">
+              {apiError}
+            </div>
+          )}
+          {apiSuccess && (
+            <div className="bg-green-100 text-green-600 p-3 rounded-md text-sm text-center">
+              {apiSuccess}
+            </div>
+          )}
+          <button
+            type="submit"
+            className="w-full bg-pry text-sec font-semibold py-3 rounded-md shadow-md hover:bg-pry/90 transition-all"
+            disabled={formik.isSubmitting || isSubmittingAPI}
+          >
+            {isSubmittingAPI ? "Processing..." : "Invest"}
+          </button>
         </form>
       </div>
 
+      {/* Card Section */}
       <div className="md:w-1/2 w-full">
         {investmentPlan ? (
-          <CardFive
+          <InvestmentCard
             amount={investmentPlan.maximum_amount}
             duration={investmentPlan.investment_duration}
-            optStyle="hidden"
+            interestRate={investmentPlan.roi}
           />
         ) : (
-          <div>Loading Investment Plan...</div>
+          <div className="flex justify-center items-center h-full">
+            <div className="w-10 h-10 border-4 border-dotted border-t-transparent border-pry rounded-full animate-spin"></div>
+          </div>
         )}
       </div>
     </div>

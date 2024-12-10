@@ -46,15 +46,31 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
   }, [navigate]);
 
   if (isLoading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        Loading...
+      </div>
+    );
   }
 
   return (
-    <div className="flex">
-      <Leftnav />
-      <div className="main-content container px-5 space-y-4 md:pb-10 pb-20 h-[100svh] overflow-y-scroll">
+    <div className="flex h-screen overflow-hidden bg-gray-50">
+      {/* Fixed Left Navigation */}
+      <div className="hidden lg:block w-1/4 h-full bg-pry">
+        <Leftnav />
+      </div>
+
+      {/* Scrollable Main Content */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Top Navigation */}
         <NavTwo user={user} optStyle={"py-4"} />
-        {child}
+
+        {/* Content Section */}
+        <div className="flex-1 overflow-y-auto px-5 pb-20">
+          <div className="max-h-full">{child}</div>
+        </div>
+
+        {/* Bottom Navigation */}
         <Bottombar />
       </div>
     </div>

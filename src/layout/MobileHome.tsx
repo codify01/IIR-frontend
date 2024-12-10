@@ -8,7 +8,7 @@ const MobileHome: React.FC = () => {
 
     return (
 
-        <div className="h-[93vh] relative overflow-hidden flex flex-col w-full">
+        <div className="h-screen relative overflow-hidden flex flex-col w-full">
             <Navone optStyle={"px-5 h-[10vh]"} />
             <div className="flex mt-auto h-[80vh] lg:flex-row flex-col justify-between">
                 <div className="text hero-text md:h-[20vh] md:pt-5 h-[25vh] relative flex flex-col gap-3 px-5">

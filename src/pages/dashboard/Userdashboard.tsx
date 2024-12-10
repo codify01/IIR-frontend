@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { FaExclamationCircle } from "react-icons/fa";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -19,7 +20,7 @@ interface Investment {
   id: number;
   amount: number;
   investment_start: string;
-  investment_duration: number; // Duration in days
+  investment_duration: number;
   investment_name: string;
 }
 
@@ -31,7 +32,6 @@ const Userdashboard: React.FC = () => {
   const [mainBalVisibility, setMainBalVisibility] = useState<boolean>(true);
   const [refBalVisibility, setRefBalVisibility] = useState<boolean>(true);
 
-  // Calculate the end date for an investment
   const calculateEndDate = (startDate: string, duration: number): Date => {
     const start = new Date(startDate);
     start.setDate(start.getDate() + duration);
@@ -44,13 +44,11 @@ const Userdashboard: React.FC = () => {
       setIsLoadingInvestments(true);
 
       try {
-        // Fetch User Data
         const userResponse = await axios.get(`${apiURL}/user.php`, {
           headers: { Authorization: localStorage.getItem("token") || "" },
         });
         setUser(userResponse.data);
 
-        // Fetch Investment Data
         const investResponse = await axios.post(
           `${apiURL}/userInvestment.php`,
           { user_id: localStorage.getItem("ident") },
@@ -79,7 +77,8 @@ const Userdashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className=" mx-auto mt-5 space-y-10">
+      {/* Swiper Section */}
       <Swiper
         pagination={{
           clickable: true,
@@ -88,17 +87,17 @@ const Userdashboard: React.FC = () => {
         }}
         loop={true}
         modules={[Pagination]}
-        className="mySwiper swiper2 rounded-[10px]"
+        className="mySwiper rounded-lg bg-white p-3"
         breakpoints={{
-          320: { slidesPerView: 1, spaceBetween: 30 },
-          640: { slidesPerView: 2, spaceBetween: 30 },
+          320: { slidesPerView: 1, spaceBetween: 20 },
+          640: { slidesPerView: 2, spaceBetween: 20 },
           1024: { slidesPerView: 2, spaceBetween: 30 },
-          1280: { slidesPerView: 2, spaceBetween: 10 },
+          1280: { slidesPerView: 2, spaceBetween: 40 },
         }}
       >
         <SwiperSlide>
           {isLoadingUser ? (
-            <div className="flex justify-center items-center h-[100px]">
+            <div className="flex justify-center items-center h-[150px]">
               <div className="w-8 h-8 border-4 border-dotted border-t-transparent border-pry rounded-full animate-spin"></div>
             </div>
           ) : (
@@ -113,7 +112,7 @@ const Userdashboard: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide>
           {isLoadingUser ? (
-            <div className="flex justify-center items-center h-[100px]">
+            <div className="flex justify-center items-center h-[150px]">
               <div className="w-8 h-8 border-4 border-dotted border-t-transparent border-pry rounded-full animate-spin"></div>
             </div>
           ) : (
@@ -128,14 +127,18 @@ const Userdashboard: React.FC = () => {
         </SwiperSlide>
       </Swiper>
 
-      <div className="flex flex-col space-y-5">
-        <div className="flex justify-between items-end mt-8">
-          <h3 className="font-semibold md:text-3xl text-2xl">Recent Investments</h3>
-          <NavLink to="/user/investment">
-            <p className="text-sm cursor-pointer underline text-pry">All Investments</p>
+      {/* Recent Investments Section */}
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <h3 className="font-semibold text-2xl md:text-3xl text-gray-800">
+            Recent Investments
+          </h3>
+          <NavLink to="/user/investment" className="text-pry underline">
+            View All
           </NavLink>
         </div>
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+
+        <div className="grid md:grid-cols-2 gap-6">
           {isLoadingInvestments ? (
             <div className="col-span-2 flex justify-center items-center">
               <div className="w-10 h-10 border-4 border-dotted border-t-transparent border-pry rounded-full animate-spin"></div>
@@ -152,7 +155,10 @@ const Userdashboard: React.FC = () => {
               />
             ))
           ) : (
-            <p className="text-gray-500 col-span-2 text-center">No investments found.</p>
+            <div className="col-span-2 flex flex-col items-center text-gray-500 space-y-2">
+              <FaExclamationCircle className="text-4xl" />
+              <p>No investments found.</p>
+            </div>
           )}
         </div>
       </div>

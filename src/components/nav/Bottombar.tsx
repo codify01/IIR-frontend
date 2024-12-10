@@ -1,117 +1,103 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import { IoHome } from "react-icons/io5";
-import { RiExchangeDollarLine, RiFolderAddFill, RiFolderSettingsFill, RiHistoryFill } from "react-icons/ri";
-import { BiMoneyWithdraw } from "react-icons/bi";
-import { GiPayMoney, GiTakeMyMoney } from "react-icons/gi";
-import { FaRegAddressCard, FaUserFriends, FaUsersCog } from "react-icons/fa";
-import { GrUserAdmin } from "react-icons/gr";
+// React Icons (updated set)
+import { FiHome } from "react-icons/fi";
+import { FiDollarSign, FiFilePlus, FiSettings, FiUsers } from "react-icons/fi";
+// import { BiTransferAlt } from "react-icons/bi";
+import { GiMoneyStack, GiPayMoney, GiReceiveMoney } from "react-icons/gi";
+import { BiMoneyWithdraw, BiTransferAlt } from "react-icons/bi";
+import { MdAdminPanelSettings, MdOutlinePersonSearch } from "react-icons/md";
+// import { MdPeople } from "react-icons/md";
 
 const Bottombar: React.FC = () => {
+  const currentUserRole:any = localStorage.getItem('role');
 
-    const currentUserRole = "investor";
+  const Eachlink = [
+    {
+      href: "/user/dashboard",
+      title: "Home",
+      icon: <FiHome className="h-5 w-5" />,
+      role: "investor",
+    },
+    {
+      href: "/user/investment",
+      title: "Investment",
+      icon: <BiTransferAlt className="h-5 w-5" />,
+      role: "investor",
+    },
+    {
+      href: "/user/withdraw",
+      title: "Withdraw",
+      icon: <BiMoneyWithdraw
+       className="h-5 w-5" />,
+      role: "investor",
+    },
+    {
+      href: "/user/deposit1",
+      title: "Deposit",
+      icon: <GiPayMoney className="h-5 w-5" />,
+      role: "investor",
+    },
+    {
+      href: "/user/transactions",
+      title: "Transactions",
+      icon: <FiDollarSign className="h-5 w-5" />,
+      role: "investor",
+    },
+    {
+      href: "/admin/dashboard",
+      title: "Dashboard",
+      icon: <MdAdminPanelSettings className="h-5 w-5" />,
+      role: "admin",
+    },
+ 
+    {
+      href: "/admin/managetransactions",
+      title: "Transactions",
+      icon: <FiDollarSign className="h-5 w-5" />,
+      role: "admin",
+    },
+ 
+    {
+      href: "/admin/manageinvestors",
+      title: "Investors",
+      icon: <FiUsers className="h-5 w-5" />,
+      role: "admin",
+    },
+    {
+      href: "/admin/approvekyc",
+      title: "KYC",
+      icon: <MdOutlinePersonSearch className="h-5 w-5" />,
+      role: "admin",
+    },
+  ];
 
-    const Eachlink = [
-        {
-            href: '/user/dashboard',
-            title: 'Home',
-            icon: <IoHome className="size-4" />,
-            role: ["investor"],
-        },
-        {
-          href: '/user/investment',
-          title: 'Investment',
-          icon: <RiExchangeDollarLine className="size-4" />,
-          role: ["investor"],
-        },
-        {
-          href: '/user/withdraw',
-          title: 'Withdraw',
-          icon: <BiMoneyWithdraw className="size-4" />,
-          role: ["investor"],
-        },
-        {
-          href: '/user/deposit1',
-          title: 'Manual Deposit',
-          icon: <GiPayMoney className="size-4" />,
-          role: ["investor"],
-        },
-        {
-          href: '/user/deposit2',
-          title: 'Auto Deposit',
-          icon: <GiPayMoney className="size-4" />,
-          role: ["investor"],
-        },
-        {
-          href: '/user/transactions',
-          title: 'Transaction History',
-          icon: <RiHistoryFill className="size-4" />,
-          role: ["investor"],
-        },
-        {
-          href: '/user/referral',
-          title: 'My Referral',
-          icon: <FaUserFriends className="size-4" />,
-          role: ["investor"],
-        },
-        {
-          href: '/admin/dashboard',
-          title: 'Admin Dashboard',
-          icon: <GrUserAdmin className="size-4" />,
-          role: ["admin", "superadmin"],
-        },
-        {
-          href: '/admin/createinvestment',
-          title: 'Create Investment',
-          icon: <RiFolderAddFill className="size-4" />,
-          role: ["admin", "superadmin"],
-        },
-        {
-          href: '/admin/managetransactions',
-          title: 'Manage Transactions',
-          icon: <GiTakeMyMoney className="size-4" />,
-          role: ["admin", "superadmin"],
-        },
-        {
-          href: '/admin/manageinvestments',
-          title: 'Manage Investments',
-          icon: <RiFolderSettingsFill className="size-4" />,
-          role: ["admin", "superadmin"],
-        },
-        {
-          href: '/admin/manageinvestors',
-          title: 'Manage Investors',
-          icon: <FaUsersCog className="size-4" />,
-          role: ["admin", "superadmin"],
-        },
-        {
-          href: '/admin/approvekyc',
-          title: 'Know-Your-Customer',
-          icon: <FaRegAddressCard className="size-4" />,
-          role: ["admin", "superadmin"],
-        },
-    ];
+  const filteredLinks = Eachlink.filter((link) => link.role.includes(currentUserRole));
 
-    const filteredLinks = Eachlink.filter(link => link.role.includes(currentUserRole));
+  return (
+    <div className="fixed bottom-0 left-0 w-full z-10 bg-sec shadow-[0_-3px_5px_rgba(0,0,0,0.1)] px-5 pt-5 md:py-4 lg:hidden block">
+      <ul className="flex items-center justify-between text-lg gap-3">
+        {filteredLinks.map(({ href, title, icon }, index) => (
+          <NavLink
+            to={href}
+            key={index}
+            className={({ isActive }) =>
+              `flex flex-col items-center text-sm px-0.5 ${
+                isActive
+                  ? "text-pry opacity-100 border-b-2 border-pry py-2 "
+                  : "text-tet opacity-60 hover:opacity-100"
+              } transition-all duration-300 ease-in-out`
+            }
+            aria-label={title}
+          >
+            <span>{icon}</span>
+            <span className="text-[12px]">{title}</span>
+          </NavLink>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-    return (
-
-        <div className="w-full fixed left-0 md:bottom-0 -bottom-1 z-10 lg:hidden block px-5 pb-3 md:py-4 bg-sec shadow-[0px_-3px_5px] shadow-tet/10">
-            <ul className="flex items-center gap-3 justify-between text-lg mt-3">
-                {
-                    filteredLinks.map(({ href, title, icon }, index) => (
-                        <NavLink to={href} key={index} className={({ isActive }) => isActive ? `flex flex-col items-center scale-105 opacity-100` : `flex flex-col items-center md:scale-105 scale-95 opacity-50 ${title == "Profile" ? "md:flex hidden" : null}`}>
-                            <span>{icon}</span>
-                            <span className="text-xs text-center">{title}</span>
-                        </NavLink>
-                    ))
-                }
-            </ul>
-        </div>
-
-    )
-
-}
-
-export default Bottombar
+export default Bottombar;

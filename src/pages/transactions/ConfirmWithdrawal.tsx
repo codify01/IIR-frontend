@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Import axios
+import axios from "axios";
+import { FaCheckCircle, FaTimesCircle, FaSpinner } from "react-icons/fa";
 
-// The API endpoint URL (replace with your actual API endpoint)
 const apiURL = import.meta.env.VITE_API_URL;
 
 const ConfirmWithdrawal: React.FC = () => {
-  const [withdrawalRequests, setWithdrawalRequests] = useState<any[]>([]); // State to store withdrawal requests
+  const [withdrawalRequests, setWithdrawalRequests] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [actionLoading, setActionLoading] = useState<Record<string, boolean>>({});
 
-  // Fetch withdrawal requests on component mount
   useEffect(() => {
     const getWithdrawalRequests = async () => {
       setLoading(true);
@@ -17,7 +17,7 @@ const ConfirmWithdrawal: React.FC = () => {
         const response = await axios.get(`${apiURL}/allUsersWithdraw.php`, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token") || "", // Assuming token is stored in localStorage
+            Authorization: localStorage.getItem("token") || "",
           },
         });
         setWithdrawalRequests(response.data);
@@ -32,26 +32,23 @@ const ConfirmWithdrawal: React.FC = () => {
     getWithdrawalRequests();
   }, []);
 
-  const formatAccountBalance = (amount: number) => {
-    return `NGN ${amount.toLocaleString("en-NG")}`;
+  const formatAccountBalance = (amount: number) => `NGN ${amount.toLocaleString("en-NG")}`;
+
+  const handleActionLoading = (transactionId: string, isLoading: boolean) => {
+    setActionLoading((prev) => ({ ...prev, [transactionId]: isLoading }));
   };
 
   const handleConfirm = async (transactionId: string) => {
+    handleActionLoading(transactionId, true);
     try {
-      const response = await axios.get(
-        `${apiURL}/adminUpdatewithdraw.php`, // Endpoint for confirming withdrawal
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token") || "",
-          },
-          params: {
-            withdrawalId: transactionId,
-          },
-        }
-      );
+      const response = await axios.get(`${apiURL}/adminUpdatewithdraw.php`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token") || "",
+        },
+        params: { withdrawalId: transactionId },
+      });
       if (response.status === 200) {
-        // Update the state to reflect the confirmed withdrawal
         setWithdrawalRequests((prevState) =>
           prevState.map((request) =>
             request.trnxId === transactionId
@@ -66,25 +63,22 @@ const ConfirmWithdrawal: React.FC = () => {
     } catch (err: any) {
       setError("An error occurred while confirming the withdrawal.");
       console.error(err);
+    } finally {
+      handleActionLoading(transactionId, false);
     }
   };
 
   const handleCancel = async (transactionId: string) => {
+    handleActionLoading(transactionId, true);
     try {
-      const response = await axios.delete(
-        `${apiURL}/adminCancelWithdrawal.php`, // Endpoint for canceling withdrawal
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token") || "",
-          },
-          params: {
-            transaction_id: transactionId,
-          },
-        }
-      );
+      const response = await axios.delete(`${apiURL}/adminCancelWithdrawal.php`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token") || "",
+        },
+        params: { transaction_id: transactionId },
+      });
       if (response.data.status === "success") {
-        // Update the state to reflect the canceled withdrawal
         setWithdrawalRequests((prevState) =>
           prevState.map((request) =>
             request.trnxId === transactionId
@@ -99,59 +93,76 @@ const ConfirmWithdrawal: React.FC = () => {
     } catch (err: any) {
       setError("An error occurred while canceling the withdrawal.");
       console.error(err);
+    } finally {
+      handleActionLoading(transactionId, false);
     }
   };
 
   return (
-    <div className="thissss relative overflow-x-auto w-full max-h-[85.5vh] text-xs bg-pry p-2 text-sec rounded-md shadow-lg shadow-tet/30">
+    <div className="relative overflow-x-auto w-full max-h-[70vh] bg-white text-sm rounded-lg shadow-md">
       {loading ? (
         <div className="text-center py-10">Loading withdrawal requests...</div>
       ) : error ? (
         <div className="text-center py-10 text-red-600">{error}</div>
       ) : (
-        <table className="whitespace-nowrap w-full text-center">
-          <thead>
-            <tr className="border-b-2 border-sec/20">
-              <th scope="col" className="py-4">S/N</th>
-              <th scope="col" className="py-4">Transaction ID</th>
-              <th scope="col" className="py-4">Amount</th>
-              <th scope="col" className="py-4">Account Number</th>
-              <th scope="col" className="py-4">Account Name</th>
-              <th scope="col" className="py-4">Bank Name</th>
-              <th scope="col" className="py-4">Actions</th>
+        <table className="table-auto w-full text-center">
+          <thead className="sticky top-0 bg-pry text-white shadow">
+            <tr>
+              <th className="px-4 py-3">S/N</th>
+              <th className="px-4 py-3">Transaction ID</th>
+              <th className="px-4 py-3">Amount</th>
+              <th className="px-4 py-3">Account Number</th>
+              <th className="px-4 py-3">Account Name</th>
+              <th className="px-4 py-3">Bank Name</th>
+              <th className="px-4 py-3">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-200 capitalize">
             {withdrawalRequests.length > 0 ? (
               withdrawalRequests.map(
                 ({ id, amount, account_number, account_name, bank_name, status }, index) => (
-                  <tr key={id} className="border-b border-sec/20">
-                    <td className="font-medium">{index + 1}</td>
-                    <td className="font-medium">{id}</td>
-                    <td className="font-medium">{formatAccountBalance(amount)}</td>
-                    <td className="font-medium">{account_number}</td>
-                    <td className="font-medium">{account_name}</td>
-                    <td className="font-medium">{bank_name}</td>
-                    <td className="font-medium space-y-3 grid">
-                      {status === "pending" && (
+                  <tr key={id} className="hover:bg-gray-50">
+                    <td className="px-4 py-2">{index + 1}</td>
+                    <td className="px-4 py-2">{id}</td>
+                    <td className="px-4 py-2">{formatAccountBalance(amount)}</td>
+                    <td className="px-4 py-2">{account_number}</td>
+                    <td className="px-4 py-2">{account_name}</td>
+                    <td className="px-4 py-2">{bank_name}</td>
+                    <td className="px-4 py-2 flex justify-center gap-4">
+                      {status === "pending" ? (
                         <>
                           <button
-                            className="bg-sec text-tet p-3 rounded-lg shadow-lg shadow-tet/30 w-3/4 mx-auto"
+                            className="text-green-600 hover:text-green-800"
                             onClick={() => handleConfirm(id)}
+                            title="Confirm Payment"
+                            disabled={actionLoading[id]}
                           >
-                            Confirm Payment
+                            {actionLoading[id] ? (
+                              <FaSpinner className="h-6 w-6 animate-spin" />
+                            ) : (
+                              <FaCheckCircle className="h-6 w-6" />
+                            )}
                           </button>
                           <button
-                            className="bg-red-600 text-sec p-3 rounded-lg shadow-lg shadow-tet/30 w-3/4 mx-auto"
+                            className="text-red-600 hover:text-red-800"
                             onClick={() => handleCancel(id)}
+                            title="Cancel Transaction"
+                            disabled={actionLoading[id]}
                           >
-                            Cancel Transaction
+                            {actionLoading[id] ? (
+                              <FaSpinner className="h-6 w-6 animate-spin" />
+                            ) : (
+                              <FaTimesCircle className="h-6 w-6" />
+                            )}
                           </button>
                         </>
-                      )}
-                      {status !== "pending" && (
-                        <span className="text-white p-3 bg-green-700 rounded-lg w-3/4 mx-auto">
-                          Transaction {status}
+                      ) : (
+                        <span
+                          className={`px-3 py-1 rounded text-white ${
+                            status === "confirmed" ? "bg-green-600" : "bg-red-600"
+                          }`}
+                        >
+                          {status.charAt(0).toUpperCase() + status.slice(1)}
                         </span>
                       )}
                     </td>
@@ -159,8 +170,8 @@ const ConfirmWithdrawal: React.FC = () => {
                 )
               )
             ) : (
-              <tr className="border-b border-sec/20">
-                <td colSpan={7} className="text-center text-3xl font-semibold py-10">
+              <tr>
+                <td colSpan={7} className="text-center py-10">
                   No Pending Withdrawal Requests
                 </td>
               </tr>

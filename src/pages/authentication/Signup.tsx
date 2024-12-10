@@ -78,8 +78,8 @@ const Register: React.FC = () => {
 	})
 
 	return (
-		<div className="lg:h-max md:h-[100vh] h-max pb-10 bg-[#e3f9ed]/20 relative">
-			<div className="container h-full px-5">
+		<div className="h-screen flex justify-center items-center  bg-[#e3f9ed]/20 ">
+			<div className="container h-ful px-5">
 				<Navone />
 				<div className="flex items-center text-sm h-5/6 lg:flex-row flex-col-reverse md:justify-center">
 					<div className="lg:w-1/2 md:w-3/4 w-full">

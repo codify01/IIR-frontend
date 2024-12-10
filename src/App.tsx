@@ -33,6 +33,8 @@ import AdminProfile from './pages/profiles/AdminProfile';
 
 import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute
 import ManageReferrals from './pages/dashboard/ManageReferals';
+import SuperAdminDashboard from './pages/dashboard/SuperAdminDashboard';
+import NotificationPage from './pages/notification/Notification';
 
 const App = () => {
   return (
@@ -64,7 +66,7 @@ const App = () => {
           }
         />
         <Route
-          path="/user/confirminvestment"
+          path="/user/investments/:id"
           element={
             <ProtectedRoute>
               <MainLayout child={<Confirminvestments />} />
@@ -191,7 +193,15 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        
+          <Route
+          path="/super/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminLayout child={<SuperAdminDashboard />} />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route path='/user/notification' element={<ProtectedRoute><MainLayout child={<NotificationPage/>}/></ProtectedRoute>}/>
         <Route
           path="/superadmin/manageadmin"
           element={

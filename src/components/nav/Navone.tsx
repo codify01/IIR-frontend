@@ -11,7 +11,7 @@ const Navone: React.FC<NavOneProps> = ({ optStyle }) => {
     return (
 
         <NavLink to={"/"} className={optStyle}>
-            <div className="w-[80px]">
+            <div className="w-[80px] absolute top-3">
                 <img src={img1} alt="..." className="w-full" />
             </div>
         </NavLink>
