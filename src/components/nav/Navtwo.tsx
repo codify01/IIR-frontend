@@ -42,7 +42,7 @@ const NavTwo : React.FC<NavTwoProps> = ({ optStyle, user }) => {
 
      <React.Fragment>
            <nav className={`nav h-[6vh] flex justify-between items-center fixed top-0 w-full ld:w-3/4 bg-white  px-6 ${optStyle}`}>
-            <h3 className="text-xl font-semibold">Welcome <span className="text-pry text-xl">{
+            <h3 className="text-lg font-semibold">Welcome <span className="text-pry text-xl">{
                 divideName[0] 
                 // || 
                 // user?.fullname
