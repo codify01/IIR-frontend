@@ -35,25 +35,25 @@ const NavTwo : React.FC<NavTwoProps> = ({ optStyle, user }) => {
     if(isHere && isMobile){
         return null
     }
-    // const fullname = user?.fullname
-    // const divideName = fullname.split(" ")
-    // console.log(divideName[0]);
+    const fullname = user?.fullname
+    const divideName = fullname.split(" ")
     
     return (
 
      <React.Fragment>
            <nav className={`nav h-[6vh] flex justify-between items-center fixed top-0 w-full ld:w-3/4 bg-white  px-6 ${optStyle}`}>
-            <h3 className="text-xl font-semibold">Welcome <span className="text-pry">{
-                // divideName[0] 
+            <h3 className="text-xl font-semibold">Welcome <span className="text-pry text-xl">{
+                divideName[0] 
                 // || 
-                user?.fullname}</span>
+                // user?.fullname
+                }</span>
             </h3>
-            <div className="flex items-center gap-3">
-                <NavLink to={"/user/notification"} className={"border border-pry rounded-full w-10 h-10 flex items-center justify-center"}>
+            <div className="flex items-center gap-2">
+                <NavLink to={"/user/notification"} className={"rounded-full w-10 h-10 flex items-center justify-center"}>
                     <FaBell className="size-4 text-pry"/>
                 </NavLink>
                 <NavLink to={"/user/profile"} className={"text-pry"}>
-                <FaUserCircle size={40} />
+                <FaUserCircle size={30} />
                 </NavLink>
             </div>
         </nav>
