@@ -8,7 +8,7 @@ import InvestmentCard from "../../components/card/InvestmentCard";
 const apiURL = import.meta.env.VITE_API_URL;
 
 interface InvestmentPlan {
-  minimum_amount:number;
+  minimum_amount: number;
   maximum_amount: number;
   investment_duration: string;
   interest_rate: string;
@@ -17,8 +17,7 @@ interface InvestmentPlan {
 }
 
 const Confirminvestments: React.FC = () => {
-  const {id} = useParams()
-  // const [isFocused, setIsFocused] = useState(false);
+  const { id } = useParams();
   const [isSubmittingAPI, setIsSubmittingAPI] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [apiSuccess, setApiSuccess] = useState<string | null>(null);
@@ -27,7 +26,11 @@ const Confirminvestments: React.FC = () => {
   const fetchInvestmentPlan = async () => {
     try {
       const response = await axios.get(`${apiURL}/eachInvestmentPlans.php?investment_id=${id}`);
-      setInvestmentPlan(response.data.investment);
+      if (response.data.investment) {
+        setInvestmentPlan(response.data.investment);
+      } else {
+        setApiError("No investment plan found.");
+      }
     } catch (error) {
       setApiError("Failed to load investment plan.");
     }
@@ -35,7 +38,7 @@ const Confirminvestments: React.FC = () => {
 
   useEffect(() => {
     fetchInvestmentPlan();
-  }, []);
+  }, [id]);
 
   const formik = useFormik({
     initialValues: {
@@ -44,8 +47,14 @@ const Confirminvestments: React.FC = () => {
     validationSchema: Yup.object({
       amount: Yup.number()
         .required("Amount is required")
-        .min(investmentPlan?.minimum_amount, `You can not invest less than ${investmentPlan?.minimum_amount}`)
-        .max(investmentPlan?.maximum_amount, `Cannot invest more than your balance (${investmentPlan?.maximum_amount})`),
+        .min(
+          investmentPlan?.minimum_amount || 0,
+          `You can not invest less than ${investmentPlan?.minimum_amount}`
+        )
+        .max(
+          investmentPlan?.maximum_amount || 0,
+          `Cannot invest more than the maximum amount (${investmentPlan?.maximum_amount})`
+        ),
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       setSubmitting(true);
@@ -58,18 +67,18 @@ const Confirminvestments: React.FC = () => {
       const payload = {
         user_id: userId,
         amount: values.amount,
-        investment_id:id
+        investment_id: id,
       };
 
       try {
         const response = await axios.post(`${apiURL}/investment.php`, payload, {
           headers: {
-            Authorization: `${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
         setApiSuccess("Investment successful!");
         console.log(response);
-        
+
         resetForm();
       } catch (error: any) {
         setApiError(
@@ -81,8 +90,6 @@ const Confirminvestments: React.FC = () => {
       }
     },
   });
-
- 
 
   return (
     <div className="flex md:flex-row flex-col md:gap-8 gap-10 p-6">
@@ -101,15 +108,15 @@ const Confirminvestments: React.FC = () => {
               placeholder="Enter amount to invest"
               className="w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
               value={formik.values.amount}
-              onFocus={() => setIsFocused(true)}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-         
             {formik.touched.amount && formik.errors.amount && (
               <small className="text-red-500">{formik.errors.amount}</small>
             )}
           </div>
+
+          {/* Error and Success Messages */}
           {apiError && (
             <div className="bg-red-100 text-red-600 p-3 rounded-md text-sm text-center">
               {apiError}
@@ -120,6 +127,8 @@ const Confirminvestments: React.FC = () => {
               {apiSuccess}
             </div>
           )}
+
+          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-pry text-sec font-semibold py-3 rounded-md shadow-md hover:bg-pry/90 transition-all"
@@ -136,7 +145,7 @@ const Confirminvestments: React.FC = () => {
           <InvestmentCard
             amount={investmentPlan.maximum_amount}
             duration={investmentPlan.investment_duration}
-            interestRate={investmentPlan.roi}
+            interestRate={investmentPlan.interest_rate}
           />
         ) : (
           <div className="flex justify-center items-center h-full">

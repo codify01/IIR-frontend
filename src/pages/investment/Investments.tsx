@@ -21,6 +21,7 @@ interface Investment {
 }
 
 interface AvailableInvestment {
+  id:number
   minimum_amount: number;
   investment_duration: string;
   roi: string;
