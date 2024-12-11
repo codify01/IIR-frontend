@@ -49,6 +49,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
     return (
       <div className="flex justify-center items-center h-screen bg-gray-100">
         Loading...
+        
       </div>
     );
   }
@@ -56,7 +57,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
       {/* Fixed Left Navigation */}
-      <div className="hidden lg:block w-1/4 h-full bg-pry">
+      <div className="hidden lg:block lg:w-1/4 h-full bg-pry">
         <Leftnav />
       </div>
 

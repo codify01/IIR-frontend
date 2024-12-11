@@ -57,7 +57,7 @@ const NavTwo : React.FC<NavTwoProps> = ({ optStyle, user }) => {
                 </NavLink>
             </div>
         </nav>
-        <div className="h-[6vh]"></div>
+        <div className="h-[8vh]"></div>
      </React.Fragment>
 
     )
