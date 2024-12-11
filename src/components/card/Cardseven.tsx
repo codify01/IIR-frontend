@@ -5,7 +5,7 @@ import ButtonOne from "../Button/Buttonone";
 interface CardSevenProps {
     amount: number;
     balType: string;
-    cta: string;
+    cta?: string;
     redirect: string;
 }
 

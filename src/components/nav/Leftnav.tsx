@@ -1,7 +1,7 @@
 import React from "react";
 import img1 from "../../assets/image/img1.png";
 import { NavLink } from "react-router-dom";
-import { FiHome, FiLogOut, FiDollarSign, FiPlusSquare, FiSettings, FiUsers } from "react-icons/fi";
+import { FiHome, FiLogOut, FiDollarSign, FiUsers } from "react-icons/fi";
 import { BiTransferAlt, BiMoneyWithdraw } from "react-icons/bi";
 import {GiPayMoney } from "react-icons/gi";
 import { MdAdminPanelSettings, MdOutlinePersonSearch } from "react-icons/md";

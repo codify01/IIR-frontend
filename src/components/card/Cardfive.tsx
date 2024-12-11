@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 interface CardFiveProps {
-    id:number;
+    id?:number;
   amount: number;
   duration: string;
   interestRate?: string;
