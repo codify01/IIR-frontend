@@ -4,6 +4,8 @@ import NavTwo from "../components/nav/Navtwo";
 import Bottombar from "../components/nav/Bottombar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loader from '../components/Loader'
+
 
 interface MainLayoutProps {
   child: React.ReactNode;
@@ -28,11 +30,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
             Authorization: localStorage.getItem("token") || "",
           },
         });
-
+        console.log(response.data);
+        
         if (response.data && response.status === 200) {
           setUser(response.data);
         } else {
-          navigate("/login");
+          // navigate("/login");
         }
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -47,17 +50,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-100">
-        Loading...
-        
-      </div>
+      <Loader/>
     );
   }
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
       {/* Fixed Left Navigation */}
-      <div className="hidden lg:block lg:w-1/4 h-full bg-pry">
+      <div className="hidden lg:block lg:w-1/5 h-full bg-pry">
         <Leftnav />
       </div>
 

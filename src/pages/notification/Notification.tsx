@@ -1,93 +1,50 @@
-import React, { useState } from "react";
-// import { FaBell } from "react-icons/fa";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import NotificationCard from '../../components/card/NotificationCard';
+import Loader from '../../components/Loader';
 
-interface Notification {
-  id: number;
-  title: string;
-  description: string;
-  timestamp: string;
-  isRead: boolean;
-}
+const apiURL = import.meta.env.VITE_API_URL;
 
-const NotificationPage: React.FC = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([
-    {
-      id: 1,
-      title: "Payment Received",
-      description: "Your recent deposit of ₦50,000 has been confirmed.",
-      timestamp: "2 hours ago",
-      isRead: false,
-    },
-    {
-      id: 2,
-      title: "KYC Approved",
-      description: "Your KYC submission has been approved. You can now withdraw funds.",
-      timestamp: "1 day ago",
-      isRead: false,
-    },
-    {
-      id: 3,
-      title: "Investment Update",
-      description: "Your investment of ₦100,000 has matured. Payout will be processed soon.",
-      timestamp: "3 days ago",
-      isRead: true,
-    },
-  ]);
+const NotificationsList = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const id = localStorage.getItem('ident');
 
-  const markAsRead = (id: number) => {
-    setNotifications((prev) =>
-      prev.map((notification) =>
-        notification.id === id ? { ...notification, isRead: true } : notification
-      )
-    );
-  };
+  useEffect(() => {
+    axios
+      .post(`${apiURL}/eachNotification.php`, { user_id: id })
+      .then((response) => {
+        console.log(response);
+        if (response.data.notifications) {
+          setNotifications(response.data.notifications);
+        } else {
+          setError(response.data.message);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching notifications:', error);
+        setError('Failed to load notifications.');
+        setLoading(false);
+      });
+  }, [id]);
 
-  const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((notification) => ({ ...notification, isRead: true })));
-  };
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
-    <div className=" mx-auto p- space-y-8">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-800">Notifications</h1>
-        <button
-          onClick={markAllAsRead}
-          className="bg-pry text-sec px-4 py-2 rounded-md shadow-md hover:bg-pry/90 transition-all"
-        >
-          Mark All as Read
-        </button>
-      </div>
-
-      <div className="bg-white rounded-lg shadow-md p-6 divide-y divide-gray-200 space-y-2">
-        {notifications.length > 0 ? (
-          notifications.map(({ id, title, description, timestamp, isRead }) => (
-            <div
-              key={id}
-              className={`py-4 px-3 rounded-md flex justify-between items-center ${
-                isRead ? "bg-pry/40 border-pry" : "bg-pry/40 border border-pry"
-              }`}
-            >
-              <div className="flex-1">
-                <h3 className="font-semibold text-lg ">{title}</h3>
-                <p className="text-sec text-sm">{description}</p>
-                <span className="text text-xs">{timestamp}</span>
-              </div>
-              {!isRead && (
-                <button
-                  onClick={() => markAsRead(id)}
-                  className="text-sec font-medium text-sm hover:underline p-3 bg-pry rounded"
-                >
-                  Mark as Read
-                </button>
-              )}
-            </div>
-          ))
-        ) : (
-          <p className="text-gray-500 text-center py-6">No new notifications.</p>
-        )}
-      </div>
+    <div className="w-full max-w-full mx-auto space-y-3 pb-20">
+      {error ? (
+        <p className="text-red-500">{error}</p>
+      ) : (
+        notifications.map((notification) => (
+          <NotificationCard key={notification} notification={notification} />
+        ))
+      )}
     </div>
   );
 };
 
-export default NotificationPage;
+export default NotificationsList;

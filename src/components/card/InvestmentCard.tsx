@@ -1,7 +1,7 @@
 import React from "react";
 
 interface CardFiveProps {
-    id:number;
+    id?:number;
   amount: number;
   duration: string;
   interestRate?: string;

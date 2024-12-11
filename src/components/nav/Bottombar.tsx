@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 
 // React Icons (updated set)
 import { FiHome } from "react-icons/fi";
-import { FiDollarSign, FiFilePlus, FiSettings, FiUsers } from "react-icons/fi";
+import { FiDollarSign, FiUsers } from "react-icons/fi";
 // import { BiTransferAlt } from "react-icons/bi";
-import { GiMoneyStack, GiPayMoney, GiReceiveMoney } from "react-icons/gi";
+import { GiPayMoney } from "react-icons/gi";
 import { BiMoneyWithdraw, BiTransferAlt } from "react-icons/bi";
 import { MdAdminPanelSettings, MdOutlinePersonSearch } from "react-icons/md";
 // import { MdPeople } from "react-icons/md";
