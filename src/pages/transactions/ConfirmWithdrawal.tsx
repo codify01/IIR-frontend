@@ -41,12 +41,12 @@ const ConfirmWithdrawal: React.FC = () => {
   const handleConfirm = async (transactionId: string) => {
     handleActionLoading(transactionId, true);
     try {
-      const response = await axios.get(`${apiURL}/adminUpdatewithdraw.php`, {
+      const response = await axios.get(`${apiURL}/adminUpdatewithdraw.php?withdrawalId=${transactionId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token") || "",
         },
-        params: { withdrawalId: transactionId },
+        // params: { withdrawalId: transactionId },
       });
       if (response.status === 200) {
         setWithdrawalRequests((prevState) =>

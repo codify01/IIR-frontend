@@ -12,7 +12,7 @@ const apiURL = import.meta.env.VITE_API_URL;
 interface User {
   id: number;
   total_deposit: number;
-  referralBonus: number;
+  referralBalance: number;
   balance: number;
 }
 
@@ -118,7 +118,7 @@ const Userdashboard: React.FC = () => {
           ) : (
             <Cardtwo
               balType="My Referral Commission"
-              amount={refBalVisibility ? user?.referralBonus || 0 : 0}
+              amount={refBalVisibility ? user?.referralBalance || 0 : 0}
               thisState={refBalVisibility}
               cta="Receive Commission"
               action={() => setRefBalVisibility(!refBalVisibility)}
