@@ -8,6 +8,8 @@ const apiURL = import.meta.env.VITE_API_URL;
 
 interface Investment {
   id: string;
+  maximum_amount:number,
+  investment_name:string 
   user_id: string;
   transaction_id: string;
   amount: string;
@@ -21,7 +23,9 @@ interface Investment {
 }
 
 interface AvailableInvestment {
-  id:number
+  id:number;
+  maximum_amount:number;
+  investment_name:string;
   minimum_amount: number;
   investment_duration: string;
   roi: string;
@@ -125,11 +129,13 @@ const Investments: React.FC = () => {
       );
     } else {
       return availableInvestments.length > 0 ? (
-        availableInvestments.map(({id, minimum_amount, investment_duration, roi }, index) => (
+        availableInvestments.map(({id, minimum_amount, investment_duration, roi, maximum_amount,investment_name }, index) => (
           <CardFive
             key={index}
             id={id}
+            name={investment_name}
             amount={minimum_amount}
+            maxAmount={maximum_amount}
             duration={investment_duration}
             interestRate={roi}
           />

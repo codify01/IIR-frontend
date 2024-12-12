@@ -79,8 +79,12 @@ const Confirminvestments: React.FC = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+        if(response.data.error){
+          setApiError(response.data.error)
+        }else{
+
         setApiSuccess("Investment successful!");
-        console.log(response);
+        console.log(response)}
 
         resetForm();
       } catch (error: any) {
