@@ -22,6 +22,7 @@ const ConfirmDeposit: React.FC = () => {
             Authorization: localStorage.getItem("token") || "",
           },
         });
+        console.log(response);
         setDepositRequests(response.data);
         setError("");
       } catch (err: any) {
@@ -61,7 +62,7 @@ const ConfirmDeposit: React.FC = () => {
         },
         params: { deposit_id: transactionId },
       });
-
+      console.log(response);
       if (response.status === 200) {
         setDepositRequests((prevState) =>
           prevState.map((request) =>
@@ -134,10 +135,10 @@ const ConfirmDeposit: React.FC = () => {
             <tbody className="divide-y divide-gray-200">
               {depositRequests.length > 0 ? (
                 depositRequests.map(
-                  ({ transaction_id, amount, proof_of_payment, status }, index) => (
+                  ({ transaction_id, amount, proof_of_payment, status,is_verified,is_processed,transactionId }, index) => (
                     <tr key={index} className="hover:bg-gray-50">
                       <td className="px-4 py-2">{index + 1}</td>
-                      <td className="px-4 py-2">{transaction_id}</td>
+                      <td className="px-4 py-2">{transactionId}</td>
                       <td className="px-4 py-2">{formatAccountBalance(amount)}</td>
                       <td className="px-4 py-2">
                         <button
@@ -178,11 +179,11 @@ const ConfirmDeposit: React.FC = () => {
                           </>
                         ) : (
                           <span
-                            className={`px-3 py-1 rounded text-white ${
-                              status === "confirmed" ? "bg-green-600" : "bg-red-600"
+                            className={`px-3 py-1 rounded text-white capitalize ${
+                              is_verified && is_processed === 1 ? "bg-green-600" : is_verified === 1 ? "bg-yellow-600" : "bg-red-600"
                             }`}
                           >
-                            {status.charAt(0).toUpperCase() + status.slice(1)}
+                            {is_verified && is_processed === 1 ? "approved" : is_verified === 1 ? "not processed" : "Cancelled"}
                           </span>
                         )}
                       </td>
