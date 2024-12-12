@@ -7,6 +7,7 @@ interface CountdownTimerProps {
   endDate: Date;
   type: string;
 }
+
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ startDate, endDate, type="circular" }) => {
   const [timeLeft, setTimeLeft] = useState({
     // days: 0,
@@ -31,6 +32,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ startDate, endDate, typ
       }
     
       const percentageLeft = Math.min(100, Math.max(0, ((totalTime - timeElapsed) / totalTime) * 100));
+      
       setTimeLeft({ percentageLeft });
     };
 
@@ -64,6 +66,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ startDate, endDate, typ
     </div>
   );
 };
+
 
 interface CountdownCircleProps {
   label: string;

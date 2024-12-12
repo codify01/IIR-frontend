@@ -62,7 +62,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
       </div>
 
       {/* Scrollable Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden md:pb-0 pb-24">
         {/* Top Navigation */}
         <NavTwo user={user} optStyle={"py-8"} />
 

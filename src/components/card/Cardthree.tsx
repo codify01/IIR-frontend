@@ -21,7 +21,7 @@ const CardThree: React.FC<CardThreeProps> = ({ name, duration, price, startDate,
         <div className="flex flex-col">
             <b>{name}</b>
             <small>{duration}</small>
-            <h2>{formatAccountBalance(parseFloat(price))}</h2>
+            <h2>{formatAccountBalance(price)}</h2>
         </div>
         <div className="grid justify-items-end">
             <i><FaArrowRight className=''/></i>

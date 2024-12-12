@@ -152,7 +152,7 @@ const Userdashboard: React.FC = () => {
                 key={investment.id}
                 name={investment.investment_name || "Unnamed Investment"}
                 duration={`Duration: ${investment.investment_duration} months`}
-                price={investment.amount}
+                price={parseFloat(investment.amount)}
                 startDate={new Date(investment.investment_start)}
                 endDate={calculateEndDate(investment.investment_start, investment.investment_duration)}
               />

@@ -129,7 +129,7 @@ const Investments: React.FC = () => {
       );
     } else {
       return availableInvestments.length > 0 ? (
-        availableInvestments.map(({id, minimum_amount, investment_duration, roi, maximum_amount,investment_name }, index) => (
+        availableInvestments.map(({id, minimum_amount, investment_duration, roi, maximum_amount, investment_name }, index) => (
           <CardFive
             key={index}
             id={id}

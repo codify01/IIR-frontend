@@ -28,7 +28,6 @@ const CardFive: React.FC<CardFiveProps> = ({
 	optStyle,
 	optStyle2,
 	payOutDate,
-	maxAmount,
 	tier,
 	action,
 }) => {
@@ -52,16 +51,16 @@ const CardFive: React.FC<CardFiveProps> = ({
         )}
         <li className="flex justify-between items-center">
           <span className="text-sm text-pry">Interest Rate</span>
-          <span className="font-bold text-green-400">{`+${interestRate || ''}`}</span>
+          <span className="font-bold text-green-900">{`+${interestRate || ''}%`}</span>
         </li>
         <li className="flex justify-between items-center">
           <span className="text-sm text-pry">Max. Duration</span>
-          <span className="font-bold text-white">{duration}</span>
+          <span className="font-bold text-white">{duration+" months"}</span>
         </li>
         {payOutDate && (
           <li className="flex justify-between items-center">
             <span className="text-sm text-pry">Payout Date</span>
-            <span className="font-bold text-yellow-300">{payOutDate}</span>
+            <span className="font-bold text-green-900">{payOutDate}</span>
           </li>
         )}
       </ul>
