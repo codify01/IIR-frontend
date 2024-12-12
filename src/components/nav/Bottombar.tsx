@@ -85,7 +85,7 @@ const Bottombar: React.FC = () => {
             className={({ isActive }) =>
               `flex flex-col items-center text-sm px-0.5 ${
                 isActive
-                  ? "text-pry opacity-100 border-b-2 border-pry py-2 "
+                  ? "text-pry opacity-100 border-b-2 border-pry py-1 mb-1"
                   : "text-tet opacity-60 hover:opacity-100"
               } transition-all duration-300 ease-in-out`
             }

@@ -50,16 +50,16 @@ const Home: React.FC = () => {
                 </div>
                 <ul className="flex items-center font-medium gap-8 mt-1">
                     <li>
-                        <a className={"navlink relative"} href={"#services"}>Our Services</a>
+                        <a className={"navitem relative"} href={"#services"}>Our Services</a>
                     </li>
                     <li>
-                        <a className={"navlink relative"} href={"#how"}>How it works</a>
+                        <a className={"navitem relative"} href={"#how"}>How it works</a>
                     </li>
                     <li>
-                        <a className={"navlink relative"} href={"#testimonial"}>Testimonials</a>
+                        <a className={"navitem relative"} href={"#testimonial"}>Testimonials</a>
                     </li>
                     <li>
-                        <a className={"navlink relative"} href={"#faq"}>Faq</a>
+                        <a className={"navitem relative"} href={"#faq"}>Faq</a>
                     </li>
                 </ul>
                 <div className="flex items-center gap-3">

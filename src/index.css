@@ -90,7 +90,7 @@ input[type="number"]::-webkit-inner-spin-button{
     @apply hidden
 }
 input[type="file"]::-webkit-file-upload-button{
-    @apply bg-pry/55 text-tet border-0 outline-0 h-[45px] px-5 relative rounded-lg ps-10 mt-2
+    @apply bg-pry/55 text-tet border-0 outline-0 h-[45px] px-5 relative rounded-lg ps-10
 }
 #amountDeposited:focus ~ small{
     @apply block text-red-700 text-xs
@@ -131,12 +131,12 @@ table td {
 .testi-swiper .swiper-button-prev::after{
     @apply text-base font-bold
 }
-.navlink::after{
+.navitem::after{
     content: "";
     @apply absolute -bottom-[3px] left-0 h-[2px] bg-sec rounded-full w-0 duration-300 transition-all
 }
-.navlink:hover::after,
-.navlink:focus::after{
+.navitem:hover::after,
+.navitem:focus::after{
     width: 100%;
 }
 

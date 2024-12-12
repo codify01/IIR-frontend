@@ -54,8 +54,10 @@ const Investments: React.FC = () => {
           }
         );
 
+        console.log("investResponse", investResponse)
         if (investResponse.data?.status === "success") {
           setInvestments(investResponse.data.investments || []);
+          console.log("my investments", investments);
         } else {
           console.error("Unexpected response:", investResponse.data);
         }
@@ -68,7 +70,8 @@ const Investments: React.FC = () => {
 
         if (Array.isArray(availableInvestmentsResponse.data.investments)) {
           setAvailableInvestments(availableInvestmentsResponse.data.investments);
-        
+          console.log("availableInvestments", availableInvestments);
+          
         } else {
           console.error(
             "Unexpected data format for Available Investments:",
@@ -126,7 +129,7 @@ const Investments: React.FC = () => {
       );
     } else {
       return availableInvestments.length > 0 ? (
-        availableInvestments.map(({id, minimum_amount, investment_duration, roi, maximum_amount,investment_name }, index) => (
+        availableInvestments.map(({id, minimum_amount, investment_duration, roi, maximum_amount, investment_name }, index) => (
           <CardFive
             key={index}
             id={id}
@@ -159,9 +162,9 @@ const Investments: React.FC = () => {
           onClick={() => setActiveTab("myInvestments")}
         >
           My Investments
-          {activeTab === "myInvestments" && (
+          {/* {activeTab === "myInvestments" && (
             <span className="absolute bottom-0 left-0 right-0 h-1 bg-pry rounded-t-md"></span>
-          )}
+          )} */}
         </button>
         <button
           className={`relative w-full p-3 text-center font-medium rounded-md transition-all ${
@@ -172,9 +175,9 @@ const Investments: React.FC = () => {
           onClick={() => setActiveTab("availableInvestments")}
         >
           Available Investments
-          {activeTab === "availableInvestments" && (
+          {/* {activeTab === "availableInvestments" && (
             <span className="absolute bottom-0 left-0 right-0 h-1 bg-pry rounded-t-md"></span>
-          )}
+          )} */}
         </button>
       </div>
 

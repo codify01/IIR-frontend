@@ -57,14 +57,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
       {/* Fixed Left Navigation */}
-      <div className="hidden lg:block lg:w-1/5 h-full bg-pry">
+      <div className="hidden lg:block lg:w-[23%] h-full">
         <Leftnav />
       </div>
 
       {/* Scrollable Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden md:pb-0 pb-24">
         {/* Top Navigation */}
-        <NavTwo user={user} optStyle={"py-4"} />
+        <NavTwo user={user} optStyle={"py-8"} />
 
         {/* Content Section */}
         <div className="flex-1 overflow-y-auto px-5 pb-20">

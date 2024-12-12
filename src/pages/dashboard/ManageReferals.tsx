@@ -17,8 +17,9 @@ interface Referral {
   fullname: string;
   email: string;
   phone: string;
-  kyc: boolean;
   referralBonus: number;
+  referree_name: string;
+  created_at: string;
 }
 
 const apiURL = import.meta.env.VITE_API_URL;
@@ -64,8 +65,13 @@ const ManageReferrals: React.FC = () => {
           { headers: { "Content-Type": "application/json" } }
         );
 
+        console.log(referralResponse);
+        
+
         if (Array.isArray(referralResponse.data.data)) {
           setReferralList(referralResponse.data.data);
+          console.log("referralList", referralList);
+          
         } else {
           toast.error(referralResponse.data.message || "No referrals found.")
         }
@@ -95,6 +101,7 @@ const ManageReferrals: React.FC = () => {
                 amount={user?.referralBalance || 0}
                 thisState={refBalVisibility}
                 cta="Receive Commission"
+                redirect="/user/withdraw"
                 action={() => setRefBalVisibility(!refBalVisibility)}
               />
             </div>
@@ -140,19 +147,17 @@ const ManageReferrals: React.FC = () => {
                   <th scope="col" className="py-4">S/N</th>
                   <th scope="col" className="py-4">Name</th>
                   <th scope="col" className="py-4">Bonus</th>
-                  <th scope="col" className="py-4">KYC</th>
+                  <th scope="col" className="py-4">Refered Date</th>
                 </tr>
               </thead>
               <tbody>
                 {referralList.length > 0 ? (
-                  referralList.map(({ id, fullname, referralBonus, kyc }, index) => (
+                  referralList.map(({ id, referree_name, referralBonus, created_at }, index) => (
                     <tr key={id} className="border-b border-sec/20">
                       <td className="font-medium py-4">{index + 1}</td>
-                      <td className="font-medium py-4">{fullname}</td>
+                      <td className="font-medium py-4">{referree_name}</td>
                       <td className="font-medium py-4">{referralBonus}</td>
-                      <td className="font-medium py-4">
-                        {kyc ? "Verified" : "Not Verified"}
-                      </td>
+                      <td className="font-medium py-4">{created_at}</td>
                     </tr>
                   ))
                 ) : (

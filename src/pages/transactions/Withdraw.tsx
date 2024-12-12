@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useFormik } from "formik";
+import { useFormik, validateYupSchema } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -18,6 +18,8 @@ const Withdraw: React.FC = () => {
           },
         });
         setUser(response.data);
+        console.log("user",user);
+        
       } catch (error: any) {
         toast.error("Failed to fetch user details");
       }

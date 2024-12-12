@@ -62,6 +62,7 @@ const Userdashboard: React.FC = () => {
 
         if (Array.isArray(investResponse.data.investments)) {
           setInvestments(investResponse.data.investments);
+          console.log(investments)
         } else {
           console.error("Unexpected investments format:", investResponse.data);
         }
@@ -87,7 +88,7 @@ const Userdashboard: React.FC = () => {
         }}
         loop={true}
         modules={[Pagination]}
-        className="mySwiper rounded-lg bg-white p-3"
+        className="mySwiper rounded-lg p-3"
         breakpoints={{
           320: { slidesPerView: 1, spaceBetween: 20 },
           640: { slidesPerView: 2, spaceBetween: 20 },
@@ -106,6 +107,7 @@ const Userdashboard: React.FC = () => {
               amount={mainBalVisibility ? user?.balance || 0 : 0}
               thisState={mainBalVisibility}
               cta="Withdraw"
+              redirect="/user/withdraw"
               action={() => setMainBalVisibility(!mainBalVisibility)}
             />
           )}
@@ -120,7 +122,8 @@ const Userdashboard: React.FC = () => {
               balType="My Referral Commission"
               amount={refBalVisibility ? user?.referralBalance || 0 : 0}
               thisState={refBalVisibility}
-              cta="Receive Commission"
+              cta="View Referral"
+              redirect="/user/referral"
               action={() => setRefBalVisibility(!refBalVisibility)}
             />
           )}
@@ -148,8 +151,8 @@ const Userdashboard: React.FC = () => {
               <CardThree
                 key={investment.id}
                 name={investment.investment_name || "Unnamed Investment"}
-                location={`Duration: ${investment.investment_duration} days`}
-                price={investment.amount}
+                duration={`Duration: ${investment.investment_duration} months`}
+                price={parseFloat(investment.amount)}
                 startDate={new Date(investment.investment_start)}
                 endDate={calculateEndDate(investment.investment_start, investment.investment_duration)}
               />

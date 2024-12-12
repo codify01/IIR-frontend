@@ -16,13 +16,33 @@ const formatAccountBalance = (amount: number): string => {
     return `NGN ${amount?.toLocaleString("en-NG")}`;
 };
 
-// Helper function to format the date correctly
+// // Helper function to format the date correctly
+// const formatDate = (dateStr: string): string => {
+//     if (!dateStr) return '';
+//     console.log("dateStr to be formatted", dateStr);
+//     const formattedDate = dateStr.replace(' ', 'T');
+//     console.log("Formatted Date:", formattedDate);  // Log the formatted date
+//     return formattedDate;
+// };
+
 const formatDate = (dateStr: string): string => {
     if (!dateStr) return '';
-    const formattedDate = dateStr.replace(' ', 'T');
-    console.log("Formatted Date:", formattedDate);  // Log the formatted date
-    return formattedDate;
-};
+    try {
+      const formattedDate = dateStr.replace(' ', 'T');
+      const parsedDate = new Date(formattedDate);
+      console.log("parsedDate", parsedDate);
+      
+      if (isNaN(parsedDate.getTime())) {
+        console.error("Invalid date format:", dateStr);
+        return '';
+      }
+      return formattedDate;
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return '';
+    }
+  };
+  
 
 // CardFour component definition
 const CardFour: React.FC<CardFourProps> = ({ 
@@ -34,6 +54,7 @@ const CardFour: React.FC<CardFourProps> = ({
     startDate, 
     endDate 
 }) => {
+   
     // Calculate the ROI based on the amount and roi percentage
     const calculatedRoi = (amount * roi) / 100;
 
@@ -41,16 +62,9 @@ const CardFour: React.FC<CardFourProps> = ({
     const formattedStartDate = formatDate(startDate);
     const formattedEndDate = formatDate(endDate);
 
-    // Log the dates to check if they are correct
-    console.log("Start Date:", formattedStartDate);  // Check the formatted start date
-    console.log("End Date:", formattedEndDate);      // Check the formatted end date
-
     // Create Date objects and check if they are valid
     const startDateObj = new Date(formattedStartDate);
     const endDateObj = new Date(formattedEndDate);
-
-    console.log("Start Date Object:", startDateObj);  // Check the Date object
-    console.log("End Date Object:", endDateObj);      // Check the Date object
 
     // Check if the Date object is valid
     if (isNaN(startDateObj.getTime()) || isNaN(endDateObj.getTime())) {
@@ -88,7 +102,7 @@ const CardFour: React.FC<CardFourProps> = ({
                 <CountdownTimer 
                     type='line' 
                     startDate={startDateObj} 
-                    endDate={endDateObj} 
+                    endDate={new Date(formatDate(payoutDate))} 
                 />
             </div>
         </div>
