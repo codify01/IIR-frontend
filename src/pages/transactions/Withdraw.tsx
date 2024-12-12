@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useFormik } from "formik";
+import { useFormik, validateYupSchema } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -18,6 +18,8 @@ const Withdraw: React.FC = () => {
           },
         });
         setUser(response.data);
+        console.log("user",user);
+        
       } catch (error: any) {
         toast.error("Failed to fetch user details");
       }
@@ -36,7 +38,7 @@ const Withdraw: React.FC = () => {
       amount: Yup.number()
         .required("Amount is required")
         .min(1, "Amount must be greater than 0")
-        .max(user?.balance, "Amount exceeds your balance"),
+        .max(parseFloat(user?.balance), "Amount exceeds your balance"),
       accountNumber: Yup.string().required("Account Number is required"),
       accountName: Yup.string().required("Account Name is required"),
       bankName: Yup.string().required("Bank Name is required"),
@@ -148,6 +150,12 @@ const Withdraw: React.FC = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
+          {
+            user?.balance === formik.values.amount ? "Matched" : "not matched"
+          }
+          {
+            user?.balance + parseFloat(user?.balance) + Number(user?.balance)
+          }
           {formik.touched.amount && formik.errors.amount && (
             <div className="error text-red-600 mt-1 text-sm">
               {formik.errors.amount}

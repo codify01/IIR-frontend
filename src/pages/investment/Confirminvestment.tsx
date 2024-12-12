@@ -11,9 +11,10 @@ interface InvestmentPlan {
   minimum_amount: number;
   maximum_amount: number;
   investment_duration: string;
-  interest_rate: string;
+  roi: string;
   tier: string;
   payOutDate: string;
+  investment_description: string;
 }
 
 const Confirminvestments: React.FC = () => {
@@ -28,6 +29,8 @@ const Confirminvestments: React.FC = () => {
       const response = await axios.get(`${apiURL}/eachInvestmentPlans.php?investment_id=${id}`);
       if (response.data.investment) {
         setInvestmentPlan(response.data.investment);
+        console.log("investmentPlan", investmentPlan);
+        
       } else {
         setApiError("No investment plan found.");
       }
@@ -92,7 +95,7 @@ const Confirminvestments: React.FC = () => {
   });
 
   return (
-    <div className="flex md:flex-row flex-col md:gap-8 gap-10 p-6">
+    <div className="flex md:flex-row flex-col-reverse md:gap-8 gap-10">
       {/* Form Section */}
       <div className="md:w-1/2 w-full bg-white p-6 rounded-lg shadow-md space-y-6">
         <h2 className="text-xl font-bold text-pry">Confirm Investment</h2>
@@ -143,9 +146,11 @@ const Confirminvestments: React.FC = () => {
       <div className="md:w-1/2 w-full">
         {investmentPlan ? (
           <InvestmentCard
-            amount={investmentPlan.maximum_amount}
+            amount={investmentPlan.minimum_amount}
             duration={investmentPlan.investment_duration}
-            interestRate={investmentPlan.interest_rate}
+            interestRate={investmentPlan.roi}
+            payOutDate=""
+            planDescription={investmentPlan.investment_description}
           />
         ) : (
           <div className="flex justify-center items-center h-full">

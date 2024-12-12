@@ -87,7 +87,7 @@ const Userdashboard: React.FC = () => {
         }}
         loop={true}
         modules={[Pagination]}
-        className="mySwiper rounded-lg bg-white p-3"
+        className="mySwiper rounded-lg p-3"
         breakpoints={{
           320: { slidesPerView: 1, spaceBetween: 20 },
           640: { slidesPerView: 2, spaceBetween: 20 },
@@ -106,6 +106,7 @@ const Userdashboard: React.FC = () => {
               amount={mainBalVisibility ? user?.balance || 0 : 0}
               thisState={mainBalVisibility}
               cta="Withdraw"
+              redirect="/user/withdraw"
               action={() => setMainBalVisibility(!mainBalVisibility)}
             />
           )}
@@ -120,7 +121,8 @@ const Userdashboard: React.FC = () => {
               balType="My Referral Commission"
               amount={refBalVisibility ? user?.referralBonus || 0 : 0}
               thisState={refBalVisibility}
-              cta="Receive Commission"
+              cta="View Referral"
+              redirect="/user/referral"
               action={() => setRefBalVisibility(!refBalVisibility)}
             />
           )}

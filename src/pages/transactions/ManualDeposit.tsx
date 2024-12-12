@@ -6,6 +6,7 @@ import { FaCircleCheck } from 'react-icons/fa6';
 // import { MdUploadFile } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { MdUploadFile } from 'react-icons/md';
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -71,9 +72,9 @@ const ManualDeposit: React.FC = () => {
   });
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-xl space-y-6">
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-xl">
       {/* Bank details section */}
-      <div className="bg-gray-50 p-5 rounded-lg shadow-md space-y-4">
+      <div className="bg-gray-50 p-5 rounded-lg shadow-md space-y-4 mb-6">
         <h3 className="text-xl font-semibold text-gray-800">Bank Details</h3>
         <div className="space-y-1">
           <p className="text-gray-600">Bank Name: <span className="font-medium">Union Bank</span></p>
@@ -94,7 +95,7 @@ const ManualDeposit: React.FC = () => {
             type="number"
             name="amount"
             id="amount"
-            className="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-pry focus:outline-none"
+            className="input1 mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-pry focus:outline-none"
             value={formik.values.amount}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -106,30 +107,30 @@ const ManualDeposit: React.FC = () => {
 
         {/* Upload Proof of Payment */}
         <div className="relative w-full">
-  <label 
-    htmlFor="proof_of_payment" 
-    className="block text-gray-700 font-semibold text-sm mb-2">
-    Upload Proof of Payment
-  </label>
-  <div className="flex items-center border border-gray-300 rounded-md shadow-sm focus-within:ring-2 focus-within:ring-pry focus-within:outline-none">
-    {/* <span className="p-3 bg-gray-100 rounded-l-md flex items-center justify-center">
-      <MdUploadFile className="text-gray-600 text-2xl" />
-    </span> */}
-    <input
-      type="file"
-      name="proof_of_payment"
-      id="proof_of_payment"
-      className="w-full p-3 text-gray-600 rounded-r-md focus:outline-none"
-      onChange={(event) => {
-        const file = event.currentTarget.files?.[0];
-        formik.setFieldValue('proof_of_payment', file);
-      }}
-    />
-  </div>
-  {formik.touched.proof_of_payment && formik.errors.proof_of_payment && (
-    <small className="text-red-500 mt-1 block">{formik.errors.proof_of_payment}</small>
-  )}
-</div>
+          <label 
+            htmlFor="proof_of_payment" 
+            className="block text-gray-700 font-semibold text-sm mb-2">
+            Upload Proof of Payment
+          </label>
+          <div className="flex items-center border border-gray-300 p-1 rounded-md shadow-sm focus-within:ring-2 focus-within:ring-pry focus-within:outline-none">
+            <span className="absolute left-3">
+              <MdUploadFile className='size-6'/>
+            </span>
+            <input
+              type="file"
+              name="proof_of_payment"
+              id="proof_of_payment"
+              className="w-full text-gray-600 rounded-r-md focus:outline-none"
+              onChange={(event) => {
+                const file = event.currentTarget.files?.[0];
+                formik.setFieldValue('proof_of_payment', file);
+              }}
+            />
+          </div>
+          {formik.touched.proof_of_payment && formik.errors.proof_of_payment && (
+            <small className="text-red-500 mt-1 block">{formik.errors.proof_of_payment}</small>
+          )}
+        </div>
 
 
         {/* Submit Button */}
@@ -137,7 +138,7 @@ const ManualDeposit: React.FC = () => {
           <button
             type="submit"
             disabled={formik.isSubmitting}
-            className="w-full bg-pry text-white font-semibold py-3 rounded-lg shadow-md hover:bg-pry-dark transition-colors duration-300"
+            className="w-1/2 bg-pry text-white font-semibold py-3 rounded-lg shadow-md hover:bg-pry-dark transition-colors duration-300"
           >
             {formik.isSubmitting ? 'Submitting...' : 'Complete Deposit'}
           </button>
@@ -150,7 +151,7 @@ const ManualDeposit: React.FC = () => {
           isOpen ? 'block' : 'hidden'
         }`}
       >
-        <div className="bg-white rounded-lg shadow-xl p-8 space-y-6 text-center w-full max-w-md">
+        <div className="bg-white rounded-lg shadow-xl p-8 space-y-7 text-center w-full max-w-md">
           {modalMessage.success ? (
             <FaCircleCheck className="text-green-500 text-6xl mx-auto" />
           ) : (
@@ -168,13 +169,13 @@ const ManualDeposit: React.FC = () => {
           </small>
           <div className="flex gap-6 font-semibold mt-4">
             <NavLink to="/user/transactions" className="w-1/2">
-              <button className="w-full bg-pry-light text-white py-2 rounded-lg shadow-md hover:bg-pry-dark">
+              <button className="w-full bg-sec border-2 border-pry text-pry py-2 rounded-lg shadow-md hover:bg-pry hover:text-sec">
                 View History
               </button>
             </NavLink>
             <button
               type="button"
-              className="w-1/2 bg-pry text-white py-2 rounded-lg shadow-md hover:bg-pry-dark"
+              className="w-1/2 bg-pry text-white py-2 rounded-lg shadow-md hover:bg-pry"
               onClick={() => setIsOpened(false)}
             >
               Close

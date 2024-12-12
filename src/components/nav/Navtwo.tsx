@@ -40,18 +40,18 @@ const NavTwo: React.FC<NavTwoProps> = ({ optStyle, user }) => {
 
   return (
     <React.Fragment>
-      <nav className={`nav h-[6vh] flex justify-between items-center fixed top-0 w-full lg:w-4/5 bg-white px-6 ${optStyle}`}>
+      <nav className={`nav h-[6vh] flex justify-between items-center sticky top-0 w-full px-6 ${optStyle}`}>
         <h3 className="text-lg font-semibold">Welcome <span className="text-pry text-xl">{firstName || user?.fullname}</span></h3>
         <div className="flex items-center gap-2">
           <NavLink to="/user/notification" className="rounded-full w-10 h-10 flex items-center justify-center">
-            <FaBell className="text-pry" />
+            <FaBell className="text-pry lg:size-5 size-6" />
           </NavLink>
           <NavLink to="/user/profile" className="text-pry">
-            <FaUserCircle size={30} />
+            <FaUserCircle className="lg:size-10 size-10" />
           </NavLink>
         </div>
       </nav>
-      <div className="h-[8vh]" />
+      <div className="md:h-[4vh] h-[2vh]" />
     </React.Fragment>
   );
 };

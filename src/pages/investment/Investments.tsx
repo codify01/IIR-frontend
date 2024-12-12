@@ -64,6 +64,8 @@ const Investments: React.FC = () => {
 
         if (Array.isArray(availableInvestmentsResponse.data.investments)) {
           setAvailableInvestments(availableInvestmentsResponse.data.investments);
+          console.log("availableInvestments", availableInvestments);
+          
         } else {
           console.error(
             "Unexpected data format for Available Investments:",
@@ -152,9 +154,9 @@ const Investments: React.FC = () => {
           onClick={() => setActiveTab("myInvestments")}
         >
           My Investments
-          {activeTab === "myInvestments" && (
+          {/* {activeTab === "myInvestments" && (
             <span className="absolute bottom-0 left-0 right-0 h-1 bg-pry rounded-t-md"></span>
-          )}
+          )} */}
         </button>
         <button
           className={`relative w-full p-3 text-center font-medium rounded-md transition-all ${
@@ -165,9 +167,9 @@ const Investments: React.FC = () => {
           onClick={() => setActiveTab("availableInvestments")}
         >
           Available Investments
-          {activeTab === "availableInvestments" && (
+          {/* {activeTab === "availableInvestments" && (
             <span className="absolute bottom-0 left-0 right-0 h-1 bg-pry rounded-t-md"></span>
-          )}
+          )} */}
         </button>
       </div>
 
