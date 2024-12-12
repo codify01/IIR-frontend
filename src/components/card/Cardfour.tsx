@@ -19,6 +19,7 @@ const formatAccountBalance = (amount: number): string => {
 // Helper function to format the date correctly
 const formatDate = (dateStr: string): string => {
     if (!dateStr) return '';
+    console.log("dateStr to be formatted", dateStr);
     const formattedDate = dateStr.replace(' ', 'T');
     console.log("Formatted Date:", formattedDate);  // Log the formatted date
     return formattedDate;

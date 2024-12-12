@@ -38,7 +38,7 @@ const Withdraw: React.FC = () => {
       amount: Yup.number()
         .required("Amount is required")
         .min(1, "Amount must be greater than 0")
-        .max(parseFloat(user?.balance), "Amount exceeds your balance"),
+        .max(user?.balance, "Amount exceeds your balance"),
       accountNumber: Yup.string().required("Account Number is required"),
       accountName: Yup.string().required("Account Name is required"),
       bankName: Yup.string().required("Bank Name is required"),
@@ -150,12 +150,6 @@ const Withdraw: React.FC = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-          {
-            user?.balance === formik.values.amount ? "Matched" : "not matched"
-          }
-          {
-            user?.balance + parseFloat(user?.balance) + Number(user?.balance)
-          }
           {formik.touched.amount && formik.errors.amount && (
             <div className="error text-red-600 mt-1 text-sm">
               {formik.errors.amount}

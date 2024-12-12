@@ -50,8 +50,10 @@ const Investments: React.FC = () => {
           }
         );
 
+        console.log("investResponse", investResponse)
         if (investResponse.data?.status === "success") {
           setInvestments(investResponse.data.investments || []);
+          console.log("my investments", investments);
         } else {
           console.error("Unexpected response:", investResponse.data);
         }

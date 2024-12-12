@@ -62,6 +62,7 @@ const Userdashboard: React.FC = () => {
 
         if (Array.isArray(investResponse.data.investments)) {
           setInvestments(investResponse.data.investments);
+          console.log(investments)
         } else {
           console.error("Unexpected investments format:", investResponse.data);
         }
@@ -150,7 +151,7 @@ const Userdashboard: React.FC = () => {
               <CardThree
                 key={investment.id}
                 name={investment.investment_name || "Unnamed Investment"}
-                location={`Duration: ${investment.investment_duration} days`}
+                duration={`Duration: ${investment.investment_duration} months`}
                 price={investment.amount}
                 startDate={new Date(investment.investment_start)}
                 endDate={calculateEndDate(investment.investment_start, investment.investment_duration)}
