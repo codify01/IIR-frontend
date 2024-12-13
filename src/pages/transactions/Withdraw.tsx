@@ -27,6 +27,10 @@ const Withdraw: React.FC = () => {
     fetchUser();
   }, []);
 
+  const formatAccountBalance = (amount: number) => {
+    return `NGN ${amount?.toLocaleString("en-NG")}`;
+  };
+
   const formik = useFormik({
     initialValues: {
       amount: 0,
@@ -127,7 +131,7 @@ const Withdraw: React.FC = () => {
 
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto mt-10 text-gray-800">
+    <div className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto mt-5 text-gray-800">
       <h1 className="text-2xl font-bold text-pry text-center mb-5">
         Withdrawal Request
       </h1>
@@ -141,13 +145,19 @@ const Withdraw: React.FC = () => {
             Amount
           </label>
           <input
-            type="number"
+            type="text"
             name="amount"
             id="amount"
             placeholder="Enter amount to withdraw"
             className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
-            value={formik.values.amount}
-            onChange={formik.handleChange}
+            value={formik.values.amount ? formik.values.amount.toLocaleString("en-NG") : formik.values.amount}
+            onChange={(e) => {
+              const value = e.target.value.replace(/,/g, ""); // Remove commas
+              if (!isNaN(Number(value))) {
+                // Update only if it's a valid number
+                formik.setFieldValue("amount", Number(value));
+              }
+            }}
             onBlur={formik.handleBlur}
           />
           {formik.touched.amount && formik.errors.amount && (
@@ -156,7 +166,7 @@ const Withdraw: React.FC = () => {
             </div>
           )}
           <div className="mt-1">
-            Available balance: {user?.balance}
+            Available balance: {formatAccountBalance(user?.balance)}
           </div>
         </div>
 

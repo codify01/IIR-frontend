@@ -90,7 +90,7 @@ const App = () => {
           }
         />
         <Route
-          path="/user/deposit1"
+          path="/user/deposit"
           element={
             <ProtectedRoute>
               <MainLayout child={<ManualDeposit />} />

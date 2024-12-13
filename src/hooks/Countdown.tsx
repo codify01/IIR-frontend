@@ -59,7 +59,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ startDate, endDate, typ
               }
               
             </span>
-            <progress className='w-full' value={timeLeft.percentageLeft} max={100} color='#fff'>L5ed</progress>
+            <progress className='w-full' value={timeLeft.percentageLeft} max={100} color='#fff'></progress>
           </div>
         )
       }

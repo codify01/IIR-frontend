@@ -10,7 +10,9 @@ const Notfound = () => {
         <div className="h-[100vh] bg-[#e3f9ed]/20 relative">
             <div className="container h-full px-5">
                 <div className="nav py-3 flex items-end">
-                    <img src={img1} alt="..." />
+                    <div className="max-w-16">
+                        <img src={img1} alt="Logo" />
+                    </div>
                     <h3 className="">Pineleafestates</h3>
                 </div>
                 <div className="flex items-center h-3/4 lg:flex-row flex-col-reverse md:justify-center">
