@@ -36,7 +36,7 @@ const Leftnav: React.FC = () => {
       role: "investor",
     },
     {
-      href: "/user/deposit1",
+      href: "/user/deposit",
       title: "Deposit",
       icon: <GiPayMoney className="h-5 w-5" />,
       role: "investor",

@@ -35,6 +35,7 @@ import ProtectedRoute from './components/ProtectedRoute'; // Import the Protecte
 import ManageReferrals from './pages/dashboard/ManageReferals';
 import SuperAdminDashboard from './pages/dashboard/SuperAdminDashboard';
 import NotificationPage from './pages/notification/Notification';
+import ServiceAccountDashboard from './pages/dashboard/ServiceAccountDashboard';
 
 const App = () => {
   return (
@@ -217,6 +218,7 @@ const App = () => {
         </Route>
         
         <Route path="*" element={<Notfound />} />
+        <Route path="/serviceaccount" element={<MainLayout child={<ServiceAccountDashboard />} />} />
       </Routes>
     </React.Fragment>
   );

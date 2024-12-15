@@ -10,6 +10,7 @@ interface CardTwoProps {
     balType: string;
     cta: string;
     redirect: string;
+    newStyle?: string;
     action: () => void;
 }
 
@@ -19,7 +20,7 @@ const formatAccountBalance = (amount: number) => {
     return `NGN ${amount?.toLocaleString("en-NG")}`;
 };
 
-const Cardtwo: React.FC<CardTwoProps> = ({ balType, amount, thisState, action, cta, redirect }) => {
+const Cardtwo: React.FC<CardTwoProps> = ({ balType, amount, thisState, action, cta, redirect, newStyle }) => {
     return (
         <div className="w-full mb-8 p-5 bal-card relative flex flex-col justify-between h-[200px] rounded-[20px] overflow-hidden z-[1] text-sec shadow-lg shadow-tet/30">
             <div className="flex justify-between items-start">
@@ -39,7 +40,7 @@ const Cardtwo: React.FC<CardTwoProps> = ({ balType, amount, thisState, action, c
             </div>
             <div className="flex justify-between items-center">
                 <ButtonOne title={cta} href={redirect} optStyle2="w-max px-4 bg-pry rounded-full font-medium" />
-                <ButtonOne title={<CiCirclePlus className="size-6 text-tetClr" />} href="/user/deposit" optStyle2="w-max px-4 bg-pry rounded-full font-medium" />
+                <ButtonOne title={<CiCirclePlus className="size-6 text-tetClr" />} href="/user/deposit" optStyle2={`w-max px-4 bg-pry rounded-full font-medium ${newStyle || ""}`} />
             </div>
         </div>
     );

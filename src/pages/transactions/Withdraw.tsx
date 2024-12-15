@@ -152,9 +152,8 @@ const Withdraw: React.FC = () => {
             className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
             value={formik.values.amount ? formik.values.amount.toLocaleString("en-NG") : formik.values.amount}
             onChange={(e) => {
-              const value = e.target.value.replace(/,/g, ""); // Remove commas
+              const value = e.target.value.replace(/,/g, "");
               if (!isNaN(Number(value))) {
-                // Update only if it's a valid number
                 formik.setFieldValue("amount", Number(value));
               }
             }}
@@ -166,7 +165,7 @@ const Withdraw: React.FC = () => {
             </div>
           )}
           <div className="mt-1">
-            Available balance: {formatAccountBalance(user?.balance)}
+            Available balance: {formatAccountBalance(user?.balance) || 0}
           </div>
         </div>
 
