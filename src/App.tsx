@@ -36,6 +36,8 @@ import ManageReferrals from './pages/dashboard/ManageReferals';
 import SuperAdminDashboard from './pages/dashboard/SuperAdminDashboard';
 import NotificationPage from './pages/notification/Notification';
 import ServiceAccountDashboard from './pages/dashboard/ServiceAccountDashboard';
+import ServiceAccountWithdrawal from './pages/transactions/ServiceAccountWithdraw';
+import ServiceAccountHistory from './pages/transactions/ServiceAcoountHistory';
 
 const App = () => {
   return (
@@ -218,7 +220,10 @@ const App = () => {
         </Route>
         
         <Route path="*" element={<Notfound />} />
-        <Route path="/serviceaccount" element={<MainLayout child={<ServiceAccountDashboard />} />} />
+        
+        <Route path="/service/dashboard" element={<MainLayout child={<ServiceAccountDashboard />} />} />
+        <Route path="/service/withdraw" element={<MainLayout child={<ServiceAccountWithdrawal />} />} />
+        <Route path="/service/history" element={<MainLayout child={<ServiceAccountHistory />} />} />
       </Routes>
     </React.Fragment>
   );

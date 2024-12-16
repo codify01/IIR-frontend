@@ -18,41 +18,41 @@ interface User {
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
-  // const [user, setUser] = useState<User | null>(null);
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
-  // const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const response = await axios.get("https://iirapi.sunmence.com.ng/user.php", {
-  //         headers: {
-  //           Authorization: localStorage.getItem("token") || "",
-  //         },
-  //       });
-  //       console.log(response.data);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("https://iirapi.sunmence.com.ng/user.php", {
+          headers: {
+            Authorization: localStorage.getItem("token") || "",
+          },
+        });
+        console.log(response.data);
         
-  //       if (response.data && response.status === 200) {
-  //         setUser(response.data);
-  //       } else {
-  //         // navigate("/login");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching user:", error);
-  //       navigate("/login");
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
+        if (response.data && response.status === 200) {
+          setUser(response.data);
+        } else {
+          // navigate("/login");
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        navigate("/login");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  //   fetchUser();
-  // }, [navigate]);
+    fetchUser();
+  }, [navigate]);
 
-  // if (isLoading) {
-  //   return (
-  //     <Loader/>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <Loader/>
+    );
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
@@ -64,7 +64,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
       {/* Scrollable Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden md:pb-0 pb-24">
         {/* Top Navigation */}
-        <NavTwo user={"user"} optStyle={"py-8"} />
+        <NavTwo user={user} optStyle={"py-8"} />
 
         {/* Content Section */}
         <div className="flex-1 overflow-y-auto px-5 pb-20">

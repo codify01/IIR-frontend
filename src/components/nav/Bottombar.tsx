@@ -71,6 +71,24 @@ const Bottombar: React.FC = () => {
       icon: <MdOutlinePersonSearch className="h-5 w-5" />,
       role: "admin",
     },
+    {
+      href: "/service/dashboard",
+      title: "Service Account",
+      icon: <MdOutlinePersonSearch className="h-5 w-5" />,
+      role: "server",
+    },
+    {
+      href: "/service/withdraw",
+      title: "Withdraw Charges",
+      icon: <BiMoneyWithdraw className="h-5 w-5" />,
+      role: "server",
+    },
+    {
+      href: "/service/history",
+      title: "Charge History",
+      icon: <FiDollarSign className="h-5 w-5" />,
+      role: "server",
+    },
   ];
 
   const filteredLinks = Eachlink.filter((link) => link.role.includes(currentUserRole));

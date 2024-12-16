@@ -37,6 +37,7 @@ const Withdraw: React.FC = () => {
       accountNumber: "",
       accountName: "",
       bankName: "",
+      withdrawalAccount: "",
     },
     validationSchema: Yup.object({
       amount: Yup.number()
@@ -46,8 +47,11 @@ const Withdraw: React.FC = () => {
       accountNumber: Yup.string().required("Account Number is required"),
       accountName: Yup.string().required("Account Name is required"),
       bankName: Yup.string().required("Bank Name is required"),
+      withdrawalAccount: Yup.string().required("Target Account is required"),
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      console.log("values", values);
+      
       try {
         const response = await axios.post(
           `${apiURL}/postWithdrawal.php`,
@@ -127,7 +131,7 @@ const Withdraw: React.FC = () => {
     "Paystack",
     "PiggyVest",
     "PocketApp by PiggyVest"
-];
+  ];
 
 
   return (
@@ -248,24 +252,24 @@ const Withdraw: React.FC = () => {
 
         {/* Target Account */}
         <div>
-          <label htmlFor="bankName" className="block text-sm font-medium mb-2">
+          <label htmlFor="withdrawalAccount" className="block text-sm font-medium mb-2">
             Withdrawal Account
           </label>
           <select
-            name="bankName"
-            id="bankName"
+            name="withdrawalAccount"
+            id="withdrawalAccount"
             className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
             defaultValue={"Pick an account"}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           >
               <option disabled>Pick an account</option>
-              <option>Main Balance</option>
-              <option>Referral Balance</option>
+              <option value={"Main Balance"}>Main Balance</option>
+              <option value={"Referral Balance"}>Referral Balance</option>
           </select>
-          {formik.touched.bankName && formik.errors.bankName && (
+          {formik.touched.withdrawalAccount && formik.errors.withdrawalAccount && (
             <div className="error text-red-600 mt-1 text-sm">
-              {formik.errors.bankName}
+              {formik.errors.withdrawalAccount}
             </div>
           )}
         </div>
