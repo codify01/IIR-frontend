@@ -21,7 +21,7 @@ import Confirminvestments from './pages/investment/Confirminvestment';
 import AdminLayout from './layout/AdminLayout';
 import AdminDashboard from './pages/dashboard/AdminDashboard';
 import CreateInvestments from './pages/investment/Createinvestments';
-import ManageInvestments from './pages/investment/Manageinvestment';
+// import ManageInvestments from './pages/investment/Manageinvestment';
 import AllInvestors from './pages/profiles/AllInvestors';
 import InvestorProfile from './pages/profiles/Investorprofile';
 import ConfirmDeposit from './pages/transactions/ConfirmDeposit';
@@ -150,14 +150,14 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
+        {/* <Route
           path="/admin/manageinvestments"
           element={
             <ProtectedRoute>
               <AdminLayout child={<ManageInvestments />} />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route
           path="/admin/manageinvestors"
           element={

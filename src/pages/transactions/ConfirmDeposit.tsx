@@ -67,7 +67,7 @@ const ConfirmDeposit: React.FC = () => {
         setDepositRequests((prevState) =>
           prevState.map((request) =>
             request.transaction_id === transactionId
-              ? { ...request, status: "confirmed" }
+              ? { ...request, status: "confirmed", is_verified:1}
               : request
           )
         );
@@ -95,6 +95,7 @@ const ConfirmDeposit: React.FC = () => {
       });
 
       if (response.data.status === "success") {
+
         setDepositRequests((prevState) =>
           prevState.map((request) =>
             request.transaction_id === transactionId
@@ -105,6 +106,8 @@ const ConfirmDeposit: React.FC = () => {
         setError("");
       } else {
         setError("Failed to cancel the transaction.");
+        console.log(response);
+        
       }
     } catch (err: any) {
       setError("An error occurred while canceling the transaction.");

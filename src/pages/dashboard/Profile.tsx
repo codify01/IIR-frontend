@@ -6,7 +6,7 @@ const Profile = () => {
   return (
     <React.Fragment>
       <UserProfile/>
-      <DesktopUserProfile/>
+      {/* <DesktopUserProfile/> */}
     </React.Fragment>
   )
 }
