@@ -35,6 +35,9 @@ import ProtectedRoute from './components/ProtectedRoute'; // Import the Protecte
 import ManageReferrals from './pages/dashboard/ManageReferals';
 import SuperAdminDashboard from './pages/dashboard/SuperAdminDashboard';
 import NotificationPage from './pages/notification/Notification';
+import ServiceAccountDashboard from './pages/dashboard/ServiceAccountDashboard';
+import ServiceAccountWithdrawal from './pages/transactions/ServiceAccountWithdraw';
+import ServiceAccountHistory from './pages/transactions/ServiceAcoountHistory';
 
 const App = () => {
   return (
@@ -90,7 +93,7 @@ const App = () => {
           }
         />
         <Route
-          path="/user/deposit1"
+          path="/user/deposit"
           element={
             <ProtectedRoute>
               <MainLayout child={<ManualDeposit />} />
@@ -217,6 +220,10 @@ const App = () => {
         </Route>
         
         <Route path="*" element={<Notfound />} />
+        
+        <Route path="/service/dashboard" element={<MainLayout child={<ServiceAccountDashboard />} />} />
+        <Route path="/service/withdraw" element={<MainLayout child={<ServiceAccountWithdrawal />} />} />
+        <Route path="/service/history" element={<MainLayout child={<ServiceAccountHistory />} />} />
       </Routes>
     </React.Fragment>
   );

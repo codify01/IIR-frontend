@@ -27,12 +27,17 @@ const Withdraw: React.FC = () => {
     fetchUser();
   }, []);
 
+  const formatAccountBalance = (amount: number) => {
+    return `NGN ${amount?.toLocaleString("en-NG")}`;
+  };
+
   const formik = useFormik({
     initialValues: {
       amount: 0,
       accountNumber: "",
       accountName: "",
       bankName: "",
+      withdrawalAccount: "",
     },
     validationSchema: Yup.object({
       amount: Yup.number()
@@ -42,8 +47,11 @@ const Withdraw: React.FC = () => {
       accountNumber: Yup.string().required("Account Number is required"),
       accountName: Yup.string().required("Account Name is required"),
       bankName: Yup.string().required("Bank Name is required"),
+      withdrawalAccount: Yup.string().required("Target Account is required"),
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      console.log("values", values);
+      
       try {
         const response = await axios.post(
           `${apiURL}/postWithdrawal.php`,
@@ -123,11 +131,11 @@ const Withdraw: React.FC = () => {
     "Paystack",
     "PiggyVest",
     "PocketApp by PiggyVest"
-];
+  ];
 
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto mt-10 text-gray-800">
+    <div className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto mt-5 text-gray-800">
       <h1 className="text-2xl font-bold text-pry text-center mb-5">
         Withdrawal Request
       </h1>
@@ -141,13 +149,18 @@ const Withdraw: React.FC = () => {
             Amount
           </label>
           <input
-            type="number"
+            type="text"
             name="amount"
             id="amount"
             placeholder="Enter amount to withdraw"
             className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
-            value={formik.values.amount}
-            onChange={formik.handleChange}
+            value={formik.values.amount ? formik.values.amount.toLocaleString("en-NG") : formik.values.amount}
+            onChange={(e) => {
+              const value = e.target.value.replace(/,/g, "");
+              if (!isNaN(Number(value))) {
+                formik.setFieldValue("amount", Number(value));
+              }
+            }}
             onBlur={formik.handleBlur}
           />
           {formik.touched.amount && formik.errors.amount && (
@@ -156,7 +169,7 @@ const Withdraw: React.FC = () => {
             </div>
           )}
           <div className="mt-1">
-            Available balance: {user?.balance}
+            Available balance: {formatAccountBalance(user?.balance) || 0}
           </div>
         </div>
 
@@ -239,24 +252,24 @@ const Withdraw: React.FC = () => {
 
         {/* Target Account */}
         <div>
-          <label htmlFor="bankName" className="block text-sm font-medium mb-2">
+          <label htmlFor="withdrawalAccount" className="block text-sm font-medium mb-2">
             Withdrawal Account
           </label>
           <select
-            name="bankName"
-            id="bankName"
+            name="withdrawalAccount"
+            id="withdrawalAccount"
             className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
             defaultValue={"Pick an account"}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           >
               <option disabled>Pick an account</option>
-              <option>Main Balance</option>
-              <option>Referral Balance</option>
+              <option value={"Main Balance"}>Main Balance</option>
+              <option value={"Referral Balance"}>Referral Balance</option>
           </select>
-          {formik.touched.bankName && formik.errors.bankName && (
+          {formik.touched.withdrawalAccount && formik.errors.withdrawalAccount && (
             <div className="error text-red-600 mt-1 text-sm">
-              {formik.errors.bankName}
+              {formik.errors.withdrawalAccount}
             </div>
           )}
         </div>

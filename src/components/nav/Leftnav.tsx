@@ -36,7 +36,7 @@ const Leftnav: React.FC = () => {
       role: "investor",
     },
     {
-      href: "/user/deposit1",
+      href: "/user/deposit",
       title: "Deposit",
       icon: <GiPayMoney className="h-5 w-5" />,
       role: "investor",
@@ -78,6 +78,24 @@ const Leftnav: React.FC = () => {
       title: "Know-Your-Customer",
       icon: <MdOutlinePersonSearch className="h-5 w-5" />,
       role: "admin",
+    },
+    {
+      href: "/service/dashboard",
+      title: "Service Account",
+      icon: <MdOutlinePersonSearch className="h-5 w-5" />,
+      role: "server",
+    },
+    {
+      href: "/service/withdraw",
+      title: "Withdraw Charges",
+      icon: <BiMoneyWithdraw className="h-5 w-5" />,
+      role: "server",
+    },
+    {
+      href: "/service/history",
+      title: "Charge History",
+      icon: <FiDollarSign className="h-5 w-5" />,
+      role: "server",
     },
   ];
 

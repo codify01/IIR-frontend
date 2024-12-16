@@ -40,7 +40,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ child }) => {
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
       {/* Leftnav: Fixed Sidebar */}
-      <div className="lg:w-1/5 h-full bg-pry">
+      <div className="lg:w-[23%] h-full">
         <Leftnav />
       </div>
 
