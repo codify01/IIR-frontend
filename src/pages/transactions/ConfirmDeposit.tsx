@@ -55,7 +55,7 @@ const ConfirmDeposit: React.FC = () => {
   const handleConfirm = async (transactionId: string) => {
     handleActionLoading(transactionId, true);
     try {
-      const response = await axios.get(`${apiURL}/adminVerifyDeposit.php`, {
+      const response = await axios.get(`${apiURL}/adminVerifyDeposit.php?deposit_id=${transactionId}&action=approve`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token") || "",
@@ -86,12 +86,12 @@ const ConfirmDeposit: React.FC = () => {
   const handleCancel = async (transactionId: string) => {
     handleActionLoading(transactionId, true);
     try {
-      const response = await axios.delete(`${apiURL}/adminDeleteDeposit.php`, {
+      const response = await axios.get(`${apiURL}/adminVerifyDeposit.php?deposit_id=${transactionId}&action=reject`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token") || "",
         },
-        params: { deposit_id: transactionId },
+        // params: { deposit_id: transactionId },
       });
 
       if (response.data.status === "success") {

@@ -65,6 +65,7 @@ const ConfirmWithdrawal: React.FC = () => {
       console.error(err);
     } finally {
       handleActionLoading(transactionId, false);
+      location.reload()
     }
   };
 
@@ -80,7 +81,7 @@ const ConfirmWithdrawal: React.FC = () => {
       });
       console.log(response);
       
-      if (response.data.status === "success") {
+      if (response.data.status === 200) {
         setWithdrawalRequests((prevState) =>
           prevState.map((request) =>
             request.trnxId === transactionId
@@ -97,6 +98,7 @@ const ConfirmWithdrawal: React.FC = () => {
       console.error(err);
     } finally {
       handleActionLoading(transactionId, false);
+      location.reload()
     }
   };
 

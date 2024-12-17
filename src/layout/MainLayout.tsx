@@ -4,8 +4,9 @@ import NavTwo from "../components/nav/Navtwo";
 import Bottombar from "../components/nav/Bottombar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Loader from '../components/Loader'
+// import Loader from '../components/Loader'
 
+const apiURl = import.meta.env.VITE_API_URL
 
 interface MainLayoutProps {
   child: React.ReactNode;
@@ -19,13 +20,13 @@ interface User {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("https://iirapi.sunmence.com.ng/user.php", {
+        const response = await axios.get(`${apiURl}/user.php`, {
           headers: {
             Authorization: localStorage.getItem("token") || "",
           },
@@ -41,7 +42,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
         console.error("Error fetching user:", error);
         navigate("/login");
       } finally {
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     };
 

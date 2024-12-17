@@ -1,5 +1,4 @@
 import React from 'react'
-import DesktopUserProfile from './DesktopUserProfile'
 import UserProfile from './UserProfile'
 
 const Profile = () => {

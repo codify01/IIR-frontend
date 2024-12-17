@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import CardSix from '../../components/card/Cardsix';
+// import CardSix from '../../components/card/Cardsix';
 import { FaArrowAltCircleDown, FaWindowClose } from 'react-icons/fa';
 
-const apiURL = import.meta.env.VITE_API_URL;
+// const apiURL = import.meta.env.VITE_API_URL;
 
 const ServiceAccountHistory: React.FC = () => {
 	const [isOpen, setIsOpened] = useState<boolean>(false);
 
-	const handleViewDetails = () => {
-		setIsOpened(true);
-	};
+	// const handleViewDetails = () => {
+	// 	setIsOpened(true);
+	// };
 
 	return (
 		<div>
@@ -19,14 +19,14 @@ const ServiceAccountHistory: React.FC = () => {
 				</div>
 
 				<div className="grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-4">
-						<CardSix
+						{/* <CardSix
 							key={5}
 							type={"withdraw"}
 							amount={200000}
 							date={new Date()}
 							category={"transact"}
 							onViewDetails={() => handleViewDetails()}
-						/>
+						/> */}
 				</div>
 			</div>
 

@@ -34,7 +34,7 @@ const ProfilePage: React.FC = () => {
         email: values.email,
         phone: values.phone,
       };
-
+      initialFormData
       // Send updated data to API
       axios
         .put("/api/user/profile", updateData) // Replace with your API endpoint
