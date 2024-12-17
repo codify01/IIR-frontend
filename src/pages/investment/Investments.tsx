@@ -57,7 +57,6 @@ const Investments: React.FC = () => {
         console.log("investResponse", investResponse)
         if (investResponse.data?.status === "success") {
           setInvestments(investResponse.data.investments || []);
-          console.log("my investments", investments);
         } else {
           console.error("Unexpected response:", investResponse.data);
         }
@@ -70,7 +69,6 @@ const Investments: React.FC = () => {
 
         if (Array.isArray(availableInvestmentsResponse.data.investments)) {
           setAvailableInvestments(availableInvestmentsResponse.data.investments);
-          console.log("availableInvestments", availableInvestments);
           
         } else {
           console.error(
@@ -112,7 +110,7 @@ const Investments: React.FC = () => {
             <CardFour
               key={id}
               amount={parseFloat(amount)}
-              duration={`${investment_duration} days`}
+              duration={`${investment_duration} months`}
               interestRate={`${roi}%`}
               payoutDate={pay_out_date}
               startDate={investment_start}
