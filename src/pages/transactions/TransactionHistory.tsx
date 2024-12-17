@@ -45,7 +45,7 @@ const TransactionHistory: React.FC = () => {
 					},
 				}
 			);
-			// console.log(response.data);
+			console.log("transactions response.data", response.data);
 
 			if (
 				response.data?.status === 'success' &&

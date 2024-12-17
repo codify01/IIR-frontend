@@ -19,9 +19,10 @@ interface User {
 interface Investment {
   id: number;
   amount: number;
-  investment_start: string;
   investment_duration: number;
   investment_name: string;
+  investment_start: string;
+  pay_out_date: string;
 }
 
 const Userdashboard: React.FC = () => {
@@ -31,12 +32,6 @@ const Userdashboard: React.FC = () => {
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true);
   const [mainBalVisibility, setMainBalVisibility] = useState<boolean>(true);
   const [refBalVisibility, setRefBalVisibility] = useState<boolean>(true);
-
-  const calculateEndDate = (startDate: string, duration: number): Date => {
-    const start = new Date(startDate);
-    start.setDate(start.getDate() + duration);
-    return start;
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +57,7 @@ const Userdashboard: React.FC = () => {
 
         if (Array.isArray(investResponse.data.investments)) {
           setInvestments(investResponse.data.investments);
-          console.log(investments)
+          console.log("investments investments", investments)
         } else {
           console.error("Unexpected investments format:", investResponse.data);
         }
@@ -153,8 +148,8 @@ const Userdashboard: React.FC = () => {
                 name={investment.investment_name || "Unnamed Investment"}
                 duration={`Duration: ${investment.investment_duration} months`}
                 price={Number(investment.amount)}
-                startDate={new Date(investment.investment_start)}
-                endDate={calculateEndDate(investment.investment_start, investment.investment_duration)}
+                startDate={investment.investment_start}
+                endDate={investment.pay_out_date}
               />
             ))
           ) : (
