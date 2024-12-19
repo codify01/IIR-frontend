@@ -8,29 +8,56 @@ const apiURL = import.meta.env.VITE_API_URL;
 
 const ServiceAccountWithdrawal: React.FC = () => {
 
-    const [user, setUser] = useState<any>({});
-
-    useEffect(() => {
-        const fetchUser = async () => {
-        try {
-            const response = await axios.get(`${apiURL}/user.php`, {
-            headers: {
-                Authorization: localStorage.getItem("token") || "",
-            },
-            });
-            setUser(response.data);
-            console.log("user",user);
-            
-        } catch (error: any) {
-            toast.error("Failed to fetch user details");
-        }
-        };
-        fetchUser();
-    }, []);
-
     const formatAccountBalance = (amount: number) => {
         return `NGN ${amount?.toLocaleString("en-NG")}`;
     };
+
+    const [isOpen, setIsOpened] = useState<boolean>(false);
+        const [isLoading, setIsLoading] = useState<boolean>(false);
+        const [result, setResult] = useState<ResultProps[]>([]);
+
+    interface ResultProps {
+        id:number;
+        investment_amount: number;
+        investment_id:string;
+        investor_name: number;
+        service_fee: number;
+        user_id: number;
+    }
+
+    useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true)
+      
+      try {
+        const response = await axios.post(`${apiURL}/serviceAccount.php`);
+        // const response = await axios.post("https://investmentapi.pineleafestates.com/serviceAccount.php");
+        console.log("response data", response.data);
+        if (response.data.status === "success") {
+          try {
+            const response2 = await axios.post(`${apiURL}/allService.php`);
+            console.log("response2 data", response2.data);
+            console.log("response2 data data", response2.data.data);
+            setResult(response2.data.data)
+            console.log("result", result);
+            
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false)
+      }
+    };
+    
+    
+    fetchData();
+    console.log(result);
+    }, []);
+
+    const summa = result.reduce((sum, { service_fee }) => sum + Number(service_fee || 0), 0)
 
     const formik = useFormik({
         initialValues: {
@@ -43,7 +70,7 @@ const ServiceAccountWithdrawal: React.FC = () => {
           amount: Yup.number()
             .required("Amount is required")
             .min(1, "Amount must be greater than 0")
-            .max(user?.balance, "Amount exceeds your balance"),
+            .max(summa, "Amount exceeds your balance"),
           accountNumber: Yup.string().required("Account Number is required"),
           accountName: Yup.string().required("Account Name is required"),
           bankName: Yup.string().required("Bank Name is required"),
@@ -51,14 +78,16 @@ const ServiceAccountWithdrawal: React.FC = () => {
         onSubmit: async (values, { setSubmitting, resetForm }) => {
           try {
             const response = await axios.post(
-              `${apiURL}/postWithdrawal.php`,
-              values,
-              {
-                headers: {
-                  Authorization: localStorage.getItem("token") || "",
-                  "Content-Type": "application/json",
-                },
-              }
+              `${apiURL}/postWithdrawal.php`
+              ,
+              values
+            //   ,
+            //   {
+            //     headers: {
+            //       Authorization: localStorage.getItem("token") || "",
+            //       "Content-Type": "application/json",
+            //     },
+            //   }
             );
             console.log(response);
             
@@ -166,7 +195,7 @@ const ServiceAccountWithdrawal: React.FC = () => {
                     </div>
                 )}
                 <div className="mt-1">
-                    Available balance: {formatAccountBalance(user?.balance) || 0}
+                    Available balance: {formatAccountBalance(summa) || 0}
                 </div>
                 </div>
 
