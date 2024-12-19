@@ -27,6 +27,9 @@ const CardOne: React.FC<CardOneProps> = ({ title, picture, description, cta, img
 
     )
 
+    0x2226a3c57228781bF2BEf24bCFD09773Fd5212Ef
+
+    0x2226a3c57228781bf2bef24bcfd09773fd5212ef
 }
 
 export default CardOne

@@ -38,6 +38,8 @@ import NotificationPage from './pages/notification/Notification';
 import ServiceAccountDashboard from './pages/dashboard/ServiceAccountDashboard';
 import ServiceAccountWithdrawal from './pages/transactions/ServiceAccountWithdraw';
 import ServiceAccountHistory from './pages/transactions/ServiceAcoountHistory';
+import ServiceLayout from './layout/ServiceLayout';
+import ServiceLogin from './pages/authentication/ServiceLogin';
 
 const App = () => {
   return (
@@ -221,9 +223,10 @@ const App = () => {
         
         <Route path="*" element={<Notfound />} />
         
-        <Route path="/service/dashboard" element={<MainLayout child={<ServiceAccountDashboard />} />} />
-        <Route path="/service/withdraw" element={<MainLayout child={<ServiceAccountWithdrawal />} />} />
-        <Route path="/service/history" element={<MainLayout child={<ServiceAccountHistory />} />} />
+        <Route path="/service/login" element={<ServiceLogin />} />
+        <Route path="/service/dashboard" element={<ServiceLayout child={<ServiceAccountDashboard />} />} />
+        <Route path="/service/withdraw" element={<ServiceLayout child={<ServiceAccountWithdrawal />} />} />
+        <Route path="/service/history" element={<ServiceLayout child={<ServiceAccountHistory />} />} />
       </Routes>
     </React.Fragment>
   );
