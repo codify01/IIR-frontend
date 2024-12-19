@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Navone from '../../components/nav/Navone';
 import { useFormik } from 'formik';
@@ -43,6 +43,8 @@ const Login: React.FC = () => {
 					navigate('/user/dashboard')
 				} else if(response.data.user.role === 'admin'){
 					navigate('/admin/dashboard')
+				} else if(response.data.user.role === 'superadmin'){
+					navigate('/super/dashboard')
 				}
 			} catch (error: any) {
 				toast.error(
@@ -112,6 +114,11 @@ const Login: React.FC = () => {
 									<p className="text-red-500 text-sm">{formik.errors.password}</p>
 								)}
 							</div>
+							<div className="text-right">
+            <Link to="/forgot-password" className="text-sm text-pry hover:underline">
+              Forgot Password?
+            </Link>
+          </div>
 
 							<button
 								type="submit"
@@ -144,9 +151,7 @@ const Login: React.FC = () => {
 							</NavLink>
 						</p>
 					</div>
-					{/* <div className="img md:w-1/2 w-full lg:translate-x-[10%] lg:block hidden">
-						<CarouselOne />
-					</div> */}
+				
 				</div>
 			</div>
 		</div>

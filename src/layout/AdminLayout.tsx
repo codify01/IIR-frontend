@@ -29,11 +29,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ child }) => {
         if (response.data && response.status === 200) {
           setUser(response.data);
         } else {
-          navigate("/login");
+          // navigate("/login");
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
-        navigate("/login");
+        // navigate("/login");
       }
     };
 

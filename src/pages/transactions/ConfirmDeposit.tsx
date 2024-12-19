@@ -94,7 +94,7 @@ const ConfirmDeposit: React.FC = () => {
         // params: { deposit_id: transactionId },
       });
 
-      if (response.data.status === "success") {
+      if (response.data.status === 200) {
 
         setDepositRequests((prevState) =>
           prevState.map((request) =>

@@ -10,12 +10,18 @@ import {
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { FiLogOut } from "react-icons/fi";
 
 const apiURL = import.meta.env.VITE_API_URL
 
 const ProfilePage: React.FC = () => {
   const [kycDocument, setKycDocument] = useState<File | null>(null);
   const [initialFormData, setInitialFormData] = useState({});
+
+  const handleLogOut = () => {
+    localStorage.clear(); // Clear all local storage keys
+    window.location.reload();
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -31,13 +37,11 @@ const ProfilePage: React.FC = () => {
     onSubmit: (values) => {
       const updateData = {
         fullname: values.fullname,
-        email: values.email,
-        phone: values.phone,
       };
       initialFormData
       // Send updated data to API
       axios
-        .put("/api/user/profile", updateData) // Replace with your API endpoint
+        .put(`${apiURL}/updateUser.php`, updateData)
         .then((response) => {
           console.log("Profile updated successfully:", response.data);
           setInitialFormData(updateData);
@@ -202,6 +206,13 @@ const ProfilePage: React.FC = () => {
           <button className="bg-pry text-sec px-4 py-2 rounded-lg hover:bg-pry/90">Update</button>
         </div>
       </div>
+        <button
+              onClick={handleLogOut}
+              className="bg-pry w-full text-white mt-2 h-10 rounded text-center flex justify-center items-center gap-2 hover:text-red-500"
+            >
+              <FiLogOut className="h-5 w-5" />
+              Logout
+            </button>
     </div>
   );
 };

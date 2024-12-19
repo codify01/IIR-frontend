@@ -38,6 +38,8 @@ import NotificationPage from './pages/notification/Notification';
 import ServiceAccountDashboard from './pages/dashboard/ServiceAccountDashboard';
 import ServiceAccountWithdrawal from './pages/transactions/ServiceAccountWithdraw';
 import ServiceAccountHistory from './pages/transactions/ServiceAcoountHistory';
+import ForgotPasswordPage from './pages/authentication/ForgotPassword';
+import ResetPasswordPage from './pages/authentication/ResetPassword';
 
 const App = () => {
   return (
@@ -150,14 +152,18 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        {/* <Route
-          path="/admin/manageinvestments"
+        <Route
+          path="/forgot-password"
           element={
-            <ProtectedRoute>
-              <AdminLayout child={<ManageInvestments />} />
-            </ProtectedRoute>
+              <ForgotPasswordPage />
           }
-        /> */}
+        />
+         <Route
+          path="/reset-password/:token"
+          element={
+              <ResetPasswordPage />
+          }
+        />
         <Route
           path="/admin/manageinvestors"
           element={

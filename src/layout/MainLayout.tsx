@@ -40,7 +40,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ child }) => {
         }
       } catch (error) {
         console.error("Error fetching user:", error);
-        navigate("/login");
+        // navigate("/login");
       } finally {
         // setIsLoading(false);
       }
