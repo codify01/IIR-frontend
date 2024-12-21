@@ -12,17 +12,16 @@ const ServiceAccountWithdrawal: React.FC = () => {
         return `NGN ${amount?.toLocaleString("en-NG")}`;
     };
 
-    const [isOpen, setIsOpened] = useState<boolean>(false);
-        const [isLoading, setIsLoading] = useState<boolean>(false);
-        const [result, setResult] = useState<ResultProps[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [result, setResult] = useState<ResultProps[]>([]);
 
     interface ResultProps {
-        id:number;
-        investment_amount: number;
-        investment_id:string;
-        investor_name: number;
-        service_fee: number;
-        user_id: number;
+      id:number;
+      investment_amount: number;
+      investment_id:string;
+      investor_name: number;
+      service_fee: number;
+      user_id: number;
     }
 
     useEffect(() => {
@@ -31,16 +30,10 @@ const ServiceAccountWithdrawal: React.FC = () => {
       
       try {
         const response = await axios.post(`${apiURL}/serviceAccount.php`);
-        // const response = await axios.post("https://investmentapi.pineleafestates.com/serviceAccount.php");
-        console.log("response data", response.data);
         if (response.data.status === "success") {
           try {
             const response2 = await axios.post(`${apiURL}/allService.php`);
-            console.log("response2 data", response2.data);
-            console.log("response2 data data", response2.data.data);
             setResult(response2.data.data)
-            console.log("result", result);
-            
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -62,42 +55,41 @@ const ServiceAccountWithdrawal: React.FC = () => {
     const formik = useFormik({
         initialValues: {
           amount: 0,
-          accountNumber: "",
-          accountName: "",
-          bankName: "",
+          account_number: "",
+          account_name: "",
+          bank_name: "",
         },
         validationSchema: Yup.object({
           amount: Yup.number()
             .required("Amount is required")
             .min(1, "Amount must be greater than 0")
             .max(summa, "Amount exceeds your balance"),
-          accountNumber: Yup.string().required("Account Number is required"),
-          accountName: Yup.string().required("Account Name is required"),
-          bankName: Yup.string().required("Bank Name is required"),
+          account_number: Yup.string().required("Account Number is required"),
+          account_name: Yup.string().required("Account Name is required"),
+          bank_name: Yup.string().required("Bank Name is required"),
         }),
         onSubmit: async (values, { setSubmitting, resetForm }) => {
+          console.log("values to be posted", values);
+          
           try {
-            const response = await axios.post(
-              `${apiURL}/postWithdrawal.php`
-              ,
-              values
-            //   ,
-            //   {
-            //     headers: {
-            //       Authorization: localStorage.getItem("token") || "",
-            //       "Content-Type": "application/json",
-            //     },
-            //   }
+            // const token = localStorage.getItem("token") || "";
+            const response = await axios.post(`${apiURL}/servicewithdraw.php`, values,
+              {
+                headers : {
+                  Authorization: localStorage.getItem("token") || "",
+                  "Content-Type": "application/json",
+                }
+              }
             );
-            console.log(response);
-            
-            toast.success("Withdrawal request submitted successfully!");
+            console.log("withdrawal response", response);
+            toast.success("🎊 " + response.data.message);
             resetForm();
           } catch (error: any) {
             toast.error(
               error.response?.data?.message ||
                 "An error occurred while processing your withdrawal."
             );
+            console.log("error", error);
           } finally {
             setSubmitting(false);
           }
@@ -161,20 +153,26 @@ const ServiceAccountWithdrawal: React.FC = () => {
 
     return (
 
-        <div className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto mb-5 text-gray-800">
-            <h1 className="text-2xl font-bold text-pry text-center mb-5">
+        <div className="p-2">
+            <h1 className="text-2xl font-bold text-pry mb-5">
                 Withdrawal Request
             </h1>
-            <form
-                className="grid grid-cols-1 gap-y-6"
-                onSubmit={formik.handleSubmit}
-            >
-                {/* Amount */}
-                <div className="relative">
-                <label htmlFor="amount" className="block text-sm font-medium mb-2">
-                    Amount
-                </label>
-                <input
+            {
+              isLoading ? (
+                <div className="flex justify-center items-center h-[150px]">
+                  <div className="w-10 h-10 border-4 border-dotted border-t-transparent border-pry rounded-full animate-spin"></div>
+                </div>
+              ) : (
+              <form
+                  className="grid md:grid-cols-2 grid-cols-1 gap-6"
+                  onSubmit={formik.handleSubmit}
+              >
+                  {/* Amount */}
+                  <div className="relative md:col-span-1 col-span-2">
+                    <label htmlFor="amount" className="block text-sm font-medium mb-2">
+                        Amount
+                    </label>
+                    <input
                     type="text"
                     name="amount"
                     id="amount"
@@ -188,105 +186,106 @@ const ServiceAccountWithdrawal: React.FC = () => {
                     }
                     }}
                     onBlur={formik.handleBlur}
-                />
-                {formik.touched.amount && formik.errors.amount && (
-                    <div className="error text-red-600 mt-1 text-sm">
-                    {formik.errors.amount}
+                    />
+                    {formik.touched.amount && formik.errors.amount && (
+                        <div className="error text-red-600 mt-1 text-sm">
+                          {formik.errors.amount}
+                        </div>
+                    )}
+                    <div className="mt-1">
+                        Available balance: {formatAccountBalance(summa) || 0}
                     </div>
-                )}
-                <div className="mt-1">
-                    Available balance: {formatAccountBalance(summa) || 0}
-                </div>
-                </div>
+                  </div>
 
+                  {/* Account Number */}
+                  <div className="md:col-span-1 col-span-2">
+                    <label
+                        htmlFor="account_number"
+                        className="block text-sm font-medium mb-2"
+                    >
+                        Account Number
+                    </label>
+                    <input
+                        type="number"
+                        name="account_number"
+                        id="account_number"
+                        placeholder="Enter recepient's account number"
+                        className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
+                        value={formik.values.account_number}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                    />
+                    {formik.touched.account_number && formik.errors.account_number && (
+                        <div className="error text-red-600 mt-1 text-sm">
+                        {formik.errors.account_number}
+                        </div>
+                    )}
+                  </div>
 
-                {/* Account Number */}
-                <div>
-                <label
-                    htmlFor="accountNumber"
-                    className="block text-sm font-medium mb-2"
-                >
-                    Account Number
-                </label>
-                <input
-                    type="number"
-                    name="accountNumber"
-                    id="accountNumber"
-                    placeholder="Enter recepient's account number"
-                    className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
-                    value={formik.values.accountNumber}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                />
-                {formik.touched.accountNumber && formik.errors.accountNumber && (
-                    <div className="error text-red-600 mt-1 text-sm">
-                    {formik.errors.accountNumber}
-                    </div>
-                )}
-                </div>
+                  {/* Account Name */}
+                  <div className="md:col-span-1 col-span-2">
+                    <label
+                        htmlFor="account_name"
+                        className="block text-sm font-medium mb-2"
+                    >
+                        Account Name
+                    </label>
+                    <input
+                        type="text"
+                        name="account_name"
+                        id="account_name"
+                        placeholder="Enter recepient's account name"
+                        className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
+                        value={formik.values.account_name}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                    />
+                    {formik.touched.account_name && formik.errors.account_name && (
+                        <div className="error text-red-600 mt-1 text-sm">
+                        {formik.errors.account_name}
+                        </div>
+                    )}
+                  </div>
 
-                {/* Account Name */}
-                <div>
-                <label
-                    htmlFor="accountName"
-                    className="block text-sm font-medium mb-2"
-                >
-                    Account Name
-                </label>
-                <input
-                    type="text"
-                    name="accountName"
-                    id="accountName"
-                    placeholder="Enter recepient's account name"
-                    className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
-                    value={formik.values.accountName}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                />
-                {formik.touched.accountName && formik.errors.accountName && (
-                    <div className="error text-red-600 mt-1 text-sm">
-                    {formik.errors.accountName}
-                    </div>
-                )}
-                </div>
+                  {/* Bank Name */}
+                  <div className="md:col-span-1 col-span-2">
+                    <label htmlFor="bank_name" className="block text-sm font-medium mb-2">
+                        Recipient Bank
+                    </label>
+                    <select
+                        name="bank_name"
+                        id="bank_name"
+                        className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
+                        defaultValue={"Select a bank"}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                    >
+                        {banks.map((bank, index) => (
+                        <option disabled={bank === "Select a bank" ? true : false} key={index} value={bank}>
+                            {bank}
+                        </option>
+                        ))}
+                    </select>
+                    {formik.touched.bank_name && formik.errors.bank_name && (
+                        <div className="error text-red-600 mt-1 text-sm">
+                        {formik.errors.bank_name}
+                        </div>
+                    )}
+                  </div>
 
-                {/* Bank Name */}
-                <div>
-                <label htmlFor="bankName" className="block text-sm font-medium mb-2">
-                    Recipient Bank
-                </label>
-                <select
-                    name="bankName"
-                    id="bankName"
-                    className="input1 w-full border border-pry rounded-md p-3 focus:ring-2 focus:ring-pry focus:outline-none transition-all"
-                    defaultValue={"Select a bank"}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                >
-                    {banks.map((bank, index) => (
-                    <option disabled={bank === "Select a bank" ? true : false} key={index} value={bank}>
-                        {bank}
-                    </option>
-                    ))}
-                </select>
-                {formik.touched.bankName && formik.errors.bankName && (
-                    <div className="error text-red-600 mt-1 text-sm">
-                    {formik.errors.bankName}
-                    </div>
-                )}
-                </div>
-
-                {/* Submit Button */}
-                <div className="text-center mt-5">
-                <button
-                    type="submit"
-                    disabled={formik.isSubmitting}
-                    className="bg-pry text-sec font-semibold px-6 py-3 rounded-md w-full hover:bg-pry/90 focus:ring-2 focus:ring-pry focus:ring-offset-2 transition-all"
-                >
-                    {formik.isSubmitting ? "Processing..." : "Submit Request"}
-                </button>
-                </div>
-            </form>
+                  {/* Submit Button */}
+                  <div className="text-center col-span-2 mt-5">
+                    <button
+                        type="submit"
+                        disabled={formik.isSubmitting}
+                        className="bg-pry text-sec font-semibold px-6 py-3 rounded-md lg:w-1/3 w-full hover:bg-pry/90 focus:ring-2 focus:ring-pry focus:ring-offset-2 transition-all"
+                    >
+                        {formik.isSubmitting ? "Processing..." : "Submit Request"}
+                    </button>
+                  </div>
+              </form>
+              )
+            }
         </div>
 
     )
