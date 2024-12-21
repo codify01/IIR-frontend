@@ -83,19 +83,19 @@ const Leftnav: React.FC = () => {
       href: "/service/dashboard",
       title: "Service Account",
       icon: <MdOutlinePersonSearch className="h-5 w-5" />,
-      role: "server",
+      role: "service",
     },
     {
       href: "/service/withdraw",
       title: "Withdraw Charges",
       icon: <BiMoneyWithdraw className="h-5 w-5" />,
-      role: "server",
+      role: "service",
     },
     {
       href: "/service/history",
       title: "Charge History",
       icon: <FiDollarSign className="h-5 w-5" />,
-      role: "server",
+      role: "service",
     },
   ];
 

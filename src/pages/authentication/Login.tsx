@@ -30,8 +30,10 @@ const Login: React.FC = () => {
 		}),
 		onSubmit: async (values) => {
 			setLoading(true);
+			console.log(values);
 			try {
 				const response = await axios.post(`${apiURL}/login.php`, values);
+				console.log(response);
 				const token = response.data.token;
 				localStorage.setItem('token', token);
 				localStorage.setItem('role', response.data.user.role)
@@ -43,11 +45,14 @@ const Login: React.FC = () => {
 					navigate('/user/dashboard')
 				} else if(response.data.user.role === 'admin'){
 					navigate('/admin/dashboard')
+				} else if(response.data.user.role === 'service'){
+					navigate('/service/dashboard')
 				}
 			} catch (error: any) {
 				toast.error(
 					error.response?.data?.message || 'Login failed. Please try again.'
 				);
+				console.log(error);
 			} finally {
 				setLoading(false);
 			}

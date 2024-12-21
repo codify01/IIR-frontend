@@ -37,9 +37,7 @@ import SuperAdminDashboard from './pages/dashboard/SuperAdminDashboard';
 import NotificationPage from './pages/notification/Notification';
 import ServiceAccountDashboard from './pages/dashboard/ServiceAccountDashboard';
 import ServiceAccountWithdrawal from './pages/transactions/ServiceAccountWithdraw';
-import ServiceAccountHistory from './pages/transactions/ServiceAcoountHistory';
-import ServiceLayout from './layout/ServiceLayout';
-import ServiceLogin from './pages/authentication/ServiceLogin';
+import ServiceAccountHistory from './pages/transactions/ServiceAccountHistory';
 
 const App = () => {
   return (
@@ -223,10 +221,25 @@ const App = () => {
         
         <Route path="*" element={<Notfound />} />
         
-        <Route path="/service/login" element={<ServiceLogin />} />
-        <Route path="/service/dashboard" element={<ServiceLayout child={<ServiceAccountDashboard />} />} />
-        <Route path="/service/withdraw" element={<ServiceLayout child={<ServiceAccountWithdrawal />} />} />
-        <Route path="/service/history" element={<ServiceLayout child={<ServiceAccountHistory />} />} />
+        <Route path="/service/dashboard" element={
+          <ProtectedRoute>
+            <MainLayout child={<ServiceAccountDashboard />} />
+          </ProtectedRoute>} 
+        />
+
+        <Route path="/service/withdraw" element={
+          // <ProtectedRoute>
+            <MainLayout child={<ServiceAccountWithdrawal />} />
+          // </ProtectedRoute>
+          } 
+        />
+
+        <Route path="/service/history" element={
+          <ProtectedRoute>
+            <MainLayout child={<ServiceAccountHistory />} />
+          </ProtectedRoute>} 
+        />
+
       </Routes>
     </React.Fragment>
   );

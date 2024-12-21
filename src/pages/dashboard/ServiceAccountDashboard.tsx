@@ -126,7 +126,7 @@ const ServiceAccountDashboard: React.FC = () => {
               <h3 className="font-semibold text-2xl md:text-3xl text-gray-800">
                 Recent Earnings
               </h3>
-              <NavLink to="/serviceacc/transactions" className="text-pry underline">
+              <NavLink to="/service/history" className="text-pry underline">
                 View All
               </NavLink>
             </div>
