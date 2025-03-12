@@ -6,12 +6,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useAuth } from '../../context/AuthContext';
 
 const apiURL: string = import.meta.env.VITE_API_URL;
 
 const Login: React.FC = () => {
 	const [isVisible, setVisibility] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
+	const {login} = useAuth()
 
 	const navigate = useNavigate()
 
@@ -30,12 +32,15 @@ const Login: React.FC = () => {
 		}),
 		onSubmit: async (values) => {
 			setLoading(true);
+			console.log(values);
 			try {
 				const response = await axios.post(`${apiURL}/login.php`, values);
+				console.log(response);
 				const token = response.data.token;
 				localStorage.setItem('token', token);
 				localStorage.setItem('role', response.data.user.role)
 				localStorage.setItem('ident', response.data.user.id)
+				login(response.data.user, token)
 				toast.success('Login successful!', {
 					icon: '🎉',
 				});
@@ -45,11 +50,14 @@ const Login: React.FC = () => {
 					navigate('/admin/dashboard')
 				} else if(response.data.user.role === 'superadmin'){
 					navigate('/super/dashboard')
+				} else if(response.data.user.role === 'service'){
+					navigate('/service/dashboard')
 				}
 			} catch (error: any) {
 				toast.error(
 					error.response?.data?.message || 'Login failed. Please try again.'
 				);
+				console.log(error);
 			} finally {
 				setLoading(false);
 			}

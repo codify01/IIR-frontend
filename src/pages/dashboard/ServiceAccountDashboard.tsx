@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Cardtwo from "../../components/card/Cardtwo";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CardSix from "../../components/card/Cardsix";
-import { FaArrowAltCircleDown, FaWindowClose } from "react-icons/fa";
+// import { FaArrowAltCircleDown, FaWindowClose } from "react-icons/fa";
 import axios from "axios";
 
 const apiURL = import.meta.env.VITE_API_URL;
@@ -19,7 +19,7 @@ interface ResultProps {
 
 const ServiceAccountDashboard: React.FC = () => {
     const [refBalVisibility, setRefBalVisibility] = useState<boolean>(true);
-    const [isOpen, setIsOpened] = useState<boolean>(false);
+    // const [isOpen, setIsOpened] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [result, setResult] = useState<ResultProps[]>([]);
 
@@ -35,7 +35,7 @@ const ServiceAccountDashboard: React.FC = () => {
         
         try {
           const response = await axios.post(`${apiURL}/serviceAccount.php`);
-          // const response = await axios.post("https://investmentapi.pineleafestates.com/serviceAccount.php");
+        
           console.log("response data", response.data);
           if (response.data.status === "success") {
             try {
@@ -126,7 +126,7 @@ const ServiceAccountDashboard: React.FC = () => {
               <h3 className="font-semibold text-2xl md:text-3xl text-gray-800">
                 Recent Earnings
               </h3>
-              <NavLink to="/serviceacc/transactions" className="text-pry underline">
+              <NavLink to="/service/history" className="text-pry underline">
                 View All
               </NavLink>
             </div>

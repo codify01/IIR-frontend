@@ -24,7 +24,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ child }) => {
             Authorization: localStorage.getItem("token") || "",
           },
         });
-        console.log(response.data);
+        // console.log(response.data);
         
         if (response.data && response.status === 200) {
           setUser(response.data);

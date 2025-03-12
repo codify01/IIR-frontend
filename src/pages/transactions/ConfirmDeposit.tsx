@@ -94,7 +94,7 @@ const ConfirmDeposit: React.FC = () => {
         // params: { deposit_id: transactionId },
       });
 
-      if (response.data.status === 200) {
+      if (response.data.success) {
 
         setDepositRequests((prevState) =>
           prevState.map((request) =>
@@ -186,7 +186,7 @@ const ConfirmDeposit: React.FC = () => {
                               is_verified && is_processed === 1 ? "bg-green-600" : is_verified === 1 ? "bg-yellow-600" : "bg-red-600"
                             }`}
                           >
-                            {is_verified && is_processed === 1 ? "approved" : is_verified === 1 ? "not processed" : "Cancelled"}
+                            {is_verified && is_processed === 1 ? "approved" : is_verified === 1 ? "processing" : "Cancelled"}
                           </span>
                         )}
                       </td>
