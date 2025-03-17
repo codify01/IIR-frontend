@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaBell, FaUserCircle } from "react-icons/fa";
+import { FaArrowsRotate } from "react-icons/fa6";
 import { NavLink, useLocation } from "react-router-dom";
 
 interface NavTwoProps {
@@ -43,6 +44,9 @@ const NavTwo: React.FC<NavTwoProps> = ({ optStyle, user }) => {
       <nav className={`nav h-[6vh] flex justify-between items-center sticky top-0 w-full px-6 ${optStyle}`}>
         <h3 className="text-lg font-semibold">Welcome <span className="text-pry text-xl">{firstName || user?.fullname}</span>,</h3>
         <div className="flex items-center gap-2">
+          <button onClick={() => window.location.reload()}>
+            <FaArrowsRotate className="text-pry lg:size-5 size-6" />
+          </button>
           <NavLink to="/user/notification" className="rounded-full w-10 h-10 flex items-center justify-center">
             <FaBell className="text-pry lg:size-5 size-6" />
           </NavLink>
