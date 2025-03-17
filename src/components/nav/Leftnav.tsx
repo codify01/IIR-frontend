@@ -97,9 +97,22 @@ const Leftnav: React.FC = () => {
       icon: <FiDollarSign className="h-5 w-5" />,
       role: "service",
     },
+    {
+      href: "/super/dashboard",
+      title: "Dashboard",
+      icon: <FiDollarSign className="h-5 w-5" />,
+      role: "superadmin",
+    },
+    {
+      href: "/superadmin/manageadmin",
+      title: "Admins",
+      icon: <FiDollarSign className="h-5 w-5" />,
+      role: "superadmin",
+    },
+
   ];
 
-  const filteredLinks = Eachlink.filter((link) => link.role.includes(currentUserRole));
+  const filteredLinks = Eachlink.filter((link) => link.role === currentUserRole);
 
   return (
     <div className="h-[100vh] bg-pry/40 text-tet/80 lg:flex hidden flex-col justify-between px-5 pt-4 pb-5">

@@ -1,130 +1,220 @@
-import React, { useState } from 'react';
-import { IoMdSettings } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
 import {
-    IoCallOutline,
-    IoLocationOutline,
-    IoPencilSharp,
-} from 'react-icons/io5';
-import { MdAddCard, MdEmail } from 'react-icons/md';
-import ProfileCard from '../../components/card/ProfileCard';
-import { FaCreditCard } from 'react-icons/fa';
-import { PiNotebookFill } from 'react-icons/pi';
-import Bottombar from '../../components/nav/Bottombar';
-import { Link } from 'react-router-dom';
+  IoPersonCircle,
+  IoLockClosed,
+  IoPencil,
+  IoMail,
+  IoCall,
+  IoDocument
+} from "react-icons/io5";
+import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { FiLogOut } from "react-icons/fi";
 
-const UserProfile = () => {
-    const [selectedProfile, setSelectedProfile] = useState<number | null>(null);
+const apiURL = import.meta.env.VITE_API_URL
 
-    const profileList: { name: string; description: string; icon: React.ReactNode; details: React.ReactNode }[] = [
-        {
-            name: 'OTP Verification',
-            description: 'Verify your account with OTP',
-            icon: <MdAddCard size={30} />,
-            details: <p>Verify your account by entering the OTP sent to your phone.</p>,
-        },
-        {
-            name: 'Add Email',
-            description: 'Add emails for information',
-            icon: <MdEmail size={30} />,
-            details: <p>Ensure you have a secondary email address for account recovery.</p>,
-        },
-        {
-            name: 'Add Card',
-            description: 'Add bank card information',
-            icon: <FaCreditCard size={30} />,
-            details: <p>Securely add your card details for seamless transactions.</p>,
-        },
-        {
-            name: 'Terms and Condition',
-            description: 'Read through all terms and conditions',
-            icon: <PiNotebookFill size={30} />,
-            details: <p>Familiarise yourself with our terms and conditions to avoid any misunderstandings.</p>,
-        },
-    ];
+const ProfilePage: React.FC = () => {
+  const [kycDocument, setKycDocument] = useState<File | null>(null);
+  const [initialFormData, setInitialFormData] = useState({});
 
-    return (
-        <div className="h-screen bg-pry overflow-hidden lg:hidden relative">
-            {/* Header Section */}
-            <div className="text-white h-[20vh] bg-whit flex items-center justify-between px-10">
-                <Link to={'user/notificaton'}><h3 className="text-lg font-semibold">Notification</h3></Link>
-                <IoMdSettings className="size-5" />
-            </div>
-            
-            {/* Main Section */}
-            <div className="h-[80vh] bg-white rounded-t-3xl relative overflow-hidde">
-                <div className="h-full mContainer relative">
-                    {/* Profile Information */}
-                    <div className="h-[20vh]">
-                        <img
-                            src="https://images.pexels.com/photos/13629871/pexels-photo-13629871.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                            alt=""
-                            className="w-24 aspect-square object-cover rounded-full mx-auto relative -top-12"
-                        />
-                        <div className="space-y-5 pb-3 -mt-10">
-                            <div className="flex items-center gap-2 justify-center text-xl">
-                                <span>Feranmi Racheal</span>
-                                <IoPencilSharp className="text-pry" />
-                            </div>
-                            <div className="flex justify-between">
-                                <div className="flex items-center gap-2 justify-center text-sm">
-                                    <IoLocationOutline className="size-4 text-pry" />
-                                    <span>24, Mauve Avenue Lagos</span>
-                                </div>
-                                <div className="flex items-center gap-2 justify-center text-sm">
-                                    <IoCallOutline className="size-4 text-pry" />
-                                    <span>+234 904 2219 162</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  const handleLogOut = () => {
+    localStorage.clear(); // Clear all local storage keys
+    window.location.reload();
+  };
 
-                    {/* Profile List */}
-                    <div className="space-y-3 pt-1 pb-6 overflow-y-scroll h-[60vh]">
-                        {profileList.map(({ name, description, icon }, index) => (
-                            <ProfileCard
-                                key={index}
-                                name={name}
-                                description={description}
-                                icon={icon}
-                                onClick={() => setSelectedProfile(index)}
-                            />
-                        ))}
-                    </div>
+  const formik = useFormik({
+    initialValues: {
+      fullname: "",
+      email: "",
+      phone: "",
+    },
+    validationSchema: Yup.object({
+      fullname: Yup.string().required("Full Name is required"),
+      email: Yup.string().email("Invalid email address").required("Email is required"),
+      phone: Yup.string().required("Phone number is required"),
+    }),
+    onSubmit: (values) => {
+      const updateData = {
+        fullname: values.fullname,
+      };
+      initialFormData
+      // Send updated data to API
+      axios
+        .put(`${apiURL}/updateUser.php`, updateData)
+        .then((response) => {
+          console.log("Profile updated successfully:", response.data);
+          setInitialFormData(updateData);
+        })
+        .catch((error) => {
+          console.error("Error updating profile:", error);
+        });
 
-                    {/* Sliding Info Section */}
-                    <div
-                        className={`fixed top-0 right-0 h-full bg-white z-50 shadow-lg transition-transform duration-500 ${
-                            selectedProfile !== null ? 'translate-x-0' : 'translate-x-full'
-                        }`}
-                        style={{ width: '85%' }}
-                    >
-                        <button
-                            className="absolute top-4 left-4 text-gray-500"
-                            onClick={() => setSelectedProfile(null)}
-                        >
-                            Close
-                        </button>
+      if (kycDocument) {
+        const formData = new FormData();
+        formData.append("kycDocument", kycDocument);
 
-                        {/* Profile Details */}
-                        {selectedProfile !== null && (
-                            <div className="p-6 mt-5">
-                                <h2 className="text-xl font-semibold mb-2">
-                                    {profileList[selectedProfile].name}
-                                </h2>
-                                <p className="text-gray-600 mb-4">
-                                    {profileList[selectedProfile].description}
-                                </p>
-                                <div>{profileList[selectedProfile].details}</div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
+        axios
+          .post("/api/user/kyc-upload", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            console.log("KYC document uploaded successfully:", response.data);
+          })
+          .catch((error) => {
+            console.error("Error uploading KYC document:", error);
+          });
+      }
+    },
+  });
 
-            {/* Bottom Navigation */}
-            <Bottombar />
+  useEffect(() => {
+    // Fetch initial form data from API
+    axios
+      .get(`${apiURL}/user.php`,{headers: { Authorization: localStorage.getItem("token") || ""}}) // Replace with your API endpoint
+      .then((response) => {
+        formik.setValues(response.data);
+        setInitialFormData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching profile data:", error);
+      });
+  }, []);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setKycDocument(e.target.files[0]);
+    }
+  };
+
+  return (
+    <div className="min-h-screen mt-6">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-pry">Profile</h1>
+        <p className="text-lg text-pry/80">Manage your account information and settings.</p>
+      </div>
+
+      {/* Profile Card */}
+      <div className="bg-sec p-6 rounded-lg border border-pry mb-8">
+        <div className="flex items-center">
+          <IoPersonCircle className="text-6xl text-pry" />
+          <div className="ml-4">
+            <h2 className="text-2xl font-bold text-pry">{formik.values.fullname}</h2>
+            <p className="text-pry/80">{formik.values.email}</p>
+          </div>
         </div>
-    );
+      </div>
+
+      {/* Form Section */}
+      <div className="bg-sec p-6 rounded-lg border border-pry">
+        <h2 className="text-xl font-bold text-pry mb-4">Edit Profile</h2>
+        <form className="space-y-4" onSubmit={formik.handleSubmit}>
+          {/* Name Input */}
+          <div>
+            <label className="block text-pry mb-2">Full Name</label>
+            <div className="flex items-center border border-pry/50 rounded-lg bg-transparent p-3">
+              <IoPencil className="text-pry mr-2" />
+              <input
+                type="text"
+                name="fullname"
+                className="bg-transparent w-full text-pry outline-none"
+                placeholder="Enter your full name"
+                value={formik.values.fullname}
+                onChange={formik.handleChange}
+              />
+            </div>
+            {formik.touched.fullname && formik.errors.fullname ? (
+              <div className="text-red-500 text-sm">{formik.errors.fullname}</div>
+            ) : null}
+          </div>
+
+          {/* Email Input */}
+          <div>
+            <label className="block text-pry mb-2">Email Address</label>
+            <div className="flex items-center border border-pry/50 rounded-lg bg-transparent p-3">
+              <IoMail className="text-pry mr-2" />
+              <input
+                type="email"
+                name="email"
+                className="bg-transparent w-full text-pry outline-none"
+                placeholder="Enter your email address"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+              />
+            </div>
+            {formik.touched.email && formik.errors.email ? (
+              <div className="text-red-500 text-sm">{formik.errors.email}</div>
+            ) : null}
+          </div>
+
+          {/* Phone Input */}
+          <div>
+            <label className="block text-pry mb-2">Phone Number</label>
+            <div className="flex items-center border border-pry/50 rounded-lg bg-transparent p-3">
+              <IoCall className="text-pry mr-2" />
+              <input
+                type="tel"
+                name="phone"
+                className="bg-transparent w-full text-pry outline-none"
+                placeholder="Enter your phone number"
+                value={formik.values.phone}
+                onChange={formik.handleChange}
+              />
+            </div>
+            {formik.touched.phone && formik.errors.phone ? (
+              <div className="text-red-500 text-sm">{formik.errors.phone}</div>
+            ) : null}
+          </div>
+
+          {/* KYC Document Upload */}
+          <div>
+            <label className="block text-pry mb-2">Upload KYC Document</label>
+            <div className="flex items-center border border-pry/50 rounded-lg bg-transparent p-3">
+              <IoDocument className="text-pry mr-2" />
+              <input
+                type="file"
+                className="bg-transparent w-full text-pry outline-none"
+                onChange={handleFileChange}
+              />
+            </div>
+          </div>
+
+          {/* Save Button */}
+          <button
+            type="submit"
+            className={`w-full py-3 rounded-lg ${
+              formik.dirty || kycDocument ? "bg-pry text-sec hover:bg-pry/90" : "bg-pry/50 text-sec/50"
+            }`}
+            disabled={!formik.dirty && !kycDocument}
+          >
+            Save Changes
+          </button>
+        </form>
+      </div>
+
+      {/* Security Section */}
+      <div className="bg-sec p-6 rounded-lg border border-pry mt-8">
+        <h2 className="text-xl font-bold text-pry mb-4">Security Settings</h2>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <IoLockClosed className="text-2xl text-pry mr-4" />
+            <p className="text-pry">Change Password</p>
+          </div>
+          <button className="bg-pry text-sec px-4 py-2 rounded-lg hover:bg-pry/90">Update</button>
+        </div>
+      </div>
+        <button
+              onClick={handleLogOut}
+              className="bg-pry w-full text-white mt-2 h-10 rounded text-center flex justify-center items-center gap-2 hover:text-red-500"
+            >
+              <FiLogOut className="h-5 w-5" />
+              Logout
+            </button>
+    </div>
+  );
 };
 
-export default UserProfile;
+export default ProfilePage;

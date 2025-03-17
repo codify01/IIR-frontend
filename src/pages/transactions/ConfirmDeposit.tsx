@@ -55,7 +55,7 @@ const ConfirmDeposit: React.FC = () => {
   const handleConfirm = async (transactionId: string) => {
     handleActionLoading(transactionId, true);
     try {
-      const response = await axios.get(`${apiURL}/adminVerifyDeposit.php`, {
+      const response = await axios.get(`${apiURL}/adminVerifyDeposit.php?deposit_id=${transactionId}&action=approve`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token") || "",
@@ -67,7 +67,7 @@ const ConfirmDeposit: React.FC = () => {
         setDepositRequests((prevState) =>
           prevState.map((request) =>
             request.transaction_id === transactionId
-              ? { ...request, status: "confirmed" }
+              ? { ...request, status: "confirmed", is_verified:1}
               : request
           )
         );
@@ -86,15 +86,16 @@ const ConfirmDeposit: React.FC = () => {
   const handleCancel = async (transactionId: string) => {
     handleActionLoading(transactionId, true);
     try {
-      const response = await axios.delete(`${apiURL}/adminDeleteDeposit.php`, {
+      const response = await axios.get(`${apiURL}/adminVerifyDeposit.php?deposit_id=${transactionId}&action=reject`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token") || "",
         },
-        params: { deposit_id: transactionId },
+        // params: { deposit_id: transactionId },
       });
 
-      if (response.data.status === "success") {
+      if (response.data.success) {
+
         setDepositRequests((prevState) =>
           prevState.map((request) =>
             request.transaction_id === transactionId
@@ -105,6 +106,8 @@ const ConfirmDeposit: React.FC = () => {
         setError("");
       } else {
         setError("Failed to cancel the transaction.");
+        console.log(response);
+        
       }
     } catch (err: any) {
       setError("An error occurred while canceling the transaction.");
@@ -183,7 +186,7 @@ const ConfirmDeposit: React.FC = () => {
                               is_verified && is_processed === 1 ? "bg-green-600" : is_verified === 1 ? "bg-yellow-600" : "bg-red-600"
                             }`}
                           >
-                            {is_verified && is_processed === 1 ? "approved" : is_verified === 1 ? "not processed" : "Cancelled"}
+                            {is_verified && is_processed === 1 ? "approved" : is_verified === 1 ? "processing" : "Cancelled"}
                           </span>
                         )}
                       </td>

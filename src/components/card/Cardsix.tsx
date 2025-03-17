@@ -26,7 +26,7 @@ const CardSix: React.FC<CardSixProps> = ({ type, amount, date, category, onViewD
       <div className="flex flex-col items-end">
         <h3
           className={`text-md font-semibold ${
-            type.toLowerCase() === 'withdraw' ? 'text-red-600' : 'text-green-600'
+            type.toLowerCase() === 'investment' ? 'text-yellow-600' : type.toLowerCase() === 'deposit' ? 'text-green-600' : 'text-red-600'
           }`}
         >
           {formatAccountBalance(amount)}

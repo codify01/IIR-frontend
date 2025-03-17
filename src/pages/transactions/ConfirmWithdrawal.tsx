@@ -41,7 +41,7 @@ const ConfirmWithdrawal: React.FC = () => {
   const handleConfirm = async (transactionId: string) => {
     handleActionLoading(transactionId, true);
     try {
-      const response = await axios.get(`${apiURL}/adminUpdatewithdraw.php?withdrawalId=${transactionId}`, {
+      const response = await axios.get(`${apiURL}/adminUpdatewithdraw.php?withdrawalId=${transactionId}&action=approve`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token") || "",
@@ -65,24 +65,27 @@ const ConfirmWithdrawal: React.FC = () => {
       console.error(err);
     } finally {
       handleActionLoading(transactionId, false);
+      location.reload()
     }
   };
 
   const handleCancel = async (transactionId: string) => {
     handleActionLoading(transactionId, true);
     try {
-      const response = await axios.delete(`${apiURL}/adminCancelWithdrawal.php`, {
+      const response = await axios.get(`${apiURL}/adminUpdatewithdraw.php?withdrawalId=${transactionId}&action=reject`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token") || "",
         },
-        params: { transaction_id: transactionId },
+        // params: { withdrawalId: transactionId },
       });
-      if (response.data.status === "success") {
+      console.log(response);
+      
+      if (response.data.status === 200) {
         setWithdrawalRequests((prevState) =>
           prevState.map((request) =>
             request.trnxId === transactionId
-              ? { ...request, status: "canceled" }
+              ? { ...request, status: "confirmed" }
               : request
           )
         );
@@ -95,6 +98,7 @@ const ConfirmWithdrawal: React.FC = () => {
       console.error(err);
     } finally {
       handleActionLoading(transactionId, false);
+      location.reload()
     }
   };
 
@@ -159,7 +163,7 @@ const ConfirmWithdrawal: React.FC = () => {
                       ) : (
                         <span
                           className={`px-3 py-1 rounded text-white ${
-                            status === "confirmed" ? "bg-green-600" : "bg-red-600"
+                            status === "approved" ? "bg-green-600" : "bg-red-600"
                           }`}
                         >
                           {status.charAt(0).toUpperCase() + status.slice(1)}

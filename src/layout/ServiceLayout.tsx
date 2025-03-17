@@ -1,7 +1,7 @@
 import React from "react";
 import img1 from "../assets/image/img1.png";
 import NavTwo from "../components/nav/Navtwo";
-import Bottombar from "../components/nav/Bottombar";
+// import Bottombar from "../components/nav/Bottombar";
 import { MdOutlinePersonSearch } from "react-icons/md";
 import { FiDollarSign, FiLogOut } from "react-icons/fi";
 import { BiMoneyWithdraw } from "react-icons/bi";
@@ -21,19 +21,19 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({ child }) => {
     const EachLink = [
         {
             href: "/service/dashboard",
-            title: "Service Account",
+            title: "Dashboard",
             icon: <MdOutlinePersonSearch className="h-5 w-5" />,
             role: "server",
         },
         {
             href: "/service/withdraw",
-            title: "Withdraw Charges",
+            title: "Withdraw",
             icon: <BiMoneyWithdraw className="h-5 w-5" />,
             role: "server",
         },
         {
             href: "/service/history",
-            title: "Charge History",
+            title: "History",
             icon: <FiDollarSign className="h-5 w-5" />,
             role: "server",
         },

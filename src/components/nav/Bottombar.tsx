@@ -73,19 +73,19 @@ const Bottombar: React.FC = () => {
     },
     {
       href: "/service/dashboard",
-      title: "Service Account",
+      title: "Dashboard",
       icon: <MdOutlinePersonSearch className="h-5 w-5" />,
       role: "service",
     },
     {
       href: "/service/withdraw",
-      title: "Withdraw Charges",
+      title: "Withdraw",
       icon: <BiMoneyWithdraw className="h-5 w-5" />,
       role: "service",
     },
     {
       href: "/service/history",
-      title: "Charge History",
+      title: "History",
       icon: <FiDollarSign className="h-5 w-5" />,
       role: "service",
     },

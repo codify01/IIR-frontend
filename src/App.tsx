@@ -21,7 +21,7 @@ import Confirminvestments from './pages/investment/Confirminvestment';
 import AdminLayout from './layout/AdminLayout';
 import AdminDashboard from './pages/dashboard/AdminDashboard';
 import CreateInvestments from './pages/investment/Createinvestments';
-import ManageInvestments from './pages/investment/Manageinvestment';
+// import ManageInvestments from './pages/investment/Manageinvestment';
 import AllInvestors from './pages/profiles/AllInvestors';
 import InvestorProfile from './pages/profiles/Investorprofile';
 import ConfirmDeposit from './pages/transactions/ConfirmDeposit';
@@ -38,6 +38,10 @@ import NotificationPage from './pages/notification/Notification';
 import ServiceAccountDashboard from './pages/dashboard/ServiceAccountDashboard';
 import ServiceAccountWithdrawal from './pages/transactions/ServiceAccountWithdraw';
 import ServiceAccountHistory from './pages/transactions/ServiceAccountHistory';
+import ForgotPasswordPage from './pages/authentication/ForgotPassword';
+import ResetPasswordPage from './pages/authentication/ResetPassword';
+// import ServiceLayout from './layout/ServiceLayout';
+// import ServiceLogin from './pages/authentication/ServiceLogin';
 
 const App = () => {
   return (
@@ -150,14 +154,18 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/admin/manageinvestments"
-          element={
-            <ProtectedRoute>
-              <AdminLayout child={<ManageInvestments />} />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/forgot-password"
+            element={
+                <ForgotPasswordPage />
+            }
+          />
+          <Route
+            path="/reset-password/:token"
+            element={
+                <ResetPasswordPage />
+            }
+          />
         <Route
           path="/admin/manageinvestors"
           element={

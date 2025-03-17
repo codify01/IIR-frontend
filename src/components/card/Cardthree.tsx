@@ -45,7 +45,6 @@ const CardThree: React.FC<CardThreeProps> = ({ name, duration, price, startDate,
   }
 
   return (
-
     <Link to={"/user/investment"}>
       <div className="Cardthree flex justify-between items-center px-4 py-2 rounded-xl shadow-md bg-pry/5 text-tet">
           <div className="flex flex-col">
@@ -56,14 +55,13 @@ const CardThree: React.FC<CardThreeProps> = ({ name, duration, price, startDate,
           <div className="grid justify-items-end">
               <i><FaArrowRight className=''/></i>
               <CountdownTimer 
-                type='circular' 
-                startDate={startDateObj} 
-                endDate={new Date(formatDate(endDate))} 
-              />
+                  type='circular' 
+                  startDate={startDateObj} 
+                  endDate={new Date(formatDate(endDate))} 
+                />
           </div>
       </div>
     </Link>
-
   );
 };
 

@@ -76,7 +76,7 @@ const ServiceAccountWithdrawal: React.FC = () => {
             const response = await axios.post(`${apiURL}/servicewithdraw.php`, values,
               {
                 headers : {
-                  Authorization: localStorage.getItem("token") || "",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
                   "Content-Type": "application/json",
                 }
               }

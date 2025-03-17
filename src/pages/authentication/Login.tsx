@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Navone from '../../components/nav/Navone';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useAuth } from '../../context/AuthContext';
 
 const apiURL: string = import.meta.env.VITE_API_URL;
 
 const Login: React.FC = () => {
 	const [isVisible, setVisibility] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
+	const {login} = useAuth()
 
 	const navigate = useNavigate()
 
@@ -38,6 +40,7 @@ const Login: React.FC = () => {
 				localStorage.setItem('token', token);
 				localStorage.setItem('role', response.data.user.role)
 				localStorage.setItem('ident', response.data.user.id)
+				login(response.data.user, token)
 				toast.success('Login successful!', {
 					icon: '🎉',
 				});
@@ -45,6 +48,8 @@ const Login: React.FC = () => {
 					navigate('/user/dashboard')
 				} else if(response.data.user.role === 'admin'){
 					navigate('/admin/dashboard')
+				} else if(response.data.user.role === 'superadmin'){
+					navigate('/super/dashboard')
 				} else if(response.data.user.role === 'service'){
 					navigate('/service/dashboard')
 				}
@@ -117,6 +122,11 @@ const Login: React.FC = () => {
 									<p className="text-red-500 text-sm">{formik.errors.password}</p>
 								)}
 							</div>
+							<div className="text-right">
+            <Link to="/forgot-password" className="text-sm text-pry hover:underline">
+              Forgot Password?
+            </Link>
+          </div>
 
 							<button
 								type="submit"
@@ -149,9 +159,7 @@ const Login: React.FC = () => {
 							</NavLink>
 						</p>
 					</div>
-					{/* <div className="img md:w-1/2 w-full lg:translate-x-[10%] lg:block hidden">
-						<CarouselOne />
-					</div> */}
+				
 				</div>
 			</div>
 		</div>

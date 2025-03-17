@@ -10,6 +10,7 @@ interface Transaction {
 	transaction_type: string;
 	amount: number;
 	category: string;
+	status:string;
 	created_at: string;
 	transaction_id: string;
 	description: string;
@@ -155,6 +156,12 @@ const TransactionHistory: React.FC = () => {
 								<span className="font-semibold">Date:</span>
 								<span className="text-gray-600">
 									{new Date(selectedTransaction.created_at).toLocaleString()}
+								</span>
+							</h3>
+							<h3 className="flex justify-between items-center border-b pb-2">
+								<span className="font-semibold">Status:</span>
+								<span className={selectedTransaction.status == "pending"?"text-yellow-600":selectedTransaction.status == "approved" || selectedTransaction.status == "successful"? "text-green-600":"text-red-600"}>
+									{selectedTransaction.status}
 								</span>
 							</h3>
 							<h3 className="flex justify-between items-center">

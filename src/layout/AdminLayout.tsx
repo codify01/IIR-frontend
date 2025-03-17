@@ -5,6 +5,9 @@ import Bottombar from "../components/nav/Bottombar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
+const apiURL = import.meta.env.VITE_API_URL
+
 interface AdminLayoutProps {
   child: React.ReactNode;
 }
@@ -16,21 +19,21 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ child }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("https://iirapi.sunmence.com.ng/user.php", {
+        const response = await axios.get(`${apiURL}/user.php`, {
           headers: {
             Authorization: localStorage.getItem("token") || "",
           },
         });
-        console.log(response.data);
+        // console.log(response.data);
         
         if (response.data && response.status === 200) {
           setUser(response.data);
         } else {
-          navigate("/login");
+          // navigate("/login");
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
-        navigate("/login");
+        // navigate("/login");
       }
     };
 

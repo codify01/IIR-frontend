@@ -3,7 +3,7 @@ import React from "react";
 import ButtonOne from "../Button/Buttonone";
 
 interface CardSevenProps {
-    amount: number;
+    amount: any;
     balType: string;
     cta?: string;
     redirect: string;
