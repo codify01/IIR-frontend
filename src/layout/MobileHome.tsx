@@ -10,7 +10,7 @@ const MobileHome: React.FC = () => {
         setInterval(() => {
             navigate('/login');
         }, 5000);
-    })
+    }, [])
 
     return (
 
