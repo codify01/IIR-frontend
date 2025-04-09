@@ -7,7 +7,7 @@ const MobileHome: React.FC = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setInterval(() => {
+        setTimeout(() => {
             navigate('/login');
         }, 5000);
     }, [])
