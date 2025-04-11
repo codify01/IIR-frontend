@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 *{
     margin: 0;
     padding: 0;
@@ -12,135 +13,9 @@
 html {
     scroll-behavior: smooth;
 }
-
-::-webkit-scrollbar{
-    @apply hidden
-}
-.mContainer {
-    @apply container px-5
-}
-.container{
-    @apply md:w-[85%] w-[100%] mx-auto px-4
-}
-.herosection{
-    background: url(./assets/image/img15.png);
-    @apply h-screen bg-center bg-cover bg-no-repeat
-}
-.input1{
-    @apply rounded-md placeholder:text-black placeholder:text-sm bg-pry/10 h-[45px] w-full indent-3 border-none outline-none
-}
-.swiper-pagination.swiper-pagination-bullets-dynamic {
-    @apply w-full left-1/2 flex justify-center
-}
-.swiper-pagination .swiper-pagination-bullet{
-    @apply h-[10px] w-[10px] rounded-full bg-[#24480ddf]
-}  
-.swiper-pagination .swiper-pagination-bullet-active {
-    @apply h-[10px] w-[10px] bg-[#2F5318]
-}
-.hero-text::after,
-.hero-text::before{
-    background: url(./assets/image/img9.png);
-    @apply content-[""] absolute w-1/5 h-full translate-x-2 bg-center bg-contain right-0 bg-no-repeat
-}
-.hero-text::after{
-    @apply top-0 -translate-y-[50%] rotate-[-15deg]
-}
-.hero-text::before{
-    @apply bottom-0 translate-y-[25%] rotate-[-15deg]
-}
-.bal-card{
-    background: linear-gradient(118.53deg, #2f531880 8.02%, #2f531880 67.61%);
-}
-.bal-card::after{
-    @apply content-[""] absolute right-0 bottom-0 z-[-1] translate-y-10 translate-x-5 bg-pry w-[150px] h-[150px] rounded-full
-}
-.bal-card.bal-card2::after{
-    @apply translate-y-16 translate-x-8
-}
-.circle-bg {
-    fill: transparent;
-}
-.circle-progress {
-    fill: transparent;
-    stroke-linecap: round;
-    transition: stroke-dashoffset 0.5s ease-in-out;
-}
-.Cardsix:hover,
-.Cardsix button:hover,
-.Cardthree:hover{
-    @apply scale-[1.02] transition-all cursor-pointer
-}
-.Cardthree:hover i{
-    @apply scale-105 -rotate-45 transition-all
-}
-progress::-webkit-progress-value{
-    @apply bg-sec/60 rounded-[inherit]
-}
-progress::-webkit-progress-bar{
-    @apply bg-tet/40 rounded-md h-[10px]
-}
-.swiper2 .swiper-pagination.swiper-pagination-bullets-dynamic {
-    @apply md:hidden block
-}
-.mContainer {
-    @apply container px-5
-}
-input[type="number"]::-webkit-inner-spin-button{
-    @apply hidden
-}
-input[type="file"]::-webkit-file-upload-button{
-    @apply bg-pry/55 text-tet border-0 outline-0 h-[45px] px-5 relative rounded-lg ps-10
-}
-#amountDeposited:focus ~ small{
-    @apply block text-red-700 text-xs
-}
-.navbar-nav::-webkit-scrollbar,
-.main-content::-webkit-scrollbar{
-    @apply hidden
-}
-table th,
-table td {
-    @apply text-center py-2 px-4
-}
-.swiper.profile-swiper{
-    @apply static
-}
-.profile-swiper .swiper-button-prev, 
-.profile-swiper .swiper-button-next{
-    @apply top-[92%] text-pry scale-75
-}
-.document-swiper .swiper-button-prev, 
-.document-swiper .swiper-button-next{
-    @apply rotate-90 top-1/2 scale-50
-}
-.investment-swiper .swiper-button-prev, 
-.investment-swiper .swiper-button-next{
-    @apply text-sec scale-90
-}
-
-.testi-swiper .swiper-button-next,
-.testi-swiper .swiper-button-prev{
-    @apply text-tet bg-pry/30 w-10 h-10 rounded-full
-}
-.testi-swiper .swiper-button-next:hover,
-.testi-swiper .swiper-button-prev:hover{
-    @apply border-2 border-pry
-}
-.testi-swiper .swiper-button-next::after,
-.testi-swiper .swiper-button-prev::after{
-    @apply text-base font-bold
-}
-.navitem::after{
-    content: "";
-    @apply absolute -bottom-[3px] left-0 h-[2px] bg-sec rounded-full w-0 duration-300 transition-all
-}
-.navitem:hover::after,
-.navitem:focus::after{
-    width: 100%;
-}
-
-.quotesection{
-    background: url(./assets/image/img5.png);
-    @apply bg-contain bg-repeat
+:root{
+    --pryClr: #fff;
+    --secClr: #000;
+    --compClr: #6B6C6B;
+    --tetClr: #FF4D00;
 }

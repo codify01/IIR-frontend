@@ -10,9 +10,10 @@ export default {
         center: true,
       },
       colors: {
-        'pry' : '#2F5318',
-        'sec' : '#ffffff',
-        'tet' : '#000000',
+        pryClr: "var(--pryClr)",
+        secClr: "var(--secClr)",
+        compClr: "var(--compClr)",
+        tetClr: "var(--tetClr)",
       }
     },
   },
